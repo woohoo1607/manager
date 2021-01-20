@@ -24,18 +24,31 @@
 }
 
 .menu-link {
-    color: #ffffff;
+    color: #FFFFFF;
     text-decoration: none;
+}
+
+.menu-link.active-link {
+    color: #C1CFE0;
 }
 
 .header-icon {
     margin-right: 10px;
 }
 
+.header-icon path {
+    fill: #FFFFFF;
+}
+
+.header-icon-active path {
+    fill: #C1CFE0;
+}
+/*
+
 #list-of-users-icon path {
-    fill: #ffffff;
+    fill: #FFFFFF;
 }
 
 #add-user-icon path {
-    fill: #ffffff;
-}
+    fill: #FFFFFF;
+}*/

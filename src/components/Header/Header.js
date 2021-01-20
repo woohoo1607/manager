@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 import { ReactComponent as AddUser } from "../../icons/add-users.svg";
 import { ReactComponent as ListOfUsers } from "../../icons/list-of-users.svg";
@@ -7,6 +7,9 @@ import logo from "./Logo.png";
 import "./styles.css";
 
 const Header = () => {
+  const history = useHistory();
+  const pathname = history.location.pathname;
+  console.log(pathname);
   return (
     <header className="app-header">
       <div className="center">
@@ -15,14 +18,40 @@ const Header = () => {
           <nav className="header-menu">
             <ul className="header-menu-list">
               <li className="header-menu-item">
-                <AddUser className="header-icon" id="add-user-icon" />
-                <NavLink to={{ pathname: "/add-user" }} className="menu-link">
+                <AddUser
+                  id="add-user-icon"
+                  className={
+                    pathname === "/"
+                      ? "header-icon-active header-icon"
+                      : "header-icon"
+                  }
+                />
+                <NavLink
+                  to={{ pathname: "/add-user" }}
+                  className={
+                    pathname === "/" ? "menu-link active-link" : "menu-link"
+                  }
+                >
                   Add new user
                 </NavLink>
               </li>
               <li className="header-menu-item">
-                <ListOfUsers className="header-icon" id="list-of-users-icon" />
-                <NavLink to={{ pathname: "/" }} className="menu-link">
+                <ListOfUsers
+                  id="list-of-users-icon"
+                  className={
+                    pathname === "/add-user"
+                      ? "header-icon-active header-icon"
+                      : "header-icon"
+                  }
+                />
+                <NavLink
+                  to={{ pathname: "/" }}
+                  className={
+                    pathname === "/add-user"
+                      ? "menu-link active-link"
+                      : "menu-link"
+                  }
+                >
                   List of users
                 </NavLink>
               </li>
