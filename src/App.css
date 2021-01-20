@@ -48,8 +48,8 @@ html {
 }
 
 body {
-  background: #f0f0f0;
-  font-size: 16px;
+  background: #E5E5E5;
+  font-size: 14px;
   color: #fff;
 }
 
@@ -62,6 +62,20 @@ body {
 }
 
 /*-------------------------------------   word-wrap: break-word;  */
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./fonts/Roboto-Regular.woff2') format('woff2'),
+  url('./fonts/Roboto-Regular.woff') format('woff'),
+  url('./fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+/*-------------------------------------     fonts*/
+.App {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
 
 .center {
   margin: 0 auto;
