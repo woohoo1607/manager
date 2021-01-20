@@ -1,0 +1,41 @@
+.app-header {
+    background: radial-gradient(50% 28800% at 50% 68.33%, #4E86E4 0%, #2F68C8 100%);
+    box-shadow: 0 1px 5px #C1CEDE;
+    padding: 21px 0;
+}
+
+.app-logo {
+    height: 16px;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header-menu-list {
+    display: flex;
+}
+
+.header-menu-item {
+    display: flex;
+    margin-left: 50px;
+}
+
+.menu-link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.header-icon {
+    margin-right: 10px;
+}
+
+#list-of-users-icon path {
+    fill: #ffffff;
+}
+
+#add-user-icon path {
+    fill: #ffffff;
+}
