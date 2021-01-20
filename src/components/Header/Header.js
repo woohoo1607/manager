@@ -1,4 +1,6 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+
 import { ReactComponent as AddUser } from "../../icons/add-users.svg";
 import { ReactComponent as ListOfUsers } from "../../icons/list-of-users.svg";
 import logo from "./Logo.png";
@@ -14,15 +16,15 @@ const Header = () => {
             <ul className="header-menu-list">
               <li className="header-menu-item">
                 <AddUser className="header-icon" id="add-user-icon" />
-                <a className="menu-link" href="#">
+                <NavLink to={{ pathname: "/add-user" }} className="menu-link">
                   Add new user
-                </a>
+                </NavLink>
               </li>
               <li className="header-menu-item">
                 <ListOfUsers className="header-icon" id="list-of-users-icon" />
-                <a className="menu-link" href="#">
+                <NavLink to={{ pathname: "/" }} className="menu-link">
                   List of users
-                </a>
+                </NavLink>
               </li>
             </ul>
           </nav>
