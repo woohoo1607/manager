@@ -7,9 +7,9 @@ const Routes = () => {
   return (
     <Switch>
       <Header />
-      <Route exact path="/" render={(props) => <div />} />
+      <Route exact path="/" render={(props) => <div {...props} />} />
+      <Route exact path="/:id" render={(props) => <div {...props} />} />
       <Route exact path="/add-user" render={(props) => <div {...props} />} />
-      <Route exact path="/edit-user/:" render={(props) => <div {...props} />} />
       <Route exact path="/user/:id" render={(props) => <div {...props} />} />
     </Switch>
   );

@@ -7,21 +7,22 @@ import logo from "./Logo.png";
 import "./styles.css";
 
 const Header = () => {
-  const history = useHistory();
-  const pathname = history.location.pathname;
-  console.log(pathname);
+  const { pathname } = useHistory().location;
+  const isAddUserFlow = pathname.split("/")[1] === "add-user";
   return (
     <header className="app-header">
       <div className="center">
         <div className="header-content">
-          <img src={logo} className="app-logo" alt="logo" />
+          <NavLink to={{ pathname: "/" }}>
+            <img src={logo} className="app-logo" alt="logo" />
+          </NavLink>
           <nav className="header-menu">
             <ul className="header-menu-list">
               <li className="header-menu-item">
                 <AddUser
                   id="add-user-icon"
                   className={
-                    pathname === "/"
+                    !isAddUserFlow
                       ? "header-icon-active header-icon"
                       : "header-icon"
                   }
@@ -29,7 +30,7 @@ const Header = () => {
                 <NavLink
                   to={{ pathname: "/add-user" }}
                   className={
-                    pathname === "/" ? "menu-link active-link" : "menu-link"
+                    !isAddUserFlow ? "menu-link active-link" : "menu-link"
                   }
                 >
                   Add new user
@@ -39,7 +40,7 @@ const Header = () => {
                 <ListOfUsers
                   id="list-of-users-icon"
                   className={
-                    pathname === "/add-user"
+                    isAddUserFlow
                       ? "header-icon-active header-icon"
                       : "header-icon"
                   }
@@ -47,9 +48,7 @@ const Header = () => {
                 <NavLink
                   to={{ pathname: "/" }}
                   className={
-                    pathname === "/add-user"
-                      ? "menu-link active-link"
-                      : "menu-link"
+                    isAddUserFlow ? "menu-link active-link" : "menu-link"
                   }
                 >
                   List of users

@@ -1,22 +1,18 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import Eye from "../../icons/eye.svg";
-import EyeStrike from "../../icons/eye-strike.svg";
-import Calendar from "../../icons/calendar.svg";
+import EyeIcon from "../../icons/eye.svg";
+import EyeStrikeIcon from "../../icons/eye-strike.svg";
+import CalendarIcon from "../../icons/calendar.svg";
 import "./styles.css";
 
 const InputTypes = ["text", "password", "email", "date"];
 
-const Input = ({ title, inputType = "text", isRequired = false }) => {
+const Input = ({ title, inputType = "text", isRequired }) => {
   const [type, setType] = useState(inputType);
 
   const changePasswordVisibility = () => {
-    if (type === "password") {
-      setType("text");
-    } else {
-      setType("password");
-    }
+    setType(type === "password" ? "text" : "password");
   };
 
   return (
@@ -30,22 +26,18 @@ const Input = ({ title, inputType = "text", isRequired = false }) => {
         <button
           className="input-img"
           onClick={changePasswordVisibility}
-          style={
-            type === "password"
-              ? {
-                  background: `url(${Eye}) center center no-repeat`,
-                }
-              : {
-                  background: `url(${EyeStrike}) center center no-repeat`,
-                }
-          }
+          style={{
+            background: `url(${
+              type === "password" ? EyeIcon : EyeStrikeIcon
+            }) center center no-repeat`,
+          }}
         />
       )}
       {inputType === "date" && (
         <button
           className="input-img"
           style={{
-            background: `url(${Calendar}) center center no-repeat`,
+            background: `url(${CalendarIcon}) center center no-repeat`,
           }}
         />
       )}
