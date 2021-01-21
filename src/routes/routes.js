@@ -8,9 +8,10 @@ const Routes = () => {
     <Switch>
       <Header />
       <Route exact path="/" render={(props) => <div {...props} />} />
-      <Route exact path="/:id" render={(props) => <div {...props} />} />
-      <Route exact path="/add-user" render={(props) => <div {...props} />} />
-      <Route exact path="/user/:id" render={(props) => <div {...props} />} />
+      <Route exact path="/users" render={(props) => <div {...props} />} />
+      <Route exact path="/users/:id" render={(props) => <div {...props} />} />
+      <Route path="/users/new" render={(props) => <div {...props} />} />
+      <Route path="/users/:id/edit" render={(props) => <div {...props} />} />
     </Switch>
   );
 };
