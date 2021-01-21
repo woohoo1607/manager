@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 
 import Input from "../Input";
 import Button from "../Button";
-import UserLogo from "../../icons/list-of-users.svg";
 
 const ValidationSchema = Yup.object({
   username: Yup.string().required("user name is required"),
@@ -15,13 +14,13 @@ const ValidationSchema = Yup.object({
     .required("passwords don't match"),
 });
 
-const AccountForm = ({ nextStep }) => {
+const AccountForm = ({ addData, username, password, avatar }) => {
   const submit = (values) => {
-    nextStep();
+    addData(values);
   };
   return (
     <Formik
-      initialValues={{ username: "", password: "", repeatPassword: "" }}
+      initialValues={{ username, password, repeatPassword: password }}
       validationSchema={ValidationSchema}
       onSubmit={(values) => submit(values)}
     >

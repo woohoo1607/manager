@@ -6,9 +6,17 @@ import UserForm from "../../components/UserForm";
 import { addAccountData } from "./actions";
 
 const UserFormContainer = () => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
+
   const [step, setStep] = useState(0);
   const history = useHistory();
   const pathnameBody = "/users/new/";
+
+  const addData = useCallback((data) => dispatch(addAccountData({ ...data })), [
+    dispatch,
+  ]);
 
   const nextStep = () => {
     console.log(step);
@@ -19,21 +27,8 @@ const UserFormContainer = () => {
   const previousStep = () => {
     setStep(step - 1);
   };
-  /*const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  console.log(user);
-  const addInfo = useCallback(() =>
-    dispatch(addAccountData({ username: "woohoo", password: "12345" }), [
-      dispatch,
-    ])
-  );
-  useEffect(() => {
-    if (!user.username.length) {
-      addInfo();
-    }
-  }, [addInfo]);*/
 
-  return <UserForm nextStep={nextStep} />;
+  return <UserForm addData={addData} user={user} />;
 };
 
 export default UserFormContainer;

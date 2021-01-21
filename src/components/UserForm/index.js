@@ -4,7 +4,8 @@ import ButtonHeaderForm from "../ButtonHeaderForm";
 import AccountForm from "./AccountForm";
 import "./styles.css";
 
-const UserForm = ({ nextStep }) => {
+const UserForm = ({ addData, user }) => {
+  const { username, password, avatar } = user;
   return (
     <div className="user-form">
       <header className="user-form-header">
@@ -27,7 +28,12 @@ const UserForm = ({ nextStep }) => {
           </ul>
         </nav>
       </header>
-      <AccountForm nextStep={nextStep} />
+      <AccountForm
+        addData={addData}
+        username={username}
+        password={password}
+        avatar={avatar}
+      />
     </div>
   );
 };
