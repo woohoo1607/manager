@@ -8,7 +8,7 @@ import "./styles.css";
 
 const Header = () => {
   const { pathname } = useHistory().location;
-  const isAddUserFlow = pathname.split("/")[1] === "add-user";
+  const isAddUserFlow = pathname.split("/")[2] === "new";
   return (
     <header className="app-header">
       <div className="center">
@@ -28,7 +28,7 @@ const Header = () => {
                   }
                 />
                 <NavLink
-                  to={{ pathname: "/add-user" }}
+                  to={{ pathname: "/users/new" }}
                   className={
                     !isAddUserFlow ? "menu-link active-link" : "menu-link"
                   }
@@ -46,7 +46,7 @@ const Header = () => {
                   }
                 />
                 <NavLink
-                  to={{ pathname: "/" }}
+                  to={{ pathname: "/users" }}
                   className={
                     isAddUserFlow ? "menu-link active-link" : "menu-link"
                   }
