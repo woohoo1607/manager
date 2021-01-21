@@ -8,9 +8,16 @@ import "./styles.css";
 
 const InputTypes = ["text", "password", "email", "date"];
 
-const Input = ({ title, inputType = "text", isRequired }) => {
+const Input = ({
+  title,
+  name,
+  inputType = "text",
+  isRequired,
+  field,
+  form: { touched, errors },
+}) => {
   const [type, setType] = useState(inputType);
-
+  const isError = touched[field.name] && errors[field.name];
   const changePasswordVisibility = () => {
     setType(type === "password" ? "text" : "password");
   };
@@ -21,11 +28,17 @@ const Input = ({ title, inputType = "text", isRequired }) => {
         <p className="input-title">{title}</p>
         {isRequired && <p className="input-title is-required">*</p>}
       </div>
-      <input className="input" type={type} />
+      <input
+        name={name}
+        className={isError ? "input error" : "input"}
+        type={type}
+        {...field}
+      />
       {inputType === "password" && (
         <button
           className="input-img"
           onClick={changePasswordVisibility}
+          type="button"
           style={{
             background: `url(${
               type === "password" ? EyeIcon : EyeStrikeIcon
@@ -36,12 +49,13 @@ const Input = ({ title, inputType = "text", isRequired }) => {
       {inputType === "date" && (
         <button
           className="input-img"
+          type="button"
           style={{
             background: `url(${CalendarIcon}) center center no-repeat`,
           }}
         />
       )}
-      <p className="input-error">error</p>
+      {isError && <p className="input-error">{errors[field.name]}</p>}
     </div>
   );
 };
