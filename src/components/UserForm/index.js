@@ -4,7 +4,7 @@ import ButtonHeaderForm from "../ButtonHeaderForm";
 import AccountForm from "./AccountForm";
 import "./styles.css";
 
-const UserForm = () => {
+const UserForm = ({ nextStep }) => {
   return (
     <div className="user-form">
       <header className="user-form-header">
@@ -27,7 +27,7 @@ const UserForm = () => {
           </ul>
         </nav>
       </header>
-      <AccountForm />
+      <AccountForm nextStep={nextStep} />
     </div>
   );
 };
