@@ -1,0 +1,22 @@
+.user-form {
+    width: 970px;
+    margin: 0 auto;
+}
+
+.user-form-menu-list {
+    display: flex;
+    justify-content: center;
+}
+
+.user-form-menu-item {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.user-form-body {
+    display: flex;
+    justify-content: space-between;
+    padding: 100px 65px;
+    background: rgba(231,240,255,0.2);
+}

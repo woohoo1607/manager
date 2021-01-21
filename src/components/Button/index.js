@@ -15,12 +15,13 @@ const btnTypes = {
   },
 };
 
-const Button = ({ type = "primary", title, onClick }) => {
+const Button = ({ color = "primary", type, title, onClick }) => {
   return (
     <button
       className="btn"
+      type={type}
       style={{
-        ...btnTypes[type],
+        ...btnTypes[color],
       }}
       onClick={onClick}
     >
@@ -31,6 +32,7 @@ const Button = ({ type = "primary", title, onClick }) => {
 
 Button.propTypes = {
   type: PropTypes.string,
+  color: PropTypes.string,
   title: PropTypes.string,
   onClick: PropTypes.func,
 };
