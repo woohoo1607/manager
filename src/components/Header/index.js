@@ -7,8 +7,8 @@ import logo from "./Logo.png";
 import "./styles.css";
 
 const Header = () => {
-  const { pathname } = useHistory().location;
-  const isAddUserFlow = pathname.split("/")[2] === "new";
+  const { pathname } = useHistory()?.location;
+  const isAddUserFlow = pathname ? pathname.split("/")[2] === "new" : false;
   return (
     <header className="app-header">
       <div className="center">

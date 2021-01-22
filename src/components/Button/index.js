@@ -15,15 +15,22 @@ const btnTypes = {
   },
 };
 
-const Button = ({ color = "primary", type, title, onClick }) => {
+const Button = ({
+  btnView = "primary",
+  type = "button",
+  title,
+  onClick,
+  ...props
+}) => {
   return (
     <button
       className="btn"
       type={type}
       style={{
-        ...btnTypes[color],
+        ...btnTypes[btnView],
       }}
       onClick={onClick}
+      {...props}
     >
       {title}
     </button>
@@ -32,7 +39,7 @@ const Button = ({ color = "primary", type, title, onClick }) => {
 
 Button.propTypes = {
   type: PropTypes.string,
-  color: PropTypes.string,
+  btnView: PropTypes.string,
   title: PropTypes.string,
   onClick: PropTypes.func,
 };

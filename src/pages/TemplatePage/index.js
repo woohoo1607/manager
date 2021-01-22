@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Index from "../../components/Header";
+import Header from "../../components/Header";
 import "./styles.css";
 
 const TemplatePage = ({ title, children }) => {
   return (
     <>
-      <Index />
+      <Header />
       <h2 className="title">{title}</h2>
       {children}
     </>

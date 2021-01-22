@@ -15,9 +15,7 @@ const ValidationSchema = Yup.object({
 });
 
 const AccountForm = ({ addData, username, password, avatar }) => {
-  const submit = (values) => {
-    addData(values);
-  };
+  const submit = (values) => addData(values);
   return (
     <Formik
       initialValues={{ username, password, repeatPassword: password }}
@@ -62,7 +60,7 @@ const AddAccountUserDataForm = ({ handleSubmit }) => {
           />
         </div>
         <div className="account-form-btn">
-          <Button title="Forward" color="primary" type="submit" />
+          <Button title="Forward" btnView="primary" type="submit" />
         </div>
       </div>
     </form>
