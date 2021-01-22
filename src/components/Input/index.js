@@ -13,11 +13,13 @@ const Input = ({
   name,
   inputType = "text",
   isRequired,
-  field,
-  form: { touched, errors },
+  isError,
+  errMsg,
+  value,
+  onChange,
+  onBlur,
 }) => {
   const [type, setType] = useState(inputType);
-  const isError = touched[field.name] && errors[field.name];
   const changePasswordVisibility = () => {
     setType(type === "password" ? "text" : "password");
   };
@@ -32,7 +34,9 @@ const Input = ({
         name={name}
         className={isError ? "input error" : "input"}
         type={type}
-        {...field}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
       />
       {inputType === "password" && (
         <button
@@ -55,7 +59,7 @@ const Input = ({
           }}
         />
       )}
-      {isError && <p className="input-error">{errors[field.name]}</p>}
+      {isError && <p className="input-error">{errMsg}</p>}
     </div>
   );
 };

@@ -33,31 +33,55 @@ const AddAccountUserDataForm = ({ handleSubmit }) => {
       <div className="avatar-container"></div>
       <div>
         <div className="account-form-input">
-          <Field
-            name="username"
-            component={Input}
-            isRequired={true}
-            inputType="text"
-            title="User name"
-          />
+          <Field name="username">
+            {({ field: { value, onChange, onBlur }, meta }) => (
+              <Input
+                name="username"
+                isRequired={true}
+                inputType="text"
+                title="User name"
+                isError={meta.touched && Boolean(meta.error)}
+                errMsg={meta.error}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+              />
+            )}
+          </Field>
         </div>
         <div className="account-form-input">
-          <Field
-            name="password"
-            component={Input}
-            isRequired={true}
-            inputType="password"
-            title="Password"
-          />
+          <Field name="password">
+            {({ field: { value, onChange, onBlur }, meta }) => (
+              <Input
+                name="password"
+                isRequired={true}
+                inputType="password"
+                title="Password"
+                isError={meta.touched && Boolean(meta.error)}
+                errMsg={meta.error}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+              />
+            )}
+          </Field>
         </div>
         <div className="account-form-input">
-          <Field
-            name="repeatPassword"
-            component={Input}
-            isRequired={true}
-            inputType="password"
-            title="Repeat Password"
-          />
+          <Field name="repeatPassword">
+            {({ field: { value, onChange, onBlur }, meta }) => (
+              <Input
+                name="repeatPassword"
+                isRequired={true}
+                inputType="password"
+                title="Repeat Password"
+                isError={meta.touched && Boolean(meta.error)}
+                errMsg={meta.error}
+                value={value}
+                onChange={onChange}
+                onBlur={onBlur}
+              />
+            )}
+          </Field>
         </div>
         <div className="account-form-btn">
           <Button title="Forward" btnView="primary" type="submit" />
