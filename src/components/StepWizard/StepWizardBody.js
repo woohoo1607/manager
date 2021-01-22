@@ -1,11 +1,28 @@
 import React from "react";
+import { Formik } from "formik";
 
-const StepWizardBody = ({ handleSubmit, leftContent, rightContent }) => {
+const StepWizardBody = ({
+  leftContent,
+  rightContent,
+  initialValues,
+  validationSchema,
+  addData,
+}) => {
   return (
-    <form className="user-form-body" onSubmit={handleSubmit}>
-      <div className="step-wizard-left">{leftContent}</div>
-      <div className="step-wizard-right">{rightContent}</div>
-    </form>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values) => addData(values)}
+    >
+      {({ handleSubmit, ...props }) => {
+        return (
+          <form className="step-wizard-body" onSubmit={handleSubmit}>
+            <div className="step-wizard-left">{leftContent}</div>
+            <div className="step-wizard-right">{rightContent}</div>
+          </form>
+        );
+      }}
+    </Formik>
   );
 };
 

@@ -1,13 +1,13 @@
 import React from "react";
 import * as Yup from "yup";
-import { Formik, Field } from "formik";
+import { Field } from "formik";
 import PropTypes from "prop-types";
 
 import Input from "../Input";
 import Button from "../Button";
 import StepWizardBody from "./StepWizardBody";
 
-const ValidationSchema = Yup.object({
+const validationSchema = Yup.object({
   username: Yup.string().required("user name is required"),
   password: Yup.string().required("password is required"),
   repeatPassword: Yup.string()
@@ -80,22 +80,16 @@ const rightContent = () => {
   );
 };
 
-const AccountForm = ({ addData, username, password, avatar }) => {
-  const submit = (values) => addData(values);
+const AccountForm = ({ addData, username, password, avatar, ...props }) => {
   return (
-    <Formik
+    <StepWizardBody
+      {...props}
+      leftContent={leftContent()}
+      rightContent={rightContent()}
       initialValues={{ username, password, repeatPassword: password }}
-      validationSchema={ValidationSchema}
-      onSubmit={(values) => submit(values)}
-    >
-      {(props) => (
-        <StepWizardBody
-          {...props}
-          leftContent={leftContent()}
-          rightContent={rightContent()}
-        />
-      )}
-    </Formik>
+      validationSchema={validationSchema}
+      addData={addData}
+    />
   );
 };
 

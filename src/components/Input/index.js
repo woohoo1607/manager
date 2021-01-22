@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 
 import EyeIcon from "../../icons/eye.svg";
 import EyeStrikeIcon from "../../icons/eye-strike.svg";
-import CalendarIcon from "../../icons/calendar.svg";
+
 import "./styles.css";
 
-const InputTypes = ["text", "password", "email", "date"];
+const InputTypes = ["text", "password", "email"];
 
 const Input = ({
   title,
@@ -30,14 +30,16 @@ const Input = ({
         <p className="input-title">{title}</p>
         {isRequired && <p className="input-title is-required">*</p>}
       </div>
-      <input
-        name={name}
-        className={isError ? "input error" : "input"}
-        type={type}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
+      {inputType !== "date" && (
+        <input
+          name={name}
+          className={isError ? "input error" : "input"}
+          type={type}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+        />
+      )}
       {inputType === "password" && (
         <button
           className="input-img"
@@ -47,15 +49,6 @@ const Input = ({
             background: `url(${
               type === "password" ? EyeIcon : EyeStrikeIcon
             }) center center no-repeat`,
-          }}
-        />
-      )}
-      {inputType === "date" && (
-        <button
-          className="input-img"
-          type="button"
-          style={{
-            background: `url(${CalendarIcon}) center center no-repeat`,
           }}
         />
       )}

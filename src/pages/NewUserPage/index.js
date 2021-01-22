@@ -4,9 +4,8 @@ import TemplatePage from "../TemplatePage";
 import StepWizardContainer from "../../containers/StepWizardContainer";
 
 const NewUserPage = () => {
-  const title = "Adding new user";
   return (
-    <TemplatePage title={title}>
+    <TemplatePage title="Adding new user">
       <StepWizardContainer />
     </TemplatePage>
   );

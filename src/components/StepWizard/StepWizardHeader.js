@@ -3,14 +3,14 @@ import ButtonHeaderForm from "../ButtonHeaderForm";
 
 const StepWizardHeader = ({ list }) => {
   return (
-    <header className="user-form-header">
+    <header className="step-wizard-header">
       <nav>
-        <ul className="user-form-menu-list">
+        <ul className="step-wizard-menu-list">
           {list.map((item, i) => {
             return (
-              <li className="user-form-menu-item" key={i}>
+              <li className="step-wizard-menu-item" key={i}>
                 <ButtonHeaderForm type={item.type}>
-                  {item.title}
+                  {i + 1 + ". " + item.title}
                 </ButtonHeaderForm>
               </li>
             );

@@ -5,16 +5,16 @@ import StepWizardHeader from "./StepWizardHeader";
 import "./styles.css";
 
 const list = [
-  { title: "1. Account", type: "active" },
-  { title: "2. Profile", type: "disabled" },
-  { title: "3. Contacts", type: "disabled" },
-  { title: "4. Capabilities", type: "disabled" },
+  { title: "Account", type: "active" },
+  { title: "Profile", type: "disabled" },
+  { title: "Contacts", type: "disabled" },
+  { title: "Capabilities", type: "disabled" },
 ];
 
 const StepWizard = ({ addData, user }) => {
   const { username, password, avatar } = user;
   return (
-    <div className="user-form">
+    <div className="step-wizard">
       <StepWizardHeader list={list} />
       <AccountForm
         addData={addData}
