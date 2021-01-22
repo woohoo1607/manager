@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 
 import EyeIcon from "../../icons/eye.svg";
 import EyeStrikeIcon from "../../icons/eye-strike.svg";
+import DateInput from "./DateInput";
 
 import "./styles.css";
 
-const InputTypes = ["text", "password", "email"];
+const InputTypes = ["text", "password", "email", "date"];
 
 const Input = ({
   title,
@@ -51,6 +52,9 @@ const Input = ({
             }) center center no-repeat`,
           }}
         />
+      )}
+      {inputType === "date" && (
+        <DateInput onBlur={onBlur} name={name} value={value} />
       )}
       {isError && <p className="input-error">{errMsg}</p>}
     </div>

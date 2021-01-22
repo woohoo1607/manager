@@ -2,6 +2,7 @@ import React from "react";
 
 import AccountForm from "./AccountForm";
 import StepWizardHeader from "./StepWizardHeader";
+import ProfileForm from "./ProfileForm";
 import "./styles.css";
 
 const list = [
@@ -22,6 +23,7 @@ const StepWizard = ({ addData, user }) => {
         password={password}
         avatar={avatar}
       />
+      <ProfileForm addData={addData} {...user} />
     </div>
   );
 };
