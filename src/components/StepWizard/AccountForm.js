@@ -15,6 +15,34 @@ const validationSchema = Yup.object({
     .required("passwords don't match"),
 });
 
+const rightItems = [
+  { name: "username", title: "User name", type: "text" },
+  { name: "password", title: "Password", type: "password" },
+  { name: "repeatPassword", title: "Repeat Password", type: "password" },
+];
+
+const Item = ({ name, title, type }) => {
+  return (
+    <div className="account-form-input">
+      <Field name={name}>
+        {({ field: { value, onChange, onBlur }, meta }) => (
+          <Input
+            name={name}
+            isRequired={true}
+            inputType={type}
+            title={title}
+            isError={meta.touched && Boolean(meta.error)}
+            errMsg={meta.error}
+            value={value}
+            onChange={onChange}
+            onBlur={onBlur}
+          />
+        )}
+      </Field>
+    </div>
+  );
+};
+
 const leftContent = () => {
   return <div className="avatar-container"></div>;
 };
@@ -22,57 +50,9 @@ const leftContent = () => {
 const rightContent = () => {
   return (
     <>
-      <div className="account-form-input">
-        <Field name="username">
-          {({ field: { value, onChange, onBlur }, meta }) => (
-            <Input
-              name="username"
-              isRequired={true}
-              inputType="text"
-              title="User name"
-              isError={meta.touched && Boolean(meta.error)}
-              errMsg={meta.error}
-              value={value}
-              onChange={onChange}
-              onBlur={onBlur}
-            />
-          )}
-        </Field>
-      </div>
-      <div className="account-form-input">
-        <Field name="password">
-          {({ field: { value, onChange, onBlur }, meta }) => (
-            <Input
-              name="password"
-              isRequired={true}
-              inputType="password"
-              title="Password"
-              isError={meta.touched && Boolean(meta.error)}
-              errMsg={meta.error}
-              value={value}
-              onChange={onChange}
-              onBlur={onBlur}
-            />
-          )}
-        </Field>
-      </div>
-      <div className="account-form-input">
-        <Field name="repeatPassword">
-          {({ field: { value, onChange, onBlur }, meta }) => (
-            <Input
-              name="repeatPassword"
-              isRequired={true}
-              inputType="password"
-              title="Repeat Password"
-              isError={meta.touched && Boolean(meta.error)}
-              errMsg={meta.error}
-              value={value}
-              onChange={onChange}
-              onBlur={onBlur}
-            />
-          )}
-        </Field>
-      </div>
+      {rightItems.map((item, i) => (
+        <Item {...item} key={i} />
+      ))}
       <div className="account-form-btn">
         <Button title="Forward" btnView="primary" type="submit" />
       </div>
