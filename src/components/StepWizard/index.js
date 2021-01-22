@@ -1,7 +1,7 @@
 import React from "react";
 
 import AccountForm from "./AccountForm";
-import UserFormHeader from "./UserFormHeader";
+import StepWizardHeader from "./StepWizardHeader";
 import "./styles.css";
 
 const list = [
@@ -11,11 +11,11 @@ const list = [
   { title: "4. Capabilities", type: "disabled" },
 ];
 
-const UserForm = ({ addData, user }) => {
+const StepWizard = ({ addData, user }) => {
   const { username, password, avatar } = user;
   return (
     <div className="user-form">
-      <UserFormHeader list={list} />
+      <StepWizardHeader list={list} />
       <AccountForm
         addData={addData}
         username={username}
@@ -26,4 +26,4 @@ const UserForm = ({ addData, user }) => {
   );
 };
 
-export default UserForm;
+export default StepWizard;

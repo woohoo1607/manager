@@ -1,13 +1,13 @@
 import React from "react";
 
 import TemplatePage from "../TemplatePage";
-import UserFormContainer from "../../containers/UserFormContainer";
+import StepWizardContainer from "../../containers/StepWizardContainer";
 
 const NewUserPage = () => {
   const title = "Adding new user";
   return (
     <TemplatePage title={title}>
-      <UserFormContainer />
+      <StepWizardContainer />
     </TemplatePage>
   );
 };

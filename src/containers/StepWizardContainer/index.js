@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import UserForm from "../../components/UserForm";
+import StepWizard from "../../components/StepWizard";
 import { addAccountData } from "./actions";
 
-const UserFormContainer = () => {
+const StepWizardContainer = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
@@ -28,7 +28,7 @@ const UserFormContainer = () => {
     setStep(step - 1);
   };
 
-  return <UserForm addData={addData} user={user} />;
+  return <StepWizard addData={addData} user={user} />;
 };
 
-export default UserFormContainer;
+export default StepWizardContainer;

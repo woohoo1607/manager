@@ -1,7 +1,7 @@
 import React from "react";
 import ButtonHeaderForm from "../ButtonHeaderForm";
 
-const UserFormHeader = ({ list }) => {
+const StepWizardHeader = ({ list }) => {
   return (
     <header className="user-form-header">
       <nav>
@@ -21,4 +21,4 @@ const UserFormHeader = ({ list }) => {
   );
 };
 
-export default UserFormHeader;
+export default StepWizardHeader;
