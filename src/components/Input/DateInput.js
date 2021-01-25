@@ -8,7 +8,7 @@ import "./styles.css";
 
 const DateInput = ({ name, value, onBlur }) => {
   const { setFieldValue } = useFormikContext();
-
+  /*TODO Monday first day*/
   return (
     <>
       <DatePicker
@@ -22,6 +22,7 @@ const DateInput = ({ name, value, onBlur }) => {
         dateFormat="dd/MM/yyyy"
         onBlur={onBlur}
         name={name}
+        useWeekdaysShort={true}
       />
       <button
         className="input-img"

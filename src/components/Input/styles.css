@@ -82,3 +82,27 @@
     font-family: Roboto, sans-serif;
     font-size: 14px;
 }
+
+.react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
+    font-size: 9px;
+    font-family: 'Roboto', sans-serif;
+    color: #475666;
+}
+
+.react-datepicker__month {
+    margin: 0;
+}
+
+.react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
+    width: 22px;
+    line-height: 18px;
+}
+
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range, .react-datepicker__month-text--selected, .react-datepicker__month-text--in-selecting-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--selected, .react-datepicker__quarter-text--in-selecting-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--selected, .react-datepicker__year-text--in-selecting-range, .react-datepicker__year-text--in-range {
+    background-color: rgb(94, 151, 243);
+}
+
+.react-datepicker__day--outside-month {
+    color: transparent;
+    pointer-events: none;
+}
