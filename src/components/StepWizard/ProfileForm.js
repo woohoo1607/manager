@@ -55,7 +55,7 @@ const rightItems = [
 const LeftContent = () =>
   leftItems.map((item, i) => <InputItem {...item} key={i} />);
 
-const RightContent = (props) => {
+const RightContent = ({ previousStep, ...props }) => {
   return (
     <>
       {rightItems.map((item, i) => (
@@ -68,7 +68,9 @@ const RightContent = (props) => {
         {...props}
       />
       <div className="profile-form-btn">
-        <Button color="gray">Back</Button>
+        <Button color="gray" onClick={previousStep}>
+          Back
+        </Button>
         <Button type="submit">Forward</Button>
       </div>
     </>
@@ -76,23 +78,24 @@ const RightContent = (props) => {
 };
 
 const ProfileForm = ({
-  addData,
+  nextStep,
   firstName,
   lastName,
   birthDate,
   email,
   address,
   gender,
+  previousStep,
   ...props
 }) => {
   return (
     <StepWizardBody
       {...props}
       leftContent={<LeftContent />}
-      rightContent={<RightContent />}
+      rightContent={<RightContent previousStep={previousStep} />}
       initialValues={{ firstName, lastName, birthDate, email, address, gender }}
       validationSchema={validationSchema}
-      addData={addData}
+      submit={nextStep}
     />
   );
 };

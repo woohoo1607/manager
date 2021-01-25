@@ -5,25 +5,26 @@ import StepWizardHeader from "./StepWizardHeader";
 import ProfileForm from "./ProfileForm";
 import "./styles.css";
 
-const list = [
-  { title: "Account", type: "active" },
-  { title: "Profile", type: "disabled" },
-  { title: "Contacts", type: "disabled" },
-  { title: "Capabilities", type: "disabled" },
-];
-
-const StepWizard = ({ addData, user }) => {
+const StepWizard = ({ nextStep, user, steps, activeStep, previousStep }) => {
   const { username, password, avatar } = user;
   return (
     <div className="step-wizard">
-      <StepWizardHeader list={list} />
-      <AccountForm
-        addData={addData}
-        username={username}
-        password={password}
-        avatar={avatar}
-      />
-      <ProfileForm addData={addData} {...user} />
+      <StepWizardHeader steps={steps} activeStep={activeStep} />
+      {activeStep === 0 && (
+        <AccountForm
+          nextStep={nextStep}
+          username={username}
+          password={password}
+          avatar={avatar}
+        />
+      )}
+      {activeStep === 1 && (
+        <ProfileForm
+          nextStep={nextStep}
+          {...user}
+          previousStep={previousStep}
+        />
+      )}
     </div>
   );
 };

@@ -51,7 +51,7 @@ const RightContent = () => {
   );
 };
 
-const AccountForm = ({ addData, username, password, avatar, ...props }) => {
+const AccountForm = ({ nextStep, username, password, avatar, ...props }) => {
   return (
     <StepWizardBody
       {...props}
@@ -59,7 +59,7 @@ const AccountForm = ({ addData, username, password, avatar, ...props }) => {
       rightContent={<RightContent />}
       initialValues={{ username, password, repeatPassword: password }}
       validationSchema={validationSchema}
-      addData={addData}
+      submit={nextStep}
     />
   );
 };

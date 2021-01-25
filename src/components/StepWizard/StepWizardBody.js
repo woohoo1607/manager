@@ -4,7 +4,7 @@ import { Formik } from "formik";
 const StepWizardBody = ({
   initialValues,
   validationSchema,
-  addData,
+  submit,
   rightContent,
   leftContent,
 }) => {
@@ -12,7 +12,7 @@ const StepWizardBody = ({
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => addData(values)}
+      onSubmit={(values) => submit(values)}
     >
       {({ handleSubmit, ...props }) => {
         return (
