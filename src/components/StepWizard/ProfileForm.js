@@ -67,11 +67,17 @@ const RightContent = ({ previousStep, ...props }) => {
         name="gender"
         {...props}
       />
-      <div className="profile-form-btn">
-        <Button color="gray" onClick={previousStep}>
+      <div className="profile-form__button-container">
+        <Button
+          color="gray"
+          className="profile-form__button-back"
+          onClick={previousStep}
+        >
           Back
         </Button>
-        <Button type="submit">Forward</Button>
+        <Button type="submit" className="profile-form__button">
+          Forward
+        </Button>
       </div>
     </>
   );

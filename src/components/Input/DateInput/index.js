@@ -8,7 +8,6 @@ import "./styles.css";
 
 const DateInput = ({ name, value, ...props }) => {
   const { setFieldValue } = useFormikContext();
-  console.log(value);
   /*TODO Monday first day*/
   return (
     <>

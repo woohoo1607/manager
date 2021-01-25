@@ -44,8 +44,10 @@ const RightContent = () => {
       {rightItems.map((item, i) => (
         <InputItem {...item} key={i} />
       ))}
-      <div className="account-form-btn">
-        <Button type="submit">Forward</Button>
+      <div className="account-form__button-container">
+        <Button type="submit" className="account-form__button">
+          Forward
+        </Button>
       </div>
     </>
   );
