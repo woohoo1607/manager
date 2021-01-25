@@ -1,10 +1,10 @@
 import React from "react";
 import * as Yup from "yup";
-import PropTypes from "prop-types";
 
 import Button from "../Button";
 import StepWizardBody from "./StepWizardBody";
 import InputItem from "./InputItem";
+import RadioGroup from "../RadioGroup";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("first name is required"),
@@ -52,17 +52,24 @@ const rightItems = [
   },
 ];
 
-const leftContent = () =>
+const LeftContent = () =>
   leftItems.map((item, i) => <InputItem {...item} key={i} />);
 
-const rightContent = () => {
+const RightContent = (props) => {
   return (
     <>
       {rightItems.map((item, i) => (
         <InputItem {...item} key={i} />
       ))}
+      <RadioGroup
+        title="Gender"
+        values={["Male", "Female"]}
+        name="gender"
+        {...props}
+      />
       <div className="profile-form-btn">
-        <Button title="Forward" btnView="primary" type="submit" />
+        <Button title="Back" btnView="disable" type="submit" />
+        <Button title="Forward" type="submit" />
       </div>
     </>
   );
@@ -75,14 +82,15 @@ const ProfileForm = ({
   birthDate,
   email,
   address,
+  gender,
   ...props
 }) => {
   return (
     <StepWizardBody
       {...props}
-      leftContent={leftContent()}
-      rightContent={rightContent()}
-      initialValues={{ firstName, lastName, birthDate, email, address }}
+      leftContent={<LeftContent />}
+      rightContent={<RightContent />}
+      initialValues={{ firstName, lastName, birthDate, email, address, gender }}
       validationSchema={validationSchema}
       addData={addData}
     />

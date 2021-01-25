@@ -34,18 +34,18 @@ const rightItems = [
   },
 ];
 
-const leftContent = () => {
+const LeftContent = () => {
   return <div className="avatar-container"></div>;
 };
 
-const rightContent = () => {
+const RightContent = () => {
   return (
     <>
       {rightItems.map((item, i) => (
         <InputItem {...item} key={i} />
       ))}
       <div className="account-form-btn">
-        <Button title="Forward" btnView="primary" type="submit" />
+        <Button title="Forward" type="submit" />
       </div>
     </>
   );
@@ -55,8 +55,8 @@ const AccountForm = ({ addData, username, password, avatar, ...props }) => {
   return (
     <StepWizardBody
       {...props}
-      leftContent={leftContent()}
-      rightContent={rightContent()}
+      leftContent={<LeftContent />}
+      rightContent={<RightContent />}
       initialValues={{ username, password, repeatPassword: password }}
       validationSchema={validationSchema}
       addData={addData}

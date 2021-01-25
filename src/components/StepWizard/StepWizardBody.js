@@ -2,11 +2,11 @@ import React from "react";
 import { Formik } from "formik";
 
 const StepWizardBody = ({
-  leftContent,
-  rightContent,
   initialValues,
   validationSchema,
   addData,
+  rightContent,
+  leftContent,
 }) => {
   return (
     <Formik
@@ -17,8 +17,14 @@ const StepWizardBody = ({
       {({ handleSubmit, ...props }) => {
         return (
           <form className="step-wizard-body" onSubmit={handleSubmit}>
-            <div className="step-wizard-left">{leftContent}</div>
-            <div className="step-wizard-right">{rightContent}</div>
+            <div className="step-wizard-left">
+              {React.cloneElement(leftContent, { currentValues: props.values })}
+            </div>
+            <div className="step-wizard-right">
+              {React.cloneElement(rightContent, {
+                currentValues: props.values,
+              })}
+            </div>
           </form>
         );
       }}

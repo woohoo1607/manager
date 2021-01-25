@@ -54,3 +54,9 @@
     max-height: 82px;
     width: 192px;
 }
+
+.profile-form-btn {
+    margin-top: 155px;
+    display: flex;
+    justify-content: space-between;
+}
