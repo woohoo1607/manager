@@ -1,0 +1,56 @@
+.step-wizard {
+    width: 970px;
+    margin: 0 auto;
+}
+
+.step-wizard-menu-list {
+    display: flex;
+    justify-content: center;
+}
+
+.step-wizard-menu-item {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.step-wizard-body {
+    display: flex;
+    justify-content: space-between;
+    padding: 65px 100px;
+    background: rgba(231,240,255,0.2);
+}
+
+.account-form-input {
+    padding-bottom: 24px;
+    max-height: 82px;
+    width: 400px;
+}
+
+.account-form-btn {
+    text-align: end;
+    margin-top: 125px;
+}
+
+.avatar-container {
+    position: relative;
+    width: 171px;
+    height: 171px;
+    text-align: center;
+    border: 3px solid #5E97F3;
+    border-radius: 50%;
+    background: url("../../icons/list-of-users.svg") 50% 105% no-repeat;
+    background-size: 100px 155px;
+}
+
+.profile-form-input {
+    padding-bottom: 24px;
+    max-height: 82px;
+    width: 300px;
+}
+
+.profile-form-date {
+    padding-bottom: 24px;
+    max-height: 82px;
+    width: 192px;
+}

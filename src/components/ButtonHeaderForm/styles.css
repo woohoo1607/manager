@@ -1,0 +1,20 @@
+.btn-header-form {
+    width: 100%;
+    border: none;
+    font-family: Roboto, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    background: #EAF1FD;
+    padding: 16px 0;
+}
+
+.btn-header-form.active {
+    color: #FFFFFF;
+    background: #4E86E4;
+}
+
+.btn-header-form.disabled {
+    color: #9BB0CB;
+    background: rgba(151,186,244,0.2);
+}
+
