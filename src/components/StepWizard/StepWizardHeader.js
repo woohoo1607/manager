@@ -37,9 +37,7 @@ const StepWizardHeader = ({ steps, activeStep }) => {
             }
             return (
               <li className="step-wizard-menu-item" key={i}>
-                <Button type={item.type} style={btnStyles}>
-                  {i + 1 + ". " + item.title}
-                </Button>
+                <Button style={btnStyles}>{i + 1 + ". " + item}</Button>
               </li>
             );
           })}

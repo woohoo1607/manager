@@ -11,12 +11,9 @@ const StepWizardContainer = ({ steps }) => {
 
   const user = useSelector((state) => state.user);
 
-  const addData = useCallback(
-    (data) => {
-      dispatch(addAccountData({ ...data }));
-    },
-    [dispatch]
-  );
+  const addData = useCallback((data) => dispatch(addAccountData({ ...data })), [
+    dispatch,
+  ]);
 
   const nextStep = (data) => {
     addData(data);

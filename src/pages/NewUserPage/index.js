@@ -3,12 +3,7 @@ import React from "react";
 import TemplatePage from "../TemplatePage";
 import StepWizardContainer from "../../containers/StepWizardContainer";
 
-const steps = [
-  { title: "Account", type: "active" },
-  { title: "Profile", type: "disabled" },
-  { title: "Contacts", type: "disabled" },
-  { title: "Capabilities", type: "disabled" },
-];
+const steps = ["Account", "Profile", "Contacts", "Capabilities"];
 
 const NewUserPage = () => {
   return (

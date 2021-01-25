@@ -31,7 +31,14 @@ const Input = ({
         <p className="input-title">{title}</p>
         {isRequired && <p className="input-title is-required">*</p>}
       </div>
-      {inputType !== "date" && (
+      {inputType === "date" ? (
+        <DateInput
+          onBlur={onBlur}
+          name={name}
+          value={value}
+          className={isError ? "input error" : "input"}
+        />
+      ) : (
         <input
           name={name}
           className={isError ? "input error" : "input"}
@@ -53,14 +60,7 @@ const Input = ({
           }}
         />
       )}
-      {inputType === "date" && (
-        <DateInput
-          onBlur={onBlur}
-          name={name}
-          value={value}
-          className={isError ? "input error" : "input"}
-        />
-      )}
+
       {isError && <p className="input-error">{errMsg}</p>}
     </div>
   );
