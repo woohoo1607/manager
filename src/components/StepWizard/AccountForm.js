@@ -1,6 +1,5 @@
 import React from "react";
 import * as Yup from "yup";
-import PropTypes from "prop-types";
 
 import Button from "../Button";
 import StepWizardBody from "./StepWizardBody";
