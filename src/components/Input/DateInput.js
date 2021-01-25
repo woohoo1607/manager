@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import CalendarIcon from "../../icons/calendar.svg";
 import "./styles.css";
 
-const DateInput = ({ name, value, onBlur }) => {
+const DateInput = ({ name, value, ...props }) => {
   const { setFieldValue } = useFormikContext();
   /*TODO Monday first day*/
   return (
@@ -20,10 +20,10 @@ const DateInput = ({ name, value, onBlur }) => {
         }}
         placeholderText="DD/MM/YYYY"
         dateFormat="dd/MM/yyyy"
-        onBlur={onBlur}
         name={name}
         useWeekdaysShort={true}
         autoComplete="off"
+        {...props}
       />
       <button
         className="input-img"

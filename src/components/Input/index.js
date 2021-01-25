@@ -54,7 +54,12 @@ const Input = ({
         />
       )}
       {inputType === "date" && (
-        <DateInput onBlur={onBlur} name={name} value={value} />
+        <DateInput
+          onBlur={onBlur}
+          name={name}
+          value={value}
+          className={isError ? "input error" : "input"}
+        />
       )}
       {isError && <p className="input-error">{errMsg}</p>}
     </div>
