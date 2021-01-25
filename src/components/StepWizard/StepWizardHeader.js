@@ -1,12 +1,12 @@
 import React from "react";
 import ButtonHeaderForm from "../ButtonHeaderForm";
 
-const StepWizardHeader = ({ list }) => {
+const StepWizardHeader = ({ stepList }) => {
   return (
     <header className="step-wizard-header">
       <nav>
         <ul className="step-wizard-menu-list">
-          {list.map((item, i) => {
+          {stepList.map((item, i) => {
             return (
               <li className="step-wizard-menu-item" key={i}>
                 <ButtonHeaderForm type={item.type}>

@@ -4,7 +4,7 @@ import AccountForm from "./AccountForm";
 import StepWizardHeader from "./StepWizardHeader";
 import "./styles.css";
 
-const list = [
+const stepList = [
   { title: "Account", type: "active" },
   { title: "Profile", type: "disabled" },
   { title: "Contacts", type: "disabled" },
@@ -15,7 +15,7 @@ const StepWizard = ({ addData, user }) => {
   const { username, password, avatar } = user;
   return (
     <div className="step-wizard">
-      <StepWizardHeader list={list} />
+      <StepWizardHeader stepList={stepList} />
       <AccountForm
         addData={addData}
         username={username}
