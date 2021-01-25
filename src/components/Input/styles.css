@@ -102,6 +102,10 @@
     background-color: rgb(94, 151, 243);
 }
 
+.react-datepicker__day--selected.react-datepicker__day--outside-month {
+    background: none;
+}
+
 .react-datepicker__day--outside-month {
     color: transparent;
     pointer-events: none;

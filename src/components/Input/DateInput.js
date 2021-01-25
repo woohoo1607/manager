@@ -23,6 +23,7 @@ const DateInput = ({ name, value, onBlur }) => {
         onBlur={onBlur}
         name={name}
         useWeekdaysShort={true}
+        autoComplete="off"
       />
       <button
         className="input-img"
