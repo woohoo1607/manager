@@ -3,45 +3,38 @@ import PropTypes from "prop-types";
 
 import "./styles.css";
 
-const btnTypes = {
-  primary: {
+const btnColors = {
+  blue: {
     backgroundColor: "#5E97F3",
   },
-  disable: {
+  gray: {
     backgroundColor: "#C1CFE0",
   },
-  success: {
+  green: {
     backgroundColor: "#4EE4A5",
   },
 };
 
-const Button = ({
-  btnView = "primary",
-  type = "button",
-  title,
-  onClick,
-  ...props
-}) => {
+const Button = ({ color = "blue", type = "button", children, ...props }) => {
   return (
     <button
       className="btn"
       type={type}
       style={{
-        ...btnTypes[btnView],
+        ...btnColors[color],
+        ...props.style,
       }}
-      onClick={onClick}
       {...props}
     >
-      {title}
+      {children}
     </button>
   );
 };
 
 Button.propTypes = {
   type: PropTypes.string,
-  btnView: PropTypes.string,
-  title: PropTypes.string,
-  onClick: PropTypes.func,
+  btnColors: PropTypes.string,
+  children: PropTypes.string,
 };
 
 export default Button;

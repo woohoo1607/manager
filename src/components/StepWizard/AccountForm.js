@@ -45,7 +45,7 @@ const RightContent = () => {
         <InputItem {...item} key={i} />
       ))}
       <div className="account-form-btn">
-        <Button title="Forward" type="submit" />
+        <Button type="submit">Forward</Button>
       </div>
     </>
   );

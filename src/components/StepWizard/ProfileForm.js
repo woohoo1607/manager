@@ -68,8 +68,8 @@ const RightContent = (props) => {
         {...props}
       />
       <div className="profile-form-btn">
-        <Button title="Back" btnView="disable" type="submit" />
-        <Button title="Forward" type="submit" />
+        <Button color="gray">Back</Button>
+        <Button type="submit">Forward</Button>
       </div>
     </>
   );
