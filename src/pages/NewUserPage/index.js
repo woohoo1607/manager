@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import TemplatePage from "../TemplatePage";
-import StepWizardContainer from "../../containers/StepWizardContainer";
+import { addAccountData } from "./actions";
+import StepWizard from "../../components/StepWizard";
+import AccountForm from "../../components/UserForms/AccountForm";
+import ProfileForm from "../../components/UserForms/ProfileForm";
+
+const steps = [
+  { title: "Account", component: AccountForm },
+  { title: "Profile", component: ProfileForm },
+];
 
 const NewUserPage = () => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
+
+  const saveStep = useCallback(
+    (data) => dispatch(addAccountData({ ...data })),
+    [dispatch]
+  );
+
   return (
     <TemplatePage title="Adding new user">
-      <StepWizardContainer />
+      <StepWizard steps={steps} data={user} saveStep={saveStep} />
     </TemplatePage>
   );
 };

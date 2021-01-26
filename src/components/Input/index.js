@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 
 import EyeIcon from "../../icons/eye.svg";
 import EyeStrikeIcon from "../../icons/eye-strike.svg";
+import DateInput from "./DateInput";
 
 import "./styles.css";
 
-const InputTypes = ["text", "password", "email"];
+const InputTypes = ["text", "password", "email", "date", "radio"];
 
 const Input = ({
   title,
@@ -30,7 +31,14 @@ const Input = ({
         <p className="input-title">{title}</p>
         {isRequired && <p className="input-title is-required">*</p>}
       </div>
-      {inputType !== "date" && (
+      {inputType === "date" ? (
+        <DateInput
+          onBlur={onBlur}
+          name={name}
+          value={value}
+          className={isError ? "input error" : "input"}
+        />
+      ) : (
         <input
           name={name}
           className={isError ? "input error" : "input"}
@@ -52,6 +60,7 @@ const Input = ({
           }}
         />
       )}
+
       {isError && <p className="input-error">{errMsg}</p>}
     </div>
   );

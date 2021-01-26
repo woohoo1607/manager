@@ -1,26 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
-import AccountForm from "./AccountForm";
 import StepWizardHeader from "./StepWizardHeader";
+
 import "./styles.css";
 
-const stepList = [
-  { title: "Account", type: "active" },
-  { title: "Profile", type: "disabled" },
-  { title: "Contacts", type: "disabled" },
-  { title: "Capabilities", type: "disabled" },
-];
+const StepWizard = ({ data, steps, saveStep }) => {
+  const [activeStep, setActiveStep] = useState(0);
 
-const StepWizard = ({ addData, user }) => {
-  const { username, password, avatar } = user;
+  const nextStep = (data) => {
+    saveStep(data);
+    setActiveStep(activeStep + 1);
+  };
+
+  const previousStep = () => {
+    setActiveStep(activeStep - 1);
+  };
+
+  const CurrentFrom = steps.filter((step, i) => i === activeStep)[0].component;
+
   return (
     <div className="step-wizard">
-      <StepWizardHeader stepList={stepList} />
-      <AccountForm
-        addData={addData}
-        username={username}
-        password={password}
-        avatar={avatar}
+      <StepWizardHeader steps={steps} activeStep={activeStep} />
+      <CurrentFrom
+        {...data}
+        nextStep={nextStep}
+        previousStep={previousStep}
+        className="step-wizard-body"
       />
     </div>
   );

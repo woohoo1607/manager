@@ -27,9 +27,21 @@
     width: 400px;
 }
 
-.account-form-btn {
+.account-form__button-container {
     text-align: end;
     margin-top: 125px;
+}
+
+.account-form__button, .profile-form__button {
+
+}
+
+.account-form__button-back, .profile-form__button-back {
+    background-color: #C1CFE0;
+}
+
+.account-form__button-success, .profile-form__button-success {
+    background-color: #4EE4A5;
 }
 
 .avatar-container {
@@ -53,4 +65,30 @@
     padding-bottom: 24px;
     max-height: 82px;
     width: 192px;
+}
+
+.profile-form__button-container {
+    margin-top: 155px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.step-wizard-menu__button {
+    width: 100%;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    background: #EAF1FD;
+    padding: 16px 0;
+    color: #475666;
+}
+
+.step-wizard-menu__button:disabled {
+    color: #9BB0CB;
+    background: rgba(151,186,244,0.2);
+}
+
+.step-wizard-menu__button.current {
+    color: #FFFFFF;
+    background: #4E86E4;
 }

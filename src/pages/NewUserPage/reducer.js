@@ -9,7 +9,7 @@ const initialState = {
   birthDate: "",
   email: "",
   address: "",
-  isMale: true,
+  gender: "",
   company: "",
   github: "",
   facebook: "",
