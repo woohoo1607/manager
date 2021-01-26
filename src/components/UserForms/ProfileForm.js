@@ -67,7 +67,7 @@ const RightContent = ({ previousStep, ...props }) => {
   return (
     <div>
       {rightItems.map((item, i) => (
-        <InputItem {...item} key={i} />
+        <InputItem {...item} key={i} {...props} />
       ))}
       <RadioGroup
         title="Gender"
@@ -115,6 +115,7 @@ const ProfileForm = ({
     <LayoutForm
       {...props}
       component={ProfileFormBody}
+      previousStep={previousStep}
       initialValues={{ firstName, lastName, birthDate, email, address, gender }}
       validationSchema={validationSchema}
       submit={nextStep}
