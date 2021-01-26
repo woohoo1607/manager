@@ -1,5 +1,7 @@
 .input-container {
     position: relative;
+    padding-bottom: 24px;
+    max-height: 82px;
     width: 100%;
 }
 

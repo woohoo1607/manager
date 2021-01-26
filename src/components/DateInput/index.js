@@ -26,26 +26,16 @@ const MyDatePicker = ({ name, value, onBlur }) => {
   );
 };
 
-const DateInput = ({
-  title,
-  name,
-  type,
-  isRequired,
-  isError,
-  errMsg,
-  ...props
-}) => {
+const DateInput = ({ title, name, type, isRequired, style }) => {
   return (
     <>
       <InputLayout
         title={title}
         name={name}
         isRequired={isRequired}
-        isError={isError}
-        errMsg={errMsg}
         type={type}
-        {...props}
         component={MyDatePicker}
+        style={style}
       >
         <button
           className="input-img"

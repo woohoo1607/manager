@@ -8,25 +8,16 @@ const BaseInput = ({ ...props }) => {
   return <input {...props} />;
 };
 
-const Input = ({
-  title,
-  name,
-  type,
-  isRequired,
-  isError,
-  errMsg,
-  ...props
-}) => {
+const Input = ({ title, type, name, isRequired, children, style }) => {
   return (
     <InputLayout
       title={title}
-      name={name}
       isRequired={isRequired}
-      isError={isError}
-      errMsg={errMsg}
       type={type}
-      {...props}
+      name={name}
       component={BaseInput}
+      children={children}
+      style={style}
     />
   );
 };

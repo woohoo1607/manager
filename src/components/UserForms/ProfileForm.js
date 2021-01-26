@@ -2,11 +2,12 @@ import React from "react";
 import * as Yup from "yup";
 
 import Button from "../Button";
-import InputItem from "./InputItem";
 import RadioGroup from "../RadioGroup";
 import LayoutForm from "./LayoutForm";
 
 import "./styles.css";
+import Input from "../Input";
+import DateInput from "../DateInput";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("first name is required"),
@@ -19,54 +20,53 @@ const validationSchema = Yup.object({
   gender: Yup.string().required("gender is required"),
 });
 
-const leftItems = [
-  {
-    name: "firstName",
-    title: "First name",
-    type: "text",
-    className: "profile-form__input",
-  },
-  {
-    name: "lastName",
-    title: "Last name",
-    type: "text",
-    className: "profile-form__input",
-  },
-  {
-    name: "birthDate",
-    title: "Birth date",
-    type: "date",
-    className: "profile-form__input profile-form__input-date",
-  },
-];
-
-const rightItems = [
-  {
-    name: "email",
-    title: "Email",
-    type: "email",
-    className: "profile-form__input",
-  },
-  {
-    name: "address",
-    title: "Address",
-    type: "text",
-    className: "profile-form__input",
-  },
-];
-
 const ProfileFormBody = ({ previousStep, ...props }) => {
+  const inputStyle = {
+    width: "300px",
+  };
+  const dateStyle = {
+    width: "192px",
+  };
   return (
     <>
       <div>
-        {leftItems.map((item, i) => (
-          <InputItem {...item} key={i} />
-        ))}
+        <Input
+          isRequired={true}
+          name="firstName"
+          type="text"
+          title="First name"
+          style={inputStyle}
+        />
+        <Input
+          isRequired={true}
+          name="lastName"
+          type="text"
+          title="Last name"
+          style={inputStyle}
+        />
+        <DateInput
+          isRequired={true}
+          name="birthDate"
+          type="date"
+          title="Birth date"
+          style={dateStyle}
+        />
       </div>
       <div>
-        {rightItems.map((item, i) => (
-          <InputItem {...item} key={i} {...props} />
-        ))}
+        <Input
+          isRequired={true}
+          name="email"
+          type="email"
+          title="Email"
+          style={inputStyle}
+        />
+        <Input
+          isRequired={true}
+          name="address"
+          type="text"
+          title="Address"
+          style={inputStyle}
+        />
         <RadioGroup
           title="Gender"
           variants={["Male", "Female"]}
