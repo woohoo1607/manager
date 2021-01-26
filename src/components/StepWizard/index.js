@@ -21,12 +21,13 @@ const StepWizard = ({ data, steps, saveStep }) => {
   return (
     <div className="step-wizard">
       <StepWizardHeader steps={steps} activeStep={activeStep} />
-      <CurrentFrom
-        {...data}
-        nextStep={nextStep}
-        previousStep={previousStep}
-        className="step-wizard-body"
-      />
+      <div className="step-wizard-body">
+        <CurrentFrom
+          {...data}
+          nextStep={nextStep}
+          previousStep={previousStep}
+        />
+      </div>
     </div>
   );
 };
