@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 
-import "./styles.css";
 import EyeIcon from "../../icons/eye.svg";
 import EyeStrikeIcon from "../../icons/eye-strike.svg";
 import Input from "../Input";
 
+import "./styles.css";
+
 const PasswordInput = ({ ...props }) => {
-  const [type, setType] = useState("password");
   const [showPassword, setShowPassword] = useState(false);
   const changePasswordVisibility = () => {
     setShowPassword(!showPassword);
-    setType(type === "password" ? "text" : "password");
   };
   return (
     <>
-      <Input {...props} type={type}>
+      <Input {...props} type={showPassword ? "text" : "password"}>
         <button
           className="input-img"
           onClick={changePasswordVisibility}
