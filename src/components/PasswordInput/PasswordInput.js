@@ -8,15 +8,13 @@ import "./styles.css";
 
 const PasswordInput = ({ ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const changePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const toggleShowPassword = () => setShowPassword(!showPassword);
   return (
     <>
       <Input {...props} type={showPassword ? "text" : "password"}>
         <button
           className="input-img"
-          onClick={changePasswordVisibility}
+          onClick={toggleShowPassword}
           type="button"
           style={{
             background: `url(${
