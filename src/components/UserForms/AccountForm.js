@@ -20,50 +20,38 @@ const rightItems = [
     name: "username",
     title: "User name",
     type: "text",
-    className: "account-form-input",
+    className: "account-form__input",
   },
   {
     name: "password",
     title: "Password",
     type: "password",
-    className: "account-form-input",
+    className: "account-form__input",
   },
   {
     name: "repeatPassword",
     title: "Repeat Password",
     type: "password",
-    className: "account-form-input",
+    className: "account-form__input",
   },
 ];
 
-const LeftContent = () => {
-  return (
-    <div>
-      <div className="avatar-container"></div>
-    </div>
-  );
-};
-
-const RightContent = () => {
-  return (
-    <div>
-      {rightItems.map((item, i) => (
-        <InputItem {...item} key={i} />
-      ))}
-      <div className="account-form__button-container">
-        <Button type="submit" className="account-form__button">
-          Forward
-        </Button>
-      </div>
-    </div>
-  );
-};
-
-const AccountFormBody = (props) => {
+const AccountFormBody = ({ ...props }) => {
   return (
     <>
-      <LeftContent {...props} />
-      <RightContent {...props} />
+      <div>
+        <div className="avatar-container"></div>
+      </div>
+      <div>
+        {rightItems.map((item, i) => (
+          <InputItem {...item} key={i} {...props} />
+        ))}
+        <div className="account-form__button-container">
+          <Button type="submit" className="account-form__button">
+            Forward
+          </Button>
+        </div>
+      </div>
     </>
   );
 };
@@ -76,7 +64,6 @@ const AccountForm = ({ nextStep, username, password, avatar, ...props }) => {
       initialValues={{ username, password, repeatPassword: password }}
       validationSchema={validationSchema}
       submit={nextStep}
-      className="user-form account-form"
     />
   );
 };

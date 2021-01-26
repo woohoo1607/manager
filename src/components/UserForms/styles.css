@@ -1,10 +1,4 @@
-.user-form {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.account-form-input {
+.account-form__input {
     padding-bottom: 24px;
     max-height: 82px;
     width: 400px;
@@ -38,15 +32,13 @@
     background-size: 100px 155px;
 }
 
-.profile-form-input {
+.profile-form__input {
     padding-bottom: 24px;
     max-height: 82px;
     width: 300px;
 }
 
-.profile-form-date {
-    padding-bottom: 24px;
-    max-height: 82px;
+.profile-form__input-date {
     width: 192px;
 }
 

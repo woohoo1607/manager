@@ -6,10 +6,17 @@ const LayoutForm = ({
   validationSchema,
   submit,
   component,
-  className,
   previousStep,
+  showInRow = true,
+  styles,
 }) => {
+  const inRowStyles = {
+    display: "flex",
+    justifyContent: "space-between",
+  };
+
   const FormBody = component;
+
   return (
     <Formik
       initialValues={initialValues}
@@ -18,7 +25,10 @@ const LayoutForm = ({
     >
       {({ handleSubmit, ...props }) => {
         return (
-          <form className={className} onSubmit={handleSubmit}>
+          <form
+            style={showInRow ? { ...inRowStyles, styles } : styles}
+            onSubmit={handleSubmit}
+          >
             <FormBody
               currentValues={props.values}
               {...props}

@@ -24,19 +24,19 @@ const leftItems = [
     name: "firstName",
     title: "First name",
     type: "text",
-    className: "profile-form-input",
+    className: "profile-form__input",
   },
   {
     name: "lastName",
     title: "Last name",
     type: "text",
-    className: "profile-form-input",
+    className: "profile-form__input",
   },
   {
     name: "birthDate",
     title: "Birth date",
     type: "date",
-    className: "profile-form-date",
+    className: "profile-form__input profile-form__input-date",
   },
 ];
 
@@ -45,59 +45,47 @@ const rightItems = [
     name: "email",
     title: "Email",
     type: "email",
-    className: "profile-form-input",
+    className: "profile-form__input",
   },
   {
     name: "address",
     title: "Address",
     type: "text",
-    className: "profile-form-input",
+    className: "profile-form__input",
   },
 ];
 
-const LeftContent = () => {
-  return (
-    <div>
-      {leftItems.map((item, i) => (
-        <InputItem {...item} key={i} />
-      ))}
-    </div>
-  );
-};
-
-const RightContent = ({ previousStep, ...props }) => {
-  return (
-    <div>
-      {rightItems.map((item, i) => (
-        <InputItem {...item} key={i} {...props} />
-      ))}
-      <RadioGroup
-        title="Gender"
-        variants={["Male", "Female"]}
-        name="gender"
-        {...props}
-      />
-      <div className="profile-form__button-container">
-        <Button
-          color="gray"
-          className="profile-form__button-back"
-          onClick={previousStep}
-        >
-          Back
-        </Button>
-        <Button type="submit" className="profile-form__button">
-          Forward
-        </Button>
-      </div>
-    </div>
-  );
-};
-
-const ProfileFormBody = (props) => {
+const ProfileFormBody = ({ previousStep, ...props }) => {
   return (
     <>
-      <LeftContent {...props} />
-      <RightContent {...props} />
+      <div>
+        {leftItems.map((item, i) => (
+          <InputItem {...item} key={i} />
+        ))}
+      </div>
+      <div>
+        {rightItems.map((item, i) => (
+          <InputItem {...item} key={i} {...props} />
+        ))}
+        <RadioGroup
+          title="Gender"
+          variants={["Male", "Female"]}
+          name="gender"
+          {...props}
+        />
+        <div className="profile-form__button-container">
+          <Button
+            color="gray"
+            className="profile-form__button-back"
+            onClick={previousStep}
+          >
+            Back
+          </Button>
+          <Button type="submit" className="profile-form__button">
+            Forward
+          </Button>
+        </div>
+      </div>
     </>
   );
 };
@@ -121,7 +109,6 @@ const ProfileForm = ({
       initialValues={{ firstName, lastName, birthDate, email, address, gender }}
       validationSchema={validationSchema}
       submit={nextStep}
-      className="user-form profile-form"
     />
   );
 };
