@@ -4,8 +4,8 @@ import * as Yup from "yup";
 import Button from "../Button";
 import LayoutForm from "./LayoutForm";
 
-import Input from "../Input";
-import PasswordInput from "../PasswordInput/PasswordInput";
+import Input from "../UI/Input";
+import PasswordInput from "../PasswordInput";
 
 import "./styles.css";
 
@@ -28,28 +28,27 @@ const AccountFormBody = () => {
       </div>
       <div>
         <Input
-          isRequired={true}
+          isRequired
           name="username"
           type="text"
           title="User name"
           style={inputStyle}
         />
         <PasswordInput
-          isRequired={true}
+          isRequired
           name="password"
-          type="password"
           title="Password"
           style={inputStyle}
         />
         <PasswordInput
-          isRequired={true}
+          isRequired
           name="repeatPassword"
           type="password"
           title="Repeat Password"
           style={inputStyle}
         />
         <div className="account-form__button-container">
-          <Button type="submit" className="account-form__button">
+          <Button type="submit" className="form__button">
             Forward
           </Button>
         </div>

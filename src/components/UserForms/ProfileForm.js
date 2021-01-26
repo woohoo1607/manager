@@ -6,7 +6,7 @@ import RadioGroup from "../RadioGroup";
 import LayoutForm from "./LayoutForm";
 
 import "./styles.css";
-import Input from "../Input";
+import Input from "../UI/Input";
 import DateInput from "../DateInput";
 
 const validationSchema = Yup.object({
@@ -20,7 +20,7 @@ const validationSchema = Yup.object({
   gender: Yup.string().required("gender is required"),
 });
 
-const ProfileFormBody = ({ previousStep, ...props }) => {
+const ProfileFormBody = ({ previousStep, errors, touched, currentValues }) => {
   const inputStyle = {
     width: "300px",
   };
@@ -31,37 +31,36 @@ const ProfileFormBody = ({ previousStep, ...props }) => {
     <>
       <div>
         <Input
-          isRequired={true}
+          isRequired
           name="firstName"
           type="text"
           title="First name"
           style={inputStyle}
         />
         <Input
-          isRequired={true}
+          isRequired
           name="lastName"
           type="text"
           title="Last name"
           style={inputStyle}
         />
         <DateInput
-          isRequired={true}
+          isRequired
           name="birthDate"
-          type="date"
           title="Birth date"
           style={dateStyle}
         />
       </div>
       <div>
         <Input
-          isRequired={true}
+          isRequired
           name="email"
           type="email"
           title="Email"
           style={inputStyle}
         />
         <Input
-          isRequired={true}
+          isRequired
           name="address"
           type="text"
           title="Address"
@@ -71,17 +70,19 @@ const ProfileFormBody = ({ previousStep, ...props }) => {
           title="Gender"
           variants={["Male", "Female"]}
           name="gender"
-          {...props}
+          errors={errors}
+          touched={touched}
+          currentValues={currentValues}
         />
         <div className="profile-form__button-container">
           <Button
             color="gray"
-            className="profile-form__button-back"
+            className="form__button-back"
             onClick={previousStep}
           >
             Back
           </Button>
-          <Button type="submit" className="profile-form__button">
+          <Button type="submit" className="form__button">
             Forward
           </Button>
         </div>

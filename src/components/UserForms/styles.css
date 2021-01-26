@@ -9,15 +9,15 @@
     margin-top: 125px;
 }
 
-.account-form__button, .profile-form__button {
+.form__button {
 
 }
 
-.account-form__button-back, .profile-form__button-back {
+.form__button-back {
     background-color: #C1CFE0;
 }
 
-.account-form__button-success, .profile-form__button-success {
+.form__button-success {
     background-color: #4EE4A5;
 }
 

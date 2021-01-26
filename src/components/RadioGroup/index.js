@@ -3,11 +3,17 @@ import { Field } from "formik";
 
 import "./styles.css";
 
-const RadioGroup = ({ title, variants, name, ...props }) => {
-  const { errors, touched } = props;
+const RadioGroup = ({
+  title,
+  variants,
+  name,
+  errors,
+  touched,
+  currentValues,
+}) => {
   const isError = touched[name] && Boolean(errors[name]);
   const errMsg = errors[name] || "Error";
-  const currentValue = props.currentValues ? props.currentValues[name] : "";
+  const currentValue = currentValues ? currentValues[name] : "";
   return (
     <div className="input-container">
       <div className="input-title-container">

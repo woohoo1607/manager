@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import EyeIcon from "../../icons/eye.svg";
 import EyeStrikeIcon from "../../icons/eye-strike.svg";
-import Input from "../Input";
+import Input from "../UI/Input";
 
 import "./styles.css";
 

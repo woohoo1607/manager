@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import CalendarIcon from "../../icons/calendar.svg";
 import "./styles.css";
-import InputLayout from "../Input/InputLayout";
+import InputLayout from "../UI/Input/InputLayout";
 
 const MyDatePicker = ({ name, value, onBlur }) => {
   const { setFieldValue } = useFormikContext();
@@ -26,14 +26,14 @@ const MyDatePicker = ({ name, value, onBlur }) => {
   );
 };
 
-const DateInput = ({ title, name, type, isRequired, style }) => {
+const DateInput = ({ title, name, isRequired, style }) => {
   return (
     <>
       <InputLayout
         title={title}
         name={name}
         isRequired={isRequired}
-        type={type}
+        type="date"
         component={MyDatePicker}
         style={style}
       >
