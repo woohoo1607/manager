@@ -3,13 +3,7 @@ import PropTypes from "prop-types";
 
 import "./styles.css";
 
-const Button = ({
-  color = "blue",
-  type = "button",
-  children,
-  className,
-  ...props
-}) => {
+const Button = ({ type = "button", children, className, ...props }) => {
   return (
     <button className={"button " + className} type={type} {...props}>
       {children}

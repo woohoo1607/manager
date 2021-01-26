@@ -2,9 +2,9 @@ import React from "react";
 import * as Yup from "yup";
 
 import Button from "../Button";
-import StepWizardBody from "./StepWizardBody";
 import InputItem from "./InputItem";
 import RadioGroup from "../RadioGroup";
+import LayoutForm from "./LayoutForm";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("first name is required"),
@@ -14,6 +14,7 @@ const validationSchema = Yup.object({
     .required("email is required")
     .email("invalid email address"),
   address: Yup.string().required("address is required"),
+  gender: Yup.string().required("gender is required"),
 });
 
 const leftItems = [
@@ -52,12 +53,19 @@ const rightItems = [
   },
 ];
 
-const LeftContent = () =>
-  leftItems.map((item, i) => <InputItem {...item} key={i} />);
+const LeftContent = () => {
+  return (
+    <div>
+      {leftItems.map((item, i) => (
+        <InputItem {...item} key={i} />
+      ))}
+    </div>
+  );
+};
 
 const RightContent = ({ previousStep, ...props }) => {
   return (
-    <>
+    <div>
       {rightItems.map((item, i) => (
         <InputItem {...item} key={i} />
       ))}
@@ -79,6 +87,15 @@ const RightContent = ({ previousStep, ...props }) => {
           Forward
         </Button>
       </div>
+    </div>
+  );
+};
+
+const ProfileFormBody = (props) => {
+  return (
+    <>
+      <LeftContent {...props} />
+      <RightContent {...props} />
     </>
   );
 };
@@ -95,10 +112,9 @@ const ProfileForm = ({
   ...props
 }) => {
   return (
-    <StepWizardBody
+    <LayoutForm
       {...props}
-      leftContent={<LeftContent />}
-      rightContent={<RightContent previousStep={previousStep} />}
+      component={ProfileFormBody}
       initialValues={{ firstName, lastName, birthDate, email, address, gender }}
       validationSchema={validationSchema}
       submit={nextStep}

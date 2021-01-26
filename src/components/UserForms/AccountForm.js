@@ -2,8 +2,8 @@ import React from "react";
 import * as Yup from "yup";
 
 import Button from "../Button";
-import StepWizardBody from "./StepWizardBody";
 import InputItem from "./InputItem";
+import LayoutForm from "./LayoutForm";
 
 const validationSchema = Yup.object({
   username: Yup.string().required("user name is required"),
@@ -35,12 +35,16 @@ const rightItems = [
 ];
 
 const LeftContent = () => {
-  return <div className="avatar-container"></div>;
+  return (
+    <div>
+      <div className="avatar-container"></div>
+    </div>
+  );
 };
 
 const RightContent = () => {
   return (
-    <>
+    <div>
       {rightItems.map((item, i) => (
         <InputItem {...item} key={i} />
       ))}
@@ -49,16 +53,24 @@ const RightContent = () => {
           Forward
         </Button>
       </div>
+    </div>
+  );
+};
+
+const AccountFormBody = (props) => {
+  return (
+    <>
+      <LeftContent {...props} />
+      <RightContent {...props} />
     </>
   );
 };
 
 const AccountForm = ({ nextStep, username, password, avatar, ...props }) => {
   return (
-    <StepWizardBody
+    <LayoutForm
       {...props}
-      leftContent={<LeftContent />}
-      rightContent={<RightContent />}
+      component={AccountFormBody}
       initialValues={{ username, password, repeatPassword: password }}
       validationSchema={validationSchema}
       submit={nextStep}

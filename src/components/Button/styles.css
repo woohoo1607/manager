@@ -5,4 +5,5 @@
     border: none;
     font-family: Roboto, sans-serif;
     background-color: #5E97F3;
+    min-width: 100px;
 }

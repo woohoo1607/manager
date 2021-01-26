@@ -6,7 +6,7 @@ const StepWizardHeader = ({ steps, activeStep }) => {
     <header className="step-wizard-header">
       <nav>
         <ul className="step-wizard-menu-list">
-          {steps.map((item, i) => {
+          {steps.map(({ title }, i) => {
             let isDisabled = false;
             let className;
             if (activeStep === i) {
@@ -22,7 +22,7 @@ const StepWizardHeader = ({ steps, activeStep }) => {
                   className={"step-wizard-menu__button " + className}
                   disabled={isDisabled}
                 >
-                  {i + 1 + ". " + item}
+                  {i + 1 + ". " + title}
                 </Button>
               </li>
             );

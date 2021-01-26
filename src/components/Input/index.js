@@ -7,7 +7,7 @@ import DateInput from "./DateInput";
 
 import "./styles.css";
 
-const InputTypes = ["text", "password", "email", "date"];
+const InputTypes = ["text", "password", "email", "date", "radio"];
 
 const Input = ({
   title,
