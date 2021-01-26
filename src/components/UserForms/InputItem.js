@@ -5,6 +5,7 @@ import PasswordInput from "../PasswordInput/PasswordInput";
 import DateInput from "../DateInput";
 
 const InputItem = ({ name, title, type, className }) => {
+  /*TODO - DELETE THIS COMPONENT*/
   return (
     <div className={className}>
       <Field name={name}>

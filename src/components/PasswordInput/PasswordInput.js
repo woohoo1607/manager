@@ -7,7 +7,9 @@ import Input from "../Input";
 
 const PasswordInput = ({ ...props }) => {
   const [type, setType] = useState("password");
+  const [showPassword, setShowPassword] = useState(false);
   const changePasswordVisibility = () => {
+    setShowPassword(!showPassword);
     setType(type === "password" ? "text" : "password");
   };
   return (
@@ -19,7 +21,7 @@ const PasswordInput = ({ ...props }) => {
           type="button"
           style={{
             background: `url(${
-              type === "password" ? EyeIcon : EyeStrikeIcon
+              showPassword ? EyeStrikeIcon : EyeIcon
             }) center center no-repeat`,
           }}
         />
