@@ -71,7 +71,7 @@ const RightContent = ({ previousStep, ...props }) => {
       ))}
       <RadioGroup
         title="Gender"
-        values={["Male", "Female"]}
+        variants={["Male", "Female"]}
         name="gender"
         {...props}
       />

@@ -3,22 +3,24 @@ import { Field } from "formik";
 
 import "./styles.css";
 
-const RadioGroup = ({ title, values, name, ...props }) => {
-  const currentValue = props.currentValues
-    ? props.currentValues[name]
-    : values[0];
+const RadioGroup = ({ title, variants, name, ...props }) => {
+  const { errors, touched } = props;
+  const isError = touched[name] && Boolean(errors[name]);
+  const errMsg = errors[name] || "Error";
+  const currentValue = props.currentValues ? props.currentValues[name] : "";
   return (
     <div className="input-container">
       <div className="input-title-container">
         <p className="input-title">{title}</p>
       </div>
       <div
+        id={name}
         role="group"
         aria-labelledby="my-radio-group"
         className="radio-group"
       >
-        {values &&
-          values.map((value, i) => {
+        {variants &&
+          variants.map((value, i) => {
             return (
               <label
                 key={i}
@@ -32,6 +34,7 @@ const RadioGroup = ({ title, values, name, ...props }) => {
             );
           })}
       </div>
+      {isError && <p className="input-error">{errMsg}</p>}
     </div>
   );
 };

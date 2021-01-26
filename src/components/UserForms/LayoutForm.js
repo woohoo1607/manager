@@ -18,7 +18,7 @@ const LayoutForm = ({
       {({ handleSubmit, ...props }) => {
         return (
           <form className={className} onSubmit={handleSubmit}>
-            <FormBody currentValues={props.values} />
+            <FormBody currentValues={props.values} {...props} />
           </form>
         );
       }}
