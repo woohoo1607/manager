@@ -6,6 +6,8 @@ import InputItem from "./InputItem";
 import RadioGroup from "../RadioGroup";
 import LayoutForm from "./LayoutForm";
 
+import "./styles.css";
+
 const validationSchema = Yup.object({
   firstName: Yup.string().required("first name is required"),
   lastName: Yup.string().required("last name is required"),
@@ -67,7 +69,7 @@ const RightContent = ({ previousStep, ...props }) => {
   return (
     <div>
       {rightItems.map((item, i) => (
-        <InputItem {...item} key={i} />
+        <InputItem {...item} key={i} {...props} />
       ))}
       <RadioGroup
         title="Gender"
@@ -115,9 +117,11 @@ const ProfileForm = ({
     <LayoutForm
       {...props}
       component={ProfileFormBody}
+      previousStep={previousStep}
       initialValues={{ firstName, lastName, birthDate, email, address, gender }}
       validationSchema={validationSchema}
       submit={nextStep}
+      className="user-form profile-form"
     />
   );
 };

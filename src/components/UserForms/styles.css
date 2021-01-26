@@ -1,0 +1,57 @@
+.user-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.account-form-input {
+    padding-bottom: 24px;
+    max-height: 82px;
+    width: 400px;
+}
+
+.account-form__button-container {
+    text-align: end;
+    margin-top: 125px;
+}
+
+.account-form__button, .profile-form__button {
+
+}
+
+.account-form__button-back, .profile-form__button-back {
+    background-color: #C1CFE0;
+}
+
+.account-form__button-success, .profile-form__button-success {
+    background-color: #4EE4A5;
+}
+
+.avatar-container {
+    position: relative;
+    width: 171px;
+    height: 171px;
+    text-align: center;
+    border: 3px solid #5E97F3;
+    border-radius: 50%;
+    background: url("../../icons/list-of-users.svg") 50% 105% no-repeat;
+    background-size: 100px 155px;
+}
+
+.profile-form-input {
+    padding-bottom: 24px;
+    max-height: 82px;
+    width: 300px;
+}
+
+.profile-form-date {
+    padding-bottom: 24px;
+    max-height: 82px;
+    width: 192px;
+}
+
+.profile-form__button-container {
+    margin-top: 155px;
+    display: flex;
+    justify-content: space-between;
+}

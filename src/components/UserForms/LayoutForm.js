@@ -7,6 +7,7 @@ const LayoutForm = ({
   submit,
   component,
   className,
+  previousStep,
 }) => {
   const FormBody = component;
   return (
@@ -18,7 +19,11 @@ const LayoutForm = ({
       {({ handleSubmit, ...props }) => {
         return (
           <form className={className} onSubmit={handleSubmit}>
-            <FormBody currentValues={props.values} {...props} />
+            <FormBody
+              currentValues={props.values}
+              {...props}
+              previousStep={previousStep}
+            />
           </form>
         );
       }}

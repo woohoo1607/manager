@@ -5,6 +5,8 @@ import Button from "../Button";
 import InputItem from "./InputItem";
 import LayoutForm from "./LayoutForm";
 
+import "./styles.css";
+
 const validationSchema = Yup.object({
   username: Yup.string().required("user name is required"),
   password: Yup.string().required("password is required"),
@@ -74,6 +76,7 @@ const AccountForm = ({ nextStep, username, password, avatar, ...props }) => {
       initialValues={{ username, password, repeatPassword: password }}
       validationSchema={validationSchema}
       submit={nextStep}
+      className="user-form account-form"
     />
   );
 };
