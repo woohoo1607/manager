@@ -1,15 +1,14 @@
 import React from "react";
 import * as Yup from "yup";
 
-import Button from "../Button";
 import LayoutForm from "./LayoutForm";
 import Input from "../UI/Input";
 import PasswordInput from "../PasswordInput";
 import FormikField from "../FormikField";
-
-import "./styles.css";
 import InputTitle from "../UI/InputTitle";
 import InputContainer from "../UI/InputContainer";
+
+import "./styles.css";
 
 const validationSchema = Yup.object({
   username: Yup.string().required("user name is required"),
@@ -47,11 +46,6 @@ const AccountFormBody = ({ children }) => {
           </InputContainer>
         </div>
         {children}
-        {/*        <div className="account-form__button-container">
-          <Button type="submit" className="form__button">
-            Forward
-          </Button>
-        </div>*/}
       </div>
     </>
   );
