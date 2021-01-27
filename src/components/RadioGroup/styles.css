@@ -2,14 +2,3 @@
     margin-top: 10px;
     display: flex;
 }
-
-.radio-label {
-    font-family: Roboto, sans-serif;
-    font-size: 14px;
-    color: #657C9A;
-    margin-right: 40px;
-}
-
-.radio-label.checked {
-    color: #000000
-}

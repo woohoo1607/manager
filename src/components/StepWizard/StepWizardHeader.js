@@ -4,9 +4,7 @@ import Button from "../Button";
 import "./styles.css";
 
 const StepWizardHeader = ({ steps, activeStep, goToStep }) => {
-  const changeStep = (i) => () => {
-    goToStep(i);
-  };
+  const changeStep = (i) => () => goToStep(i);
   return (
     <header className="step-wizard-header">
       <nav>

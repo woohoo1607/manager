@@ -8,8 +8,6 @@ import StepWizardControls from "./StepWizardControls";
 const StepWizard = ({ data, steps, saveStep }) => {
   const [activeStep, setActiveStep] = useState(0);
 
-  const stepsCnt = steps.length;
-
   const nextStep = (data) => {
     saveStep(data);
     setActiveStep(activeStep + 1);
@@ -32,7 +30,7 @@ const StepWizard = ({ data, steps, saveStep }) => {
         <CurrentFrom {...data} nextStep={nextStep}>
           <StepWizardControls
             activeStep={activeStep}
-            stepsCnt={stepsCnt}
+            stepsCount={steps.length}
             previousStep={previousStep}
             nextStep={nextStep}
           />

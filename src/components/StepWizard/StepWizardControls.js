@@ -3,18 +3,16 @@ import React from "react";
 import "./styles.css";
 import Button from "../Button";
 
-const StepWizardControls = ({ activeStep, stepsCnt, previousStep }) => {
-  const isLastStep = stepsCnt === activeStep + 1;
+const StepWizardControls = ({ activeStep, stepsCount, previousStep }) => {
+  const isLastStep = stepsCount === activeStep + 1;
 
   return (
     <div className="step-wizard__controls">
       <Button
         type="submit"
-        className={
-          isLastStep
-            ? "step-wizard__button step-wizard__button-success"
-            : "step-wizard__button"
-        }
+        className={`step-wizard__button ${
+          isLastStep && "step-wizard__button-success"
+        }`}
       >
         {isLastStep ? "Finish" : "Forward"}
       </Button>

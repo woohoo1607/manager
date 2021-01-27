@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import EyeIcon from "../../icons/eye.svg";
 import EyeStrikeIcon from "../../icons/eye-strike.svg";
 import Input from "../UI/Input";
+import Button from "../Button";
 
 import "./styles.css";
-import Button from "../Button";
 
 const PasswordInput = ({ ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
