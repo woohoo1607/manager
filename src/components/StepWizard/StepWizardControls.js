@@ -11,7 +11,9 @@ const StepWizardControls = ({ activeStep, stepsCnt, previousStep }) => {
       <Button
         type="submit"
         className={
-          isLastStep ? "step-wizard__button-success" : "step-wizard__button"
+          isLastStep
+            ? "step-wizard__button step-wizard__button-success"
+            : "step-wizard__button"
         }
       >
         {isLastStep ? "Finish" : "Forward"}
@@ -19,7 +21,7 @@ const StepWizardControls = ({ activeStep, stepsCnt, previousStep }) => {
       {!!activeStep && (
         <Button
           color="gray"
-          className="step-wizard__button-back"
+          className="step-wizard__button step-wizard__button-back"
           onClick={previousStep}
         >
           Back
