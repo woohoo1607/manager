@@ -5,9 +5,15 @@ import InputErrorMsg from "../UI/InputErrorMsg";
 
 import "./styles.css";
 
-const FormikField = ({ name, type = "text", children }) => {
+const FormikField = ({
+  name,
+  type = "text",
+  children,
+  invisibleError = false,
+  ...props
+}) => {
   return (
-    <Field name={name}>
+    <Field name={name} {...props}>
       {({ field, meta: { touched, error } }) => {
         const isError = touched && Boolean(error);
         return (
@@ -16,8 +22,9 @@ const FormikField = ({ name, type = "text", children }) => {
               name: name,
               isError: isError,
               ...field,
+              ...props,
             })}
-            {isError && <InputErrorMsg error={error} />}
+            {isError && !invisibleError && <InputErrorMsg error={error} />}
           </>
         );
       }}

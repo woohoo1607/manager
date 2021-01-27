@@ -61,14 +61,16 @@ const ProfileFormBody = ({ errors, touched, currentValues, children }) => {
               <Input />
             </FormikField>
           </InputContainer>
-          <RadioGroup
-            title="Gender"
-            variants={["Male", "Female"]}
-            name="gender"
-            errors={errors}
-            touched={touched}
-            currentValues={currentValues}
-          />
+          <InputContainer>
+            <InputTitle title="Gender" />
+            <RadioGroup
+              variants={["Male", "Female"]}
+              name="gender"
+              errors={errors}
+              touched={touched}
+              currentValues={currentValues}
+            />
+          </InputContainer>
         </div>
         {children}
       </div>

@@ -1,24 +1,16 @@
 import React from "react";
-import { Field } from "formik";
 
 import "./styles.css";
+import RadioBtn from "../UI/RadioBtn";
+import FormikField from "../FormikField";
+import InputErrorMsg from "../UI/InputErrorMsg";
 
-const RadioGroup = ({
-  title,
-  variants,
-  name,
-  errors,
-  touched,
-  currentValues,
-}) => {
+const RadioGroup = ({ variants, name, errors, touched, currentValues }) => {
   const isError = touched[name] && Boolean(errors[name]);
   const errMsg = errors[name] || "Error";
   const currentValue = currentValues ? currentValues[name] : "";
   return (
-    <div className="input-container">
-      <div className="input-title-container">
-        <p className="input-title">{title}</p>
-      </div>
+    <>
       <div
         id={name}
         role="group"
@@ -28,20 +20,20 @@ const RadioGroup = ({
         {variants &&
           variants.map((value, i) => {
             return (
-              <label
+              <FormikField
+                name={name}
+                value={value}
+                checked={currentValue === value}
                 key={i}
-                className={
-                  currentValue === value ? "radio-label checked" : "radio-label"
-                }
+                invisibleError
               >
-                <Field type="radio" name={name} value={value} />
-                {value}
-              </label>
+                <RadioBtn />
+              </FormikField>
             );
           })}
       </div>
-      {isError && <p className="input-error">{errMsg}</p>}
-    </div>
+      {isError && <InputErrorMsg error={errMsg} />}
+    </>
   );
 };
 

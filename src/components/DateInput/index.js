@@ -20,7 +20,7 @@ const DateInput = ({ name, value, onBlur, isError }) => {
         placeholderText="DD/MM/YYYY"
         dateFormat="dd/MM/yyyy"
         name={name}
-        useWeekdaysShort={true}
+        useWeekdaysShort
         autoComplete="off"
         onBlur={onBlur}
       />
