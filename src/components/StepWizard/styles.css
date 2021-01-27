@@ -27,16 +27,19 @@
     background: #EAF1FD;
     padding: 16px 0;
     color: #475666;
+    cursor: pointer;
 }
 
 .step-wizard-menu__button:disabled {
     color: #9BB0CB;
     background: rgba(151,186,244,0.2);
+    cursor: initial;
 }
 
 .step-wizard-menu__button.current {
     color: #FFFFFF;
     background: #4E86E4;
+    cursor: initial;
 }
 
 .step-wizard__controls {

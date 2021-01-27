@@ -1,7 +1,12 @@
 import React from "react";
 import Button from "../Button";
 
-const StepWizardHeader = ({ steps, activeStep }) => {
+import "./styles.css";
+
+const StepWizardHeader = ({ steps, activeStep, goToStep }) => {
+  const changeStep = (i) => () => {
+    goToStep(i);
+  };
   return (
     <header className="step-wizard-header">
       <nav>
@@ -21,6 +26,7 @@ const StepWizardHeader = ({ steps, activeStep }) => {
                 <Button
                   className={"step-wizard-menu__button " + className}
                   disabled={isDisabled}
+                  onClick={changeStep(i)}
                 >
                   {i + 1 + ". " + title}
                 </Button>
