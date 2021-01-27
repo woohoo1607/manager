@@ -6,7 +6,7 @@ import RadioGroup from "../RadioGroup";
 import LayoutForm from "./LayoutForm";
 
 import "./styles.css";
-import Input from "../UI/Input";
+import Input from "../UI/Input2";
 import DateInput from "../DateInput";
 
 const validationSchema = Yup.object({

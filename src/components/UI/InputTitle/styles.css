@@ -1,0 +1,15 @@
+.input-title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1px;
+}
+
+.is-required {
+    color: #9BB0CB;
+}
+
+.input-title {
+    color: #657C9A;
+    font-weight: normal;
+}

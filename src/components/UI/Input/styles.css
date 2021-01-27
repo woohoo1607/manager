@@ -1,21 +1,3 @@
-.input-container {
-    position: relative;
-    padding-bottom: 24px;
-    max-height: 82px;
-    width: 100%;
-}
-
-.input-title-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 1px;
-}
-
-.is-required {
-    color: #9BB0CB;
-}
-
 .input {
     width: 100%;
     height: 40px;
@@ -27,29 +9,6 @@
     border: 1px solid #A1C4FF;
 }
 
-.input-title {
-    color: #657C9A;
-    font-weight: normal;
-}
-
-.input-error {
-    color: #EB5757;
-    font-size: 9px;
-    font-weight: normal;
-    padding-left: 10px;
-}
-
 .input.error {
     border: 1px solid #EB5757;
-}
-
-.input-img {
-    position: absolute;
-    top: 30px;
-    right: 6px;
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    border: none;
-    z-index: 0;
 }

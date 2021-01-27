@@ -3,9 +3,9 @@ import * as Yup from "yup";
 
 import Button from "../Button";
 import LayoutForm from "./LayoutForm";
-
 import Input from "../UI/Input";
 import PasswordInput from "../PasswordInput";
+import InputField from "../InputField";
 
 import "./styles.css";
 
@@ -18,34 +18,29 @@ const validationSchema = Yup.object({
 });
 
 const AccountFormBody = () => {
-  const inputStyle = {
-    width: "400px",
-  };
   return (
     <>
       <div>
         <div className="avatar-container"></div>
       </div>
-      <div>
-        <Input
+      <div style={{ width: "400px" }}>
+        <InputField
           isRequired
           name="username"
-          type="text"
           title="User name"
-          style={inputStyle}
+          component={Input}
         />
-        <PasswordInput
+        <InputField
           isRequired
           name="password"
           title="Password"
-          style={inputStyle}
+          component={PasswordInput}
         />
-        <PasswordInput
+        <InputField
           isRequired
           name="repeatPassword"
-          type="password"
           title="Repeat Password"
-          style={inputStyle}
+          component={PasswordInput}
         />
         <div className="account-form__button-container">
           <Button type="submit" className="form__button">

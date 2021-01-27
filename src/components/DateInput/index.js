@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import CalendarIcon from "../../icons/calendar.svg";
 import "./styles.css";
-import InputLayout from "../UI/Input/InputLayout";
+import InputLayout from "../UI/Input2/InputLayout";
 
 const MyDatePicker = ({ name, value, onBlur }) => {
   const { setFieldValue } = useFormikContext();
