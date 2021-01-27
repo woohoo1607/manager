@@ -1,9 +1,12 @@
 import React from "react";
 import * as Yup from "yup";
 
-import Button from "../Button";
-import InputItem from "./InputItem";
 import LayoutForm from "./LayoutForm";
+import Input from "../UI/Input";
+import PasswordInput from "../PasswordInput";
+import FormikField from "../FormikField";
+import InputTitle from "../UI/InputTitle";
+import InputContainer from "../UI/InputContainer";
 
 import "./styles.css";
 
@@ -15,55 +18,35 @@ const validationSchema = Yup.object({
     .required("passwords don't match"),
 });
 
-const rightItems = [
-  {
-    name: "username",
-    title: "User name",
-    type: "text",
-    className: "account-form-input",
-  },
-  {
-    name: "password",
-    title: "Password",
-    type: "password",
-    className: "account-form-input",
-  },
-  {
-    name: "repeatPassword",
-    title: "Repeat Password",
-    type: "password",
-    className: "account-form-input",
-  },
-];
-
-const LeftContent = () => {
-  return (
-    <div>
-      <div className="avatar-container"></div>
-    </div>
-  );
-};
-
-const RightContent = () => {
-  return (
-    <div>
-      {rightItems.map((item, i) => (
-        <InputItem {...item} key={i} />
-      ))}
-      <div className="account-form__button-container">
-        <Button type="submit" className="account-form__button">
-          Forward
-        </Button>
-      </div>
-    </div>
-  );
-};
-
-const AccountFormBody = (props) => {
+const AccountFormBody = ({ children }) => {
   return (
     <>
-      <LeftContent {...props} />
-      <RightContent {...props} />
+      <div>
+        <div className="avatar-container"></div>
+      </div>
+      <div>
+        <div style={{ width: "400px", marginBottom: "125px" }}>
+          <InputContainer>
+            <InputTitle title="User name" isRequired />
+            <FormikField name="username">
+              <Input />
+            </FormikField>
+          </InputContainer>
+          <InputContainer>
+            <InputTitle title="Password" isRequired />
+            <FormikField name="password">
+              <PasswordInput />
+            </FormikField>
+          </InputContainer>
+          <InputContainer>
+            <InputTitle title="Repeat Password" isRequired />
+            <FormikField name="repeatPassword">
+              <PasswordInput />
+            </FormikField>
+          </InputContainer>
+        </div>
+        {children}
+      </div>
     </>
   );
 };
@@ -76,7 +59,6 @@ const AccountForm = ({ nextStep, username, password, avatar, ...props }) => {
       initialValues={{ username, password, repeatPassword: password }}
       validationSchema={validationSchema}
       submit={nextStep}
-      className="user-form account-form"
     />
   );
 };

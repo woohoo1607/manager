@@ -1,10 +1,13 @@
 import React from "react";
 import * as Yup from "yup";
 
-import Button from "../Button";
-import InputItem from "./InputItem";
 import RadioGroup from "../RadioGroup";
 import LayoutForm from "./LayoutForm";
+import Input from "../UI/Input";
+import DateInput from "../DateInput";
+import InputTitle from "../UI/InputTitle";
+import FormikField from "../FormikField";
+import InputContainer from "../UI/InputContainer";
 
 import "./styles.css";
 
@@ -19,85 +22,58 @@ const validationSchema = Yup.object({
   gender: Yup.string().required("gender is required"),
 });
 
-const leftItems = [
-  {
-    name: "firstName",
-    title: "First name",
-    type: "text",
-    className: "profile-form-input",
-  },
-  {
-    name: "lastName",
-    title: "Last name",
-    type: "text",
-    className: "profile-form-input",
-  },
-  {
-    name: "birthDate",
-    title: "Birth date",
-    type: "date",
-    className: "profile-form-date",
-  },
-];
-
-const rightItems = [
-  {
-    name: "email",
-    title: "Email",
-    type: "email",
-    className: "profile-form-input",
-  },
-  {
-    name: "address",
-    title: "Address",
-    type: "text",
-    className: "profile-form-input",
-  },
-];
-
-const LeftContent = () => {
-  return (
-    <div>
-      {leftItems.map((item, i) => (
-        <InputItem {...item} key={i} />
-      ))}
-    </div>
-  );
-};
-
-const RightContent = ({ previousStep, ...props }) => {
-  return (
-    <div>
-      {rightItems.map((item, i) => (
-        <InputItem {...item} key={i} {...props} />
-      ))}
-      <RadioGroup
-        title="Gender"
-        variants={["Male", "Female"]}
-        name="gender"
-        {...props}
-      />
-      <div className="profile-form__button-container">
-        <Button
-          color="gray"
-          className="profile-form__button-back"
-          onClick={previousStep}
-        >
-          Back
-        </Button>
-        <Button type="submit" className="profile-form__button">
-          Forward
-        </Button>
-      </div>
-    </div>
-  );
-};
-
-const ProfileFormBody = (props) => {
+const ProfileFormBody = ({ errors, touched, currentValues, children }) => {
   return (
     <>
-      <LeftContent {...props} />
-      <RightContent {...props} />
+      <div style={{ width: "300px" }}>
+        <InputContainer>
+          <InputTitle title="First name" isRequired />
+          <FormikField name="firstName">
+            <Input />
+          </FormikField>
+        </InputContainer>
+        <InputContainer>
+          <InputTitle title="Last name" isRequired />
+          <FormikField name="lastName">
+            <Input />
+          </FormikField>
+        </InputContainer>
+        <div style={{ width: "192px" }}>
+          <InputContainer>
+            <InputTitle title="Birth date" isRequired />
+            <FormikField name="birthDate">
+              <DateInput />
+            </FormikField>
+          </InputContainer>
+        </div>
+      </div>
+      <div>
+        <div style={{ width: "300px", marginBottom: "155px" }}>
+          <InputContainer>
+            <InputTitle title="Email" isRequired />
+            <FormikField name="email">
+              <Input />
+            </FormikField>
+          </InputContainer>
+          <InputContainer>
+            <InputTitle title="Address" isRequired />
+            <FormikField name="address">
+              <Input />
+            </FormikField>
+          </InputContainer>
+          <InputContainer>
+            <InputTitle title="Gender" />
+            <RadioGroup
+              variants={["Male", "Female"]}
+              name="gender"
+              errors={errors}
+              touched={touched}
+              currentValues={currentValues}
+            />
+          </InputContainer>
+        </div>
+        {children}
+      </div>
     </>
   );
 };
@@ -110,18 +86,15 @@ const ProfileForm = ({
   email,
   address,
   gender,
-  previousStep,
   ...props
 }) => {
   return (
     <LayoutForm
       {...props}
       component={ProfileFormBody}
-      previousStep={previousStep}
       initialValues={{ firstName, lastName, birthDate, email, address, gender }}
       validationSchema={validationSchema}
       submit={nextStep}
-      className="user-form profile-form"
     />
   );
 };

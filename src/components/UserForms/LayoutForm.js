@@ -6,10 +6,11 @@ const LayoutForm = ({
   validationSchema,
   submit,
   component,
-  className,
-  previousStep,
+  styles,
+  children,
 }) => {
   const FormBody = component;
+
   return (
     <Formik
       initialValues={initialValues}
@@ -18,11 +19,11 @@ const LayoutForm = ({
     >
       {({ handleSubmit, ...props }) => {
         return (
-          <form className={className} onSubmit={handleSubmit}>
+          <form className="form" style={styles} onSubmit={handleSubmit}>
             <FormBody
               currentValues={props.values}
               {...props}
-              previousStep={previousStep}
+              children={children}
             />
           </form>
         );

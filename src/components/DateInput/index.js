@@ -4,57 +4,33 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import CalendarIcon from "../../icons/calendar.svg";
+import Button from "../Button";
 import "./styles.css";
-import InputLayout from "../Input/InputLayout";
 
-const MyDatePicker = ({ name, value, onBlur }) => {
-  const { setFieldValue } = useFormikContext();
+const DateInput = ({ name, value, onBlur, isError }) => {
   /*TODO Monday first day*/
-  return (
-    <DatePicker
-      className="input"
-      wrapperClassName="input-container"
-      selected={(value && new Date(value)) || null}
-      onChange={(val) => setFieldValue(name, val)}
-      placeholderText="DD/MM/YYYY"
-      dateFormat="dd/MM/yyyy"
-      name={name}
-      useWeekdaysShort={true}
-      autoComplete="off"
-      onBlur={onBlur}
-    />
-  );
-};
-
-const DateInput = ({
-  title,
-  name,
-  type,
-  isRequired,
-  isError,
-  errMsg,
-  ...props
-}) => {
+  const { setFieldValue } = useFormikContext();
   return (
     <>
-      <InputLayout
-        title={title}
+      <DatePicker
+        className={isError ? "input error" : "input"}
+        wrapperClassName="input-container"
+        selected={(value && new Date(value)) || null}
+        onChange={(val) => setFieldValue(name, val)}
+        placeholderText="DD/MM/YYYY"
+        dateFormat="dd/MM/yyyy"
         name={name}
-        isRequired={isRequired}
-        isError={isError}
-        errMsg={errMsg}
-        type={type}
-        {...props}
-        component={MyDatePicker}
-      >
-        <button
-          className="input-img"
-          type="button"
-          style={{
-            background: `url(${CalendarIcon}) center center no-repeat`,
-          }}
-        />
-      </InputLayout>
+        useWeekdaysShort
+        autoComplete="off"
+        onBlur={onBlur}
+      />
+      <Button
+        className="input-img"
+        type="button"
+        style={{
+          background: `url(${CalendarIcon}) center center no-repeat`,
+        }}
+      />
     </>
   );
 };

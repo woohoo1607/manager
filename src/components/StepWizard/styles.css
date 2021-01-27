@@ -27,14 +27,36 @@
     background: #EAF1FD;
     padding: 16px 0;
     color: #475666;
+    cursor: pointer;
 }
 
 .step-wizard-menu__button:disabled {
     color: #9BB0CB;
     background: rgba(151,186,244,0.2);
+    cursor: initial;
 }
 
 .step-wizard-menu__button.current {
     color: #FFFFFF;
     background: #4E86E4;
+    cursor: initial;
+}
+
+.step-wizard__controls {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row-reverse;
+}
+
+.step-wizard__button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.step-wizard__button-back {
+    background-color: #C1CFE0;
+}
+
+.step-wizard__button-success {
+    background-color: #4EE4A5;
 }
