@@ -6,10 +6,12 @@ import { addAccountData } from "./actions";
 import StepWizard from "../../components/StepWizard";
 import AccountForm from "../../components/UserForms/AccountForm";
 import ProfileForm from "../../components/UserForms/ProfileForm";
+import ContactsForm from "../../components/UserForms/ContactsForm";
 
 const steps = [
   { title: "Account", component: AccountForm },
   { title: "Profile", component: ProfileForm },
+  { title: "Contacts", component: ContactsForm },
 ];
 
 const NewUserPage = () => {
