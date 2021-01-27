@@ -5,9 +5,12 @@ import Button from "../Button";
 import RadioGroup from "../RadioGroup";
 import LayoutForm from "./LayoutForm";
 
-import "./styles.css";
-import Input from "../UI/Input2";
+import Input from "../UI/Input";
 import DateInput from "../DateInput";
+import InputTitle from "../UI/InputTitle";
+import FormikField from "../FormikField";
+import InputContainer from "../UI/InputContainer";
+import "./styles.css";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("first name is required"),
@@ -21,51 +24,43 @@ const validationSchema = Yup.object({
 });
 
 const ProfileFormBody = ({ previousStep, errors, touched, currentValues }) => {
-  const inputStyle = {
-    width: "300px",
-  };
-  const dateStyle = {
-    width: "192px",
-  };
   return (
     <>
-      <div>
-        <Input
-          isRequired
-          name="firstName"
-          type="text"
-          title="First name"
-          style={inputStyle}
-        />
-        <Input
-          isRequired
-          name="lastName"
-          type="text"
-          title="Last name"
-          style={inputStyle}
-        />
-        <DateInput
-          isRequired
-          name="birthDate"
-          title="Birth date"
-          style={dateStyle}
-        />
+      <div style={{ width: "300px" }}>
+        <InputContainer>
+          <InputTitle title="First name" isRequired />
+          <FormikField name="firstName">
+            <Input />
+          </FormikField>
+        </InputContainer>
+        <InputContainer>
+          <InputTitle title="Last name" isRequired />
+          <FormikField name="lastName">
+            <Input />
+          </FormikField>
+        </InputContainer>
+        <div style={{ width: "192px" }}>
+          <InputContainer>
+            <InputTitle title="Birth date" isRequired />
+            <FormikField name="birthDate">
+              <DateInput />
+            </FormikField>
+          </InputContainer>
+        </div>
       </div>
-      <div>
-        <Input
-          isRequired
-          name="email"
-          type="email"
-          title="Email"
-          style={inputStyle}
-        />
-        <Input
-          isRequired
-          name="address"
-          type="text"
-          title="Address"
-          style={inputStyle}
-        />
+      <div style={{ width: "300px" }}>
+        <InputContainer>
+          <InputTitle title="Email" isRequired />
+          <FormikField name="email">
+            <Input />
+          </FormikField>
+        </InputContainer>
+        <InputContainer>
+          <InputTitle title="Address" isRequired />
+          <FormikField name="address">
+            <Input />
+          </FormikField>
+        </InputContainer>
         <RadioGroup
           title="Gender"
           variants={["Male", "Female"]}

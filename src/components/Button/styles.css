@@ -7,3 +7,16 @@
     background-color: #5E97F3;
     min-width: 100px;
 }
+
+.input-img {
+    position: absolute;
+    top: 30px;
+    right: 6px;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: none;
+    z-index: 0;
+    padding: 0;
+    min-width: 0;
+}
