@@ -1,3 +1,8 @@
+.form {
+    display: flex;
+    justify-content: space-between;
+}
+
 .account-form__input {
     padding-bottom: 24px;
     max-height: 82px;
@@ -7,18 +12,6 @@
 .account-form__button-container {
     text-align: end;
     margin-top: 125px;
-}
-
-.form__button {
-
-}
-
-.form__button-back {
-    background-color: #C1CFE0;
-}
-
-.form__button-success {
-    background-color: #4EE4A5;
 }
 
 .avatar-container {
@@ -40,10 +33,4 @@
 
 .profile-form__input-date {
     width: 192px;
-}
-
-.profile-form__button-container {
-    margin-top: 155px;
-    display: flex;
-    justify-content: space-between;
 }

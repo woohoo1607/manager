@@ -6,15 +6,9 @@ const LayoutForm = ({
   validationSchema,
   submit,
   component,
-  previousStep,
-  showInRow = true,
   styles,
+  children,
 }) => {
-  const inRowStyles = {
-    display: "flex",
-    justifyContent: "space-between",
-  };
-
   const FormBody = component;
 
   return (
@@ -25,14 +19,11 @@ const LayoutForm = ({
     >
       {({ handleSubmit, ...props }) => {
         return (
-          <form
-            style={showInRow ? { ...inRowStyles, styles } : styles}
-            onSubmit={handleSubmit}
-          >
+          <form className="form" style={styles} onSubmit={handleSubmit}>
             <FormBody
               currentValues={props.values}
               {...props}
-              previousStep={previousStep}
+              children={children}
             />
           </form>
         );

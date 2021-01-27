@@ -38,3 +38,21 @@
     color: #FFFFFF;
     background: #4E86E4;
 }
+
+.step-wizard__controls {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row-reverse;
+}
+
+.step-wizard__button {
+
+}
+
+.step-wizard__button-back {
+    background-color: #C1CFE0;
+}
+
+.step-wizard__button-success {
+    background-color: #4EE4A5;
+}

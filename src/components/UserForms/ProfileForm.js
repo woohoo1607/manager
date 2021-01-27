@@ -23,7 +23,7 @@ const validationSchema = Yup.object({
   gender: Yup.string().required("gender is required"),
 });
 
-const ProfileFormBody = ({ previousStep, errors, touched, currentValues }) => {
+const ProfileFormBody = ({ errors, touched, currentValues, children }) => {
   return (
     <>
       <div style={{ width: "300px" }}>
@@ -48,28 +48,31 @@ const ProfileFormBody = ({ previousStep, errors, touched, currentValues }) => {
           </InputContainer>
         </div>
       </div>
-      <div style={{ width: "300px" }}>
-        <InputContainer>
-          <InputTitle title="Email" isRequired />
-          <FormikField name="email">
-            <Input />
-          </FormikField>
-        </InputContainer>
-        <InputContainer>
-          <InputTitle title="Address" isRequired />
-          <FormikField name="address">
-            <Input />
-          </FormikField>
-        </InputContainer>
-        <RadioGroup
-          title="Gender"
-          variants={["Male", "Female"]}
-          name="gender"
-          errors={errors}
-          touched={touched}
-          currentValues={currentValues}
-        />
-        <div className="profile-form__button-container">
+      <div>
+        <div style={{ width: "300px", marginBottom: "155px" }}>
+          <InputContainer>
+            <InputTitle title="Email" isRequired />
+            <FormikField name="email">
+              <Input />
+            </FormikField>
+          </InputContainer>
+          <InputContainer>
+            <InputTitle title="Address" isRequired />
+            <FormikField name="address">
+              <Input />
+            </FormikField>
+          </InputContainer>
+          <RadioGroup
+            title="Gender"
+            variants={["Male", "Female"]}
+            name="gender"
+            errors={errors}
+            touched={touched}
+            currentValues={currentValues}
+          />
+        </div>
+        {children}
+        {/*<div className="profile-form__button-container">
           <Button
             color="gray"
             className="form__button-back"
@@ -80,7 +83,7 @@ const ProfileFormBody = ({ previousStep, errors, touched, currentValues }) => {
           <Button type="submit" className="form__button">
             Forward
           </Button>
-        </div>
+        </div>*/}
       </div>
     </>
   );
@@ -94,14 +97,12 @@ const ProfileForm = ({
   email,
   address,
   gender,
-  previousStep,
   ...props
 }) => {
   return (
     <LayoutForm
       {...props}
       component={ProfileFormBody}
-      previousStep={previousStep}
       initialValues={{ firstName, lastName, birthDate, email, address, gender }}
       validationSchema={validationSchema}
       submit={nextStep}

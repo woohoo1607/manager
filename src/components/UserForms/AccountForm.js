@@ -19,37 +19,39 @@ const validationSchema = Yup.object({
     .required("passwords don't match"),
 });
 
-const AccountFormBody = () => {
+const AccountFormBody = ({ children }) => {
   return (
     <>
       <div>
         <div className="avatar-container"></div>
       </div>
-      <div style={{ width: "400px" }}>
-        <InputContainer>
-          <InputTitle title="User name" isRequired />
-          <FormikField name="username">
-            <Input />
-          </FormikField>
-        </InputContainer>
-        <InputContainer>
-          <InputTitle title="Password" isRequired />
-          <FormikField name="password">
-            <PasswordInput />
-          </FormikField>
-        </InputContainer>
-        <InputContainer>
-          <InputTitle title="Repeat Password" isRequired />
-          <FormikField name="repeatPassword">
-            <PasswordInput />
-          </FormikField>
-        </InputContainer>
-
-        <div className="account-form__button-container">
+      <div>
+        <div style={{ width: "400px", marginBottom: "125px" }}>
+          <InputContainer>
+            <InputTitle title="User name" isRequired />
+            <FormikField name="username">
+              <Input />
+            </FormikField>
+          </InputContainer>
+          <InputContainer>
+            <InputTitle title="Password" isRequired />
+            <FormikField name="password">
+              <PasswordInput />
+            </FormikField>
+          </InputContainer>
+          <InputContainer>
+            <InputTitle title="Repeat Password" isRequired />
+            <FormikField name="repeatPassword">
+              <PasswordInput />
+            </FormikField>
+          </InputContainer>
+        </div>
+        {children}
+        {/*        <div className="account-form__button-container">
           <Button type="submit" className="form__button">
             Forward
           </Button>
-        </div>
+        </div>*/}
       </div>
     </>
   );
