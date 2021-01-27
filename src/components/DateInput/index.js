@@ -7,13 +7,13 @@ import CalendarIcon from "../../icons/calendar.svg";
 import Button from "../Button";
 import "./styles.css";
 
-const DateInput = ({ name, value, onBlur }) => {
+const DateInput = ({ name, value, onBlur, isError }) => {
   /*TODO Monday first day*/
   const { setFieldValue } = useFormikContext();
   return (
     <>
       <DatePicker
-        className="input"
+        className={isError ? "input error" : "input"}
         wrapperClassName="input-container"
         selected={(value && new Date(value)) || null}
         onChange={(val) => setFieldValue(name, val)}
