@@ -2,7 +2,7 @@ import React from "react";
 
 import "./styles.css";
 
-const RadioBtn = ({ checked, ...props }) => {
+const RadioBtn = ({ checked, isError, ...props }) => {
   return (
     <label className={`radio-container  ${checked && " checked"}`}>
       {props.value}
