@@ -21,13 +21,7 @@ const validationSchema = Yup.object({
     "wrong fax format",
     (val) => val && val.length === 18
   ),
-  phones: Yup.array(
-    Yup.string().test(
-      "len",
-      "wrong phone format",
-      (val) => val && val.length === 18
-    )
-  ),
+  phones: Yup.array(Yup.string().min(18, "wrong phone format")),
 });
 
 const ContactsFormBody = ({ children, currentValues: { phones } }) => {
