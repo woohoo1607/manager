@@ -3,6 +3,8 @@
     height: 40px;
     border: 1px solid #C1CFE0;
     padding-left: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
 }
 
 .input:focus {

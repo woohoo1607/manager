@@ -5,8 +5,10 @@ import StepWizardHeader from "./StepWizardHeader";
 import "./styles.css";
 import StepWizardControls from "./StepWizardControls";
 
-const StepWizard = ({ data, steps, saveStep }) => {
+const StepWizard = ({ data, steps, saveStep, submit }) => {
   const [activeStep, setActiveStep] = useState(0);
+
+  const isLastStep = steps.length === activeStep + 1;
 
   const nextStep = (data) => {
     saveStep(data);
@@ -27,12 +29,11 @@ const StepWizard = ({ data, steps, saveStep }) => {
         goToStep={setActiveStep}
       />
       <div className="step-wizard-body">
-        <CurrentFrom {...data} nextStep={nextStep}>
+        <CurrentFrom {...data} submit={isLastStep ? submit : nextStep}>
           <StepWizardControls
             activeStep={activeStep}
-            stepsCount={steps.length}
+            isLastStep={isLastStep}
             previousStep={previousStep}
-            nextStep={nextStep}
           />
         </CurrentFrom>
       </div>

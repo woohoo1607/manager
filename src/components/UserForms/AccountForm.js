@@ -51,14 +51,14 @@ const AccountFormBody = ({ children }) => {
   );
 };
 
-const AccountForm = ({ nextStep, username, password, avatar, ...props }) => {
+const AccountForm = ({ submit, username, password, avatar, ...props }) => {
   return (
     <LayoutForm
       {...props}
       component={AccountFormBody}
       initialValues={{ username, password, repeatPassword: password }}
       validationSchema={validationSchema}
-      submit={nextStep}
+      submit={submit}
     />
   );
 };

@@ -129,7 +129,7 @@ const ContactsFormBody = ({ children, currentValues: { phones } }) => {
 };
 
 const ContactsForm = ({
-  nextStep,
+  submit,
   company,
   github,
   facebook,
@@ -144,7 +144,7 @@ const ContactsForm = ({
       component={ContactsFormBody}
       initialValues={{ company, github, facebook, language, fax, phones }}
       validationSchema={validationSchema}
-      submit={nextStep}
+      submit={submit}
     />
   );
 };

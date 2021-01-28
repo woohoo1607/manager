@@ -79,7 +79,7 @@ const ProfileFormBody = ({ errors, touched, currentValues, children }) => {
 };
 
 const ProfileForm = ({
-  nextStep,
+  submit,
   firstName,
   lastName,
   birthDate,
@@ -94,7 +94,7 @@ const ProfileForm = ({
       component={ProfileFormBody}
       initialValues={{ firstName, lastName, birthDate, email, address, gender }}
       validationSchema={validationSchema}
-      submit={nextStep}
+      submit={submit}
     />
   );
 };
