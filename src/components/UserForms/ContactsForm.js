@@ -10,6 +10,8 @@ import InputContainer from "../UI/InputContainer";
 import InputWithMask from "../InputWithMask";
 import SelectInput from "../SelectInput";
 import Button from "../Button";
+import { languages } from "./languagesList";
+
 import "./styles.css";
 
 const validationSchema = Yup.object({
@@ -27,105 +29,6 @@ const validationSchema = Yup.object({
     )
   ),
 });
-
-const languages = [
-  {
-    value: "en",
-    label: "English",
-  },
-  {
-    value: "fr",
-    label: "French",
-  },
-  {
-    value: "es",
-    label: "Spanish",
-  },
-  {
-    value: "ar",
-    label: "Arabic",
-  },
-  {
-    value: "cmn",
-    label: "Mandarin",
-  },
-  {
-    value: "ru",
-    label: "Russian",
-  },
-  {
-    value: "pt",
-    label: "Portuguese",
-  },
-  {
-    value: "de",
-    label: "German",
-  },
-  {
-    value: "ja",
-    label: "Japanese",
-  },
-  {
-    value: "hi",
-    label: "Hindi",
-  },
-  {
-    value: "ms",
-    label: "Malay",
-  },
-  {
-    value: "fa",
-    label: "Persian",
-  },
-  {
-    value: "sw",
-    label: "Swahili",
-  },
-  {
-    value: "ta",
-    label: "Tamil",
-  },
-  {
-    value: "it",
-    label: "Italian",
-  },
-  {
-    value: "nl",
-    label: "Dutch",
-  },
-  {
-    value: "bn",
-    label: "Bengali",
-  },
-  {
-    value: "tr",
-    label: "Turkish",
-  },
-  {
-    value: "vi",
-    label: "Vietnamese",
-  },
-  {
-    value: "pl",
-    label: "Polish",
-  },
-  {
-    value: "jv",
-    label: "Javanese",
-  },
-  {
-    value: "pa",
-    label: "Punjabi",
-  },
-  {
-    value: "th",
-    label: "Thai",
-  },
-  {
-    value: "ko",
-    label: "Korean",
-  },
-];
 
 const ContactsFormBody = ({ children, currentValues: { phones } }) => {
   const { setFieldValue } = useFormikContext();
@@ -204,7 +107,7 @@ const ContactsFormBody = ({ children, currentValues: { phones } }) => {
             </InputContainer>
           ))}
           {phones.length < 3 && (
-            <button
+            <Button
               onClick={addPhoneField}
               type="button"
               style={{
@@ -216,7 +119,7 @@ const ContactsFormBody = ({ children, currentValues: { phones } }) => {
               }}
             >
               + add phone number
-            </button>
+            </Button>
           )}
         </div>
         {children}
