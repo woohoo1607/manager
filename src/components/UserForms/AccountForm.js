@@ -2,11 +2,8 @@ import React from "react";
 import * as Yup from "yup";
 
 import LayoutForm from "./LayoutForm";
-import Input from "../UI/Input";
-import PasswordInput from "../PasswordInput";
-import FormikField from "../FormikField";
-import InputTitle from "../UI/InputTitle";
-import InputContainer from "../UI/InputContainer";
+import InputField from "../UI/InputField";
+import PasswordField from "../UI/PasswordField";
 
 import "./styles.css";
 
@@ -24,26 +21,11 @@ const AccountFormBody = ({ children }) => {
       <div>
         <div className="avatar-container"></div>
       </div>
-      <div>
-        <div style={{ width: "400px", marginBottom: "125px" }}>
-          <InputContainer>
-            <InputTitle title="User name" isRequired />
-            <FormikField name="username">
-              <Input />
-            </FormikField>
-          </InputContainer>
-          <InputContainer>
-            <InputTitle title="Password" isRequired />
-            <FormikField name="password">
-              <PasswordInput />
-            </FormikField>
-          </InputContainer>
-          <InputContainer>
-            <InputTitle title="Repeat Password" isRequired />
-            <FormikField name="repeatPassword">
-              <PasswordInput />
-            </FormikField>
-          </InputContainer>
+      <div className="with-controls" style={{ width: "400px" }}>
+        <div>
+          <InputField name="username" title="User name" isRequired />
+          <PasswordField title="Password" name="password" />
+          <PasswordField title="Repeat Password" name="repeatPassword" />
         </div>
         {children}
       </div>

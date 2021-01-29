@@ -1,4 +1,4 @@
-export const languages = [
+export const LANGUAGES = [
   {
     value: "en",
     label: "English",

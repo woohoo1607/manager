@@ -3,14 +3,11 @@ import * as Yup from "yup";
 import { useFormikContext } from "formik";
 
 import LayoutForm from "./LayoutForm";
-import Input from "../UI/Input";
-import InputTitle from "../UI/InputTitle";
-import FormikField from "../FormikField";
-import InputContainer from "../UI/InputContainer";
-import InputWithMask from "../InputWithMask";
-import SelectInput from "../SelectInput";
 import Button from "../Button";
-import { languages } from "./languagesList";
+import InputField from "../UI/InputField";
+import SelectField from "../UI/SelectField";
+import PhoneField from "../UI/PhoneField";
+import { LANGUAGES } from "./languagesList";
 
 import "./styles.css";
 
@@ -26,9 +23,8 @@ const validationSchema = Yup.object({
 
 const ContactsFormBody = ({ children, currentValues: { phones } }) => {
   const { setFieldValue } = useFormikContext();
-  const addPhoneField = () => {
-    setFieldValue("phones", [...phones, ""]);
-  };
+
+  const addPhoneField = () => setFieldValue("phones", [...phones, ""]);
 
   const deletePhoneField = (i) => () => {
     const copyPhones = [...phones];
@@ -39,48 +35,20 @@ const ContactsFormBody = ({ children, currentValues: { phones } }) => {
   return (
     <>
       <div style={{ width: "300px" }}>
-        <InputContainer>
-          <InputTitle title="Company" />
-          <FormikField name="company">
-            <Input />
-          </FormikField>
-        </InputContainer>
-        <InputContainer>
-          <InputTitle title="Github link" />
-          <FormikField name="github">
-            <Input />
-          </FormikField>
-        </InputContainer>
-        <InputContainer>
-          <InputTitle title="Facebook link" />
-          <FormikField name="facebook">
-            <Input />
-          </FormikField>
-        </InputContainer>
-        <InputContainer>
-          <InputTitle title="Main Language" isRequired />
-          <FormikField name="language">
-            <SelectInput options={languages} />
-          </FormikField>
-        </InputContainer>
+        <InputField name="company" title="Company" />
+        <InputField name="github" title="Github link" />
+        <InputField name="facebook" title="Facebook link" />
+        <SelectField
+          title="Main Language"
+          name="language"
+          options={LANGUAGES}
+        />
       </div>
-      <div>
-        <div
-          style={{ width: "300px", minHeight: "330px", marginBottom: "115px" }}
-        >
-          {/*TODO Fix warning ref*/}
-          <InputContainer>
-            <InputTitle title="Fax" />
-            <FormikField name="fax">
-              <InputWithMask type="tel" mask="+7 (999) 999 99 99" />
-            </FormikField>
-          </InputContainer>
+      <div className="with-controls">
+        <div>
+          <PhoneField title="Fax" name="fax" />
           {phones.map((phone, i) => (
-            <InputContainer key={i}>
-              <InputTitle title={`Phone #${i + 1}`} />
-              <FormikField name={`phones[${i}]`}>
-                <InputWithMask type="tel" mask="+7 (999) 999 99 99" />
-              </FormikField>
+            <PhoneField key={i} title={`Phone #${i + 1}`} name={`phones[${i}]`}>
               {phones.length > 1 && (
                 <Button
                   onClick={deletePhoneField(i)}
@@ -98,7 +66,7 @@ const ContactsFormBody = ({ children, currentValues: { phones } }) => {
                   type="button"
                 />
               )}
-            </InputContainer>
+            </PhoneField>
           ))}
           {phones.length < 3 && (
             <Button

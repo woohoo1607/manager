@@ -2,13 +2,10 @@ import React from "react";
 import * as Yup from "yup";
 
 import LayoutForm from "./LayoutForm";
-import InputTitle from "../UI/InputTitle";
-import FormikField from "../FormikField";
-import InputContainer from "../UI/InputContainer";
-import SelectInput from "../SelectInput";
-import { skills } from "./skillsList";
-import TextArea from "../UI/TextArea";
-import CheckboxGroup from "../CheckboxGroup";
+import SelectField from "../UI/SelectField";
+import TextAreaField from "../UI/TextAreaField";
+import CheckboxGroupField from "../UI/CheckboxGroupField";
+import { SKILLS } from "./skillsList";
 
 import "./styles.css";
 
@@ -30,37 +27,28 @@ const CapabilitiesFormBody = ({ children, currentValues }) => {
   return (
     <>
       <div style={{ width: "300px" }}>
-        <InputContainer>
-          <InputTitle title="Skills" isRequired />
-          <FormikField name="skills">
-            <SelectInput
-              options={skills}
-              isMulti
-              menuListHeight="132px"
-              menuIsOpen
-              currentValues={currentValues}
-            />
-          </FormikField>
-        </InputContainer>
-        <InputContainer style={{ marginTop: "145px" }}>
-          <InputTitle title="Additional information" />
-          <FormikField name="information">
-            <TextArea maxLength="300" />
-          </FormikField>
-        </InputContainer>
+        <SelectField
+          title="Skills"
+          name="skills"
+          options={SKILLS}
+          isMulti
+          menuListHeight="132px"
+          menuIsOpen
+        />
+        <TextAreaField
+          title="Additional information"
+          name="information"
+          containerStyle={{ marginTop: "145px" }}
+        />
       </div>
-      <div>
-        <div
-          style={{ width: "330px", minHeight: "330px", marginBottom: "115px" }}
-        >
-          <InputContainer>
-            <InputTitle title="My hobbies" />
-            <CheckboxGroup
-              variants={hobbies}
-              name="hobbies"
-              currentValues={currentValues}
-            />
-          </InputContainer>
+      <div className="with-controls">
+        <div>
+          <CheckboxGroupField
+            title="My hobbies"
+            variants={hobbies}
+            name="hobbies"
+            currentValues={currentValues}
+          />
         </div>
         {children}
       </div>
@@ -73,7 +61,6 @@ const CapabilitiesForm = ({
   skills,
   information,
   hobbies,
-
   ...props
 }) => {
   return (

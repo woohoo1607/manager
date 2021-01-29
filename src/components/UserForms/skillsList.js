@@ -1,4 +1,4 @@
-export const skills = [
+export const SKILLS = [
   { value: "HTML", label: "HTML" },
   { value: "CSS", label: "CSS" },
   { value: "Javascript", label: "Javascript" },

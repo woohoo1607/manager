@@ -1,13 +1,10 @@
 import React from "react";
 import * as Yup from "yup";
 
-import RadioGroup from "../RadioGroup";
 import LayoutForm from "./LayoutForm";
-import Input from "../UI/Input";
-import DateInput from "../DateInput";
-import InputTitle from "../UI/InputTitle";
-import FormikField from "../FormikField";
-import InputContainer from "../UI/InputContainer";
+import InputField from "../UI/InputField";
+import DateField from "../UI/DateField";
+import RadioGroupField from "../UI/RadioGroupField";
 
 import "./styles.css";
 
@@ -25,52 +22,26 @@ const validationSchema = Yup.object({
 const ProfileFormBody = ({ errors, touched, currentValues, children }) => {
   return (
     <>
-      <div style={{ width: "300px" }}>
-        <InputContainer>
-          <InputTitle title="First name" isRequired />
-          <FormikField name="firstName">
-            <Input />
-          </FormikField>
-        </InputContainer>
-        <InputContainer>
-          <InputTitle title="Last name" isRequired />
-          <FormikField name="lastName">
-            <Input />
-          </FormikField>
-        </InputContainer>
+      <div>
+        <InputField name="firstName" title="First name" isRequired />
+        <InputField name="lastName" title="Last name" isRequired />
+
         <div style={{ width: "192px" }}>
-          <InputContainer>
-            <InputTitle title="Birth date" isRequired />
-            <FormikField name="birthDate">
-              <DateInput />
-            </FormikField>
-          </InputContainer>
+          <DateField title="Birth date" name="birthDate" />
         </div>
       </div>
-      <div>
-        <div style={{ width: "300px", marginBottom: "155px" }}>
-          <InputContainer>
-            <InputTitle title="Email" isRequired />
-            <FormikField name="email">
-              <Input />
-            </FormikField>
-          </InputContainer>
-          <InputContainer>
-            <InputTitle title="Address" isRequired />
-            <FormikField name="address">
-              <Input />
-            </FormikField>
-          </InputContainer>
-          <InputContainer>
-            <InputTitle title="Gender" />
-            <RadioGroup
-              variants={["Male", "Female"]}
-              name="gender"
-              errors={errors}
-              touched={touched}
-              currentValues={currentValues}
-            />
-          </InputContainer>
+      <div className="with-controls">
+        <div>
+          <InputField name="email" title="Email" isRequired />
+          <InputField name="address" title="Address" isRequired />
+          <RadioGroupField
+            title="Gender"
+            variants={["Male", "Female"]}
+            name="gender"
+            errors={errors}
+            touched={touched}
+            currentValues={currentValues}
+          />
         </div>
         {children}
       </div>

@@ -32,11 +32,11 @@
     border: 1px solid #C1CFE0;
 }
 
-.radio-container:hover input ~ .checkmark {
+.radio-container:hover .checkmark {
     background-color: #ccc;
 }
 
-.radio-container:hover input ~ .checkmark.checked, .checkmark.checked {
+.radio-container:hover .checkmark.checked, .checkmark.checked {
     background-color: #4E86E4;
     border: 3px solid #C1CFE0;
 }
@@ -47,7 +47,7 @@
     display: none;
 }
 
-.radio-container input:checked ~ .checkmark:after {
+.radio-container .checkmark:after {
     display: block;
 }
 

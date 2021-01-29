@@ -13,3 +13,14 @@
     background: url("../../icons/list-of-users.svg") 50% 105% no-repeat;
     background-size: 100px 155px;
 }
+
+.form > div {
+    width: 300px;
+    min-height: 500px;
+}
+
+.with-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

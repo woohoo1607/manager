@@ -28,11 +28,11 @@
     border: 1px solid #C1CFE0;
 }
 
-.checkbox-container:hover input ~ .checkmark-box {
+.checkbox-container:hover .checkmark-box {
     background-color: #ccc;
 }
 
-.checkbox-container:hover input ~ .checkmark-box.checked, .checkmark-box.checked {
+.checkbox-container:hover .checkmark-box.checked, .checkmark-box.checked {
     background-color: #4E86E4;
     border: 3px solid #C1CFE0;
 }
@@ -43,7 +43,7 @@
     display: none;
 }
 
-.checkbox-container input:checked ~ .checkmark-box:after {
+.checkbox-container .checkmark-box:after {
     display: block;
 }
 

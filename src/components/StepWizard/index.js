@@ -5,7 +5,12 @@ import StepWizardHeader from "./StepWizardHeader";
 import "./styles.css";
 import StepWizardControls from "./StepWizardControls";
 
-const StepWizard = ({ data, steps, saveStep, submit }) => {
+const StepWizard = ({
+  data = [],
+  steps = [],
+  saveStep = () => {},
+  submit = () => {},
+}) => {
   const [activeStep, setActiveStep] = useState(0);
 
   const isLastStep = steps.length === activeStep + 1;

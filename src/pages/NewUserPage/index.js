@@ -28,7 +28,6 @@ const NewUserPage = () => {
 
   const submit = (data) => {
     saveStep(data);
-    console.log(user);
   };
 
   return (
