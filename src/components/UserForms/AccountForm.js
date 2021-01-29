@@ -4,10 +4,16 @@ import * as Yup from "yup";
 import LayoutForm from "./LayoutForm";
 import InputField from "../UI/InputField";
 import PasswordField from "../UI/PasswordField";
+import FileInputField from "../UI/FileInputField";
 
 import "./styles.css";
 
 const validationSchema = Yup.object({
+  avatar: Yup.mixed().test(
+    "fileSize",
+    "the file size must not exceed 1 MB",
+    (value) => (value ? value?.size <= 1048576 : true)
+  ),
   username: Yup.string().required("user name is required"),
   password: Yup.string().required("password is required"),
   repeatPassword: Yup.string()
@@ -15,11 +21,25 @@ const validationSchema = Yup.object({
     .required("passwords don't match"),
 });
 
-const AccountFormBody = ({ children }) => {
+const AccountFormBody = ({
+  children,
+  currentValues: { avatar: newAvatar },
+  values: { avatar },
+}) => {
+  const isAvatar = !!avatar || !!newAvatar;
   return (
     <>
-      <div>
-        <div className="avatar-container"></div>
+      <div style={{ textAlign: "center" }}>
+        <div className="avatar-container">
+          {isAvatar && (
+            <img
+              className="avatar"
+              src={URL.createObjectURL(!!newAvatar ? newAvatar : avatar)}
+              alt="avatar"
+            />
+          )}
+        </div>
+        <FileInputField name="avatar" />
       </div>
       <div className="with-controls" style={{ width: "400px" }}>
         <div>
@@ -38,7 +58,7 @@ const AccountForm = ({ submit, username, password, avatar, ...props }) => {
     <LayoutForm
       {...props}
       component={AccountFormBody}
-      initialValues={{ username, password, repeatPassword: password }}
+      initialValues={{ username, password, repeatPassword: password, avatar }}
       validationSchema={validationSchema}
       submit={submit}
     />
