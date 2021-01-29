@@ -3,9 +3,11 @@ import React from "react";
 import "./styles.css";
 import Button from "../Button";
 
-const StepWizardControls = ({ activeStep, stepsCount, previousStep }) => {
-  const isLastStep = stepsCount === activeStep + 1;
-
+const StepWizardControls = ({
+  activeStep = 0,
+  isLastStep = false,
+  previousStep,
+}) => {
   return (
     <div className="step-wizard__controls">
       <Button

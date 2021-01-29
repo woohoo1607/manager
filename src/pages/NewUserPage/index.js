@@ -6,10 +6,14 @@ import { addAccountData } from "./actions";
 import StepWizard from "../../components/StepWizard";
 import AccountForm from "../../components/UserForms/AccountForm";
 import ProfileForm from "../../components/UserForms/ProfileForm";
+import ContactsForm from "../../components/UserForms/ContactsForm";
+import CapabilitiesForm from "../../components/UserForms/CapabilitiesForm";
 
 const steps = [
   { title: "Account", component: AccountForm },
   { title: "Profile", component: ProfileForm },
+  { title: "Contacts", component: ContactsForm },
+  { title: "Capabilities", component: CapabilitiesForm },
 ];
 
 const NewUserPage = () => {
@@ -22,9 +26,18 @@ const NewUserPage = () => {
     [dispatch]
   );
 
+  const submit = (data) => {
+    saveStep(data);
+  };
+
   return (
     <TemplatePage title="Adding new user">
-      <StepWizard steps={steps} data={user} saveStep={saveStep} />
+      <StepWizard
+        steps={steps}
+        data={user}
+        saveStep={saveStep}
+        submit={submit}
+      />
     </TemplatePage>
   );
 };

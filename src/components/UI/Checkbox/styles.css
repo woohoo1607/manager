@@ -1,4 +1,4 @@
-.radio-container {
+.checkbox-container {
     display: block;
     position: relative;
     padding-left: 25px;
@@ -7,13 +7,10 @@
     margin-right: 40px;
     color: #657C9A;
     font-family: 'Roboto', sans-serif;
+    margin-top: 8px;
 }
 
-.radio-container.checked {
-    color: #000000;
-}
-
-.radio-container input {
+.checkbox-container input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -21,37 +18,36 @@
     width: 0;
 }
 
-.checkmark {
+.checkmark-box {
     position: absolute;
-    top: 0;
+    top: 3px;
     left: 0;
-    height: 17px;
-    width: 17px;
-    border-radius: 50%;
+    height: 13px;
+    width: 13px;
     background-color: #FFFFFF;
     border: 1px solid #C1CFE0;
 }
 
-.radio-container:hover .checkmark {
+.checkbox-container:hover .checkmark-box {
     background-color: #ccc;
 }
 
-.radio-container:hover .checkmark.checked, .checkmark.checked {
+.checkbox-container:hover .checkmark-box.checked, .checkmark-box.checked {
     background-color: #4E86E4;
     border: 3px solid #C1CFE0;
 }
 
-.checkmark:after {
+.checkmark-box:after {
     content: "";
     position: absolute;
     display: none;
 }
 
-.radio-container .checkmark:after {
+.checkbox-container .checkmark-box:after {
     display: block;
 }
 
-.radio-container .checkmark:after {
+.checkbox-container .checkmark-box:after {
     left: 9px;
     top: 5px;
     width: 5px;

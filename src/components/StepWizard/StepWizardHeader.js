@@ -3,7 +3,7 @@ import Button from "../Button";
 
 import "./styles.css";
 
-const StepWizardHeader = ({ steps, activeStep, goToStep }) => {
+const StepWizardHeader = ({ steps = [], activeStep = 0, goToStep }) => {
   const changeStep = (i) => () => goToStep(i);
   return (
     <header className="step-wizard-header">
