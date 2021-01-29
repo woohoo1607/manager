@@ -8,11 +8,13 @@ import FileInputField from "../UI/FileInputField";
 
 import "./styles.css";
 
+const MAX_PHOTO_SIZE_1_MB = 1048576;
+
 const validationSchema = Yup.object({
   avatar: Yup.mixed().test(
     "fileSize",
     "the file size must not exceed 1 MB",
-    (value) => (value ? value?.size <= 1048576 : true)
+    (value) => (value ? value?.size <= MAX_PHOTO_SIZE_1_MB : true)
   ),
   username: Yup.string().required("user name is required"),
   password: Yup.string().required("password is required"),
