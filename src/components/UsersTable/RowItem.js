@@ -8,6 +8,7 @@ import Button from "../Button";
 
 const RowItem = ({
   data: {
+    id = 0,
     firstName = "",
     lastName = "",
     username = "",
@@ -20,6 +21,7 @@ const RowItem = ({
   index = 0,
   activeRow = -1,
   changeActiveRow = () => {},
+  goToUserPage = () => {},
 }) => {
   const isActive = index === activeRow;
   return (
@@ -51,7 +53,9 @@ const RowItem = ({
       <TableCell>{phones[0] || email}</TableCell>
       <TableCell>{lastUpdate}</TableCell>
       <TableCell>
-        {!isActive && <EditIcon style={{ cursor: "pointer" }} />}
+        {!isActive && (
+          <EditIcon style={{ cursor: "pointer" }} onClick={goToUserPage(id)} />
+        )}
       </TableCell>
       <TableCell>
         {!isActive && (
@@ -74,7 +78,7 @@ const RowItem = ({
               backgroundColor: "#FFFFFF",
               cursor: "pointer",
             }}
-            onClick={deleteUser(index)}
+            onClick={deleteUser(id)}
           >
             x delete
           </Button>

@@ -7,7 +7,11 @@ import TableRow from "../UI/TableRow";
 import TableHeadCell from "../UI/TableHeadCell";
 import RowItem from "./RowItem";
 
-const UsersTable = ({ data = [], deleteUser = () => {} }) => {
+const UsersTable = ({
+  data = [],
+  deleteUser = () => {},
+  goToUserPage = () => {},
+}) => {
   const tableRef = useRef(null);
 
   const [activeRow, setActiveRow] = useState(-1);
@@ -47,6 +51,7 @@ const UsersTable = ({ data = [], deleteUser = () => {} }) => {
             deleteUser={deleteUser}
             changeActiveRow={changeActiveRow}
             activeRow={activeRow}
+            goToUserPage={goToUserPage}
           />
         ))}
       </TableBody>
