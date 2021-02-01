@@ -14,7 +14,7 @@ const validationSchema = Yup.object({
   avatar: Yup.mixed().test(
     "fileSize",
     "the file size must not exceed 1 MB",
-    (value) => (value ? value?.size <= MAX_PHOTO_SIZE : true)
+    (value) => (value ? value.size <= MAX_PHOTO_SIZE : true)
   ),
   username: Yup.string().required("user name is required"),
   password: Yup.string().required("password is required"),
