@@ -24,11 +24,12 @@ const validationSchema = Yup.object({
 });
 
 const AccountFormBody = ({ children, values: { avatar } }) => {
+  const isAvatar = avatar instanceof Blob;
   return (
     <>
       <div style={{ textAlign: "center" }}>
         <div className="avatar-container">
-          {avatar && (
+          {isAvatar && (
             <img
               className="avatar"
               src={URL.createObjectURL(avatar)}
