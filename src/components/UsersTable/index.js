@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Table from "../UI/Table";
 import TableHead from "../UI/TableHead";
@@ -8,8 +8,25 @@ import TableHeadCell from "../UI/TableHeadCell";
 import RowItem from "./RowItem";
 
 const UsersTable = ({ data = [], deleteUser = () => {} }) => {
+  const tableRef = useRef(null);
+
+  const [activeRow, setActiveRow] = useState(-1);
+  const changeActiveRow = (i) => () => setActiveRow(i);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (tableRef.current && !tableRef.current.contains(event.target)) {
+        setActiveRow(-1);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [tableRef, activeRow]);
+
   return (
-    <Table>
+    <Table ref={tableRef}>
       <TableHead>
         <TableRow>
           <TableHeadCell style={{ width: "7.2%" }} />
@@ -23,7 +40,14 @@ const UsersTable = ({ data = [], deleteUser = () => {} }) => {
       </TableHead>
       <TableBody>
         {data.map((item, i) => (
-          <RowItem key={i} data={item} index={i} deleteUser={deleteUser} />
+          <RowItem
+            key={i}
+            data={item}
+            index={i}
+            deleteUser={deleteUser}
+            changeActiveRow={changeActiveRow}
+            activeRow={activeRow}
+          />
         ))}
       </TableBody>
     </Table>

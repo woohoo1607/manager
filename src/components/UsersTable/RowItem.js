@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import TableRow from "../UI/TableRow";
 import TableCell from "../UI/TableCell";
 import { ReactComponent as UserIcon } from "../../icons/list-of-users.svg";
@@ -18,12 +18,10 @@ const RowItem = ({
   },
   deleteUser = () => {},
   index = 0,
+  activeRow = -1,
+  changeActiveRow = () => {},
 }) => {
-  const [isActive, setIsActive] = useState(false);
-  const changeStatus = () => {
-    setIsActive(!isActive);
-  };
-
+  const isActive = index === activeRow;
   return (
     <TableRow className={isActive ? "active" : ""}>
       <TableCell>
@@ -57,7 +55,10 @@ const RowItem = ({
       </TableCell>
       <TableCell>
         {!isActive && (
-          <CloseIcon style={{ cursor: "pointer" }} onClick={changeStatus} />
+          <CloseIcon
+            style={{ cursor: "pointer" }}
+            onClick={changeActiveRow(index)}
+          />
         )}
       </TableCell>
       {isActive && (
