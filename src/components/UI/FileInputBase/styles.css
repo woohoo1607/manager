@@ -1,0 +1,19 @@
+.file-input {
+    color: #9BB0CB;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.file-input > input {
+    display: none;
+}
+
+.input:focus {
+    border: 1px solid #A1C4FF;
+}
+
+.input.error {
+    border: 1px solid #EB5757;
+}
