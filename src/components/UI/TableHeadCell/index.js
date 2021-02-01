@@ -2,8 +2,8 @@ import React from "react";
 
 import "./styles.css";
 
-const TableHeadCell = ({ children, style = {} }) => (
-  <th className="table__head-cell" style={style}>
+const TableHeadCell = ({ children, ...props }) => (
+  <th className="table__head-cell" {...props}>
     {children}
   </th>
 );

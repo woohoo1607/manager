@@ -2,8 +2,8 @@ import React from "react";
 
 import "./styles.css";
 
-const TableCell = ({ children, style = {} }) => (
-  <td className="table__cell" style={style}>
+const TableCell = ({ children, ...props }) => (
+  <td className="table__cell" {...props}>
     {children}
   </td>
 );

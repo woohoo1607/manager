@@ -2,8 +2,8 @@ import React from "react";
 
 import "./styles.css";
 
-const TableBody = ({ children, style = {} }) => (
-  <tbody className="table__body" style={style}>
+const TableBody = ({ children, ...props }) => (
+  <tbody className="table__body" {...props}>
     {children}
   </tbody>
 );
