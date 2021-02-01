@@ -1,4 +1,10 @@
 .table__body {
     width: 100%;
     background: #FFFFFF;
+    border-top: 29px solid #FFFFFF;
+    position: relative;
+}
+
+.table__body tr:nth-child(2n+1) {
+    background-color: rgba(231, 240, 255, 1);
 }

@@ -55,10 +55,12 @@ const HomePage = () => {
 
   const createNewUser = () => push(`/users/new`);
 
+  const deleteUser = (i) => () => {};
+
   return (
     <TemplatePage title="List of users">
       <>
-        <UsersTable data={data} />
+        <UsersTable data={data} deleteUser={deleteUser} />
         {!data.length && (
           <div className="no-data">
             <h2 className="title title-secondary">No users here:(</h2>
