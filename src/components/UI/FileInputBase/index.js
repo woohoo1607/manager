@@ -2,9 +2,9 @@ import React from "react";
 
 import "./styles.css";
 
-const FileInputBase = ({ value = "add avatar", onChange = () => {} }) => (
+const FileInputBase = ({ title = "add avatar", onChange = () => {} }) => (
   <label className="file-input">
-    <input type="file" onChange={onChange} />+ {value}
+    <input type="file" onChange={onChange} />+ {title}
   </label>
 );
 

@@ -7,7 +7,7 @@ const FileInput = ({ name = "", title = "add avatar" }) => {
   return (
     <FileInputBase
       name={name}
-      value={title}
+      title={title}
       onChange={(event) => {
         setFieldValue(name, event.currentTarget.files[0]);
       }}

@@ -8,11 +8,13 @@ import FileInputField from "../UI/FileInputField";
 
 import "./styles.css";
 
+const MAX_PHOTO_SIZE = 1048576;
+
 const validationSchema = Yup.object({
   avatar: Yup.mixed().test(
     "fileSize",
     "the file size must not exceed 1 MB",
-    (value) => (value ? value?.size <= 1048576 : true)
+    (value) => (value ? value?.size <= MAX_PHOTO_SIZE : true)
   ),
   username: Yup.string().required("user name is required"),
   password: Yup.string().required("password is required"),
@@ -21,20 +23,15 @@ const validationSchema = Yup.object({
     .required("passwords don't match"),
 });
 
-const AccountFormBody = ({
-  children,
-  currentValues: { avatar: newAvatar },
-  values: { avatar },
-}) => {
-  const isAvatar = !!avatar || !!newAvatar;
+const AccountFormBody = ({ children, values: { avatar } }) => {
   return (
     <>
       <div style={{ textAlign: "center" }}>
         <div className="avatar-container">
-          {isAvatar && (
+          {avatar && (
             <img
               className="avatar"
-              src={URL.createObjectURL(!!newAvatar ? newAvatar : avatar)}
+              src={URL.createObjectURL(avatar)}
               alt="avatar"
             />
           )}
