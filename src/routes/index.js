@@ -5,6 +5,7 @@ import NewUserPage from "../pages/NewUserPage";
 import TemplatePage from "../pages/TemplatePage";
 import HomePage from "../pages/HomePage";
 import UserPage from "../pages/UserPage";
+import EditUserPage from "../pages/EditUserPage";
 
 const Routes = () => {
   return (
@@ -22,8 +23,8 @@ const Routes = () => {
         render={(props) => <UserPage {...props} />}
       />
       <Route
-        path="/users/:id/edit"
-        render={(props) => <TemplatePage {...props} />}
+        path="/users/:id/edit/"
+        render={(props) => <EditUserPage {...props} />}
       />
     </Switch>
   );
