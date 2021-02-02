@@ -2,13 +2,32 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Header from "../../components/Header";
+import InternalLink from "../../components/UI/InternalLink";
+
 import "./styles.css";
 
-const TemplatePage = ({ title, children }) => {
+const TemplatePage = ({
+  title = "",
+  backLink = "",
+  linkTitle = "",
+  children,
+}) => {
   return (
     <>
       <Header />
-      <h2 className="title">{title}</h2>
+      <div className="title-container">
+        {backLink && (
+          <InternalLink
+            link={backLink}
+            title={linkTitle}
+            className="title-secondary"
+            icon="back"
+          />
+        )}
+        <h2 className="title" style={backLink ? {} : { textAlign: "center" }}>
+          {title}
+        </h2>
+      </div>
       <div className="content">{children}</div>
     </>
   );

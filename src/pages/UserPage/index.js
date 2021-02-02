@@ -2,9 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 import TemplatePage from "../TemplatePage";
+import UserInformation from "../../components/UserInformation";
 
 import "./styles.css";
-import UserInformation from "../../components/UserInformation";
 
 const user = {
   id: 1,
@@ -13,16 +13,16 @@ const user = {
   password: "12345678",
   firstName: "Maksym",
   lastName: "Volkov",
-  birthDate: "16.07.1993",
+  birthDate: "1993-07-15T22:00:00.000Z",
   email: "woohoo1607@gmail.com",
   address: "г. Сумы, ул. Ивани Сирко, 15",
   gender: "Male",
   company: "Brocoders",
   github: "github/woohoo1607",
-  facebook: "facebook/woohoo1607",
+  facebook: "https://facebook.com/woohoo1607",
   language: "English",
   fax: "+7 (233) 333 33 33",
-  phones: ["+7 (233) 333 33 33"],
+  phones: ["+7 (233) 777 33 33"],
   skills: ["React", "Javascript", "NodeJS"],
   information: "Information about me",
   hobbies: ["Art", "Sport, fitness, aerobica and staff like that"],
@@ -31,11 +31,12 @@ const user = {
 const UserPage = () => {
   const { push } = useHistory();
 
-  const goToUsersList = () => push(`/users/new`);
+  const goToEditUser = (tab = "") => () =>
+    push(`/users/${user.id}/edit/${tab}`);
 
   return (
-    <TemplatePage title="User Name">
-      <UserInformation user={user} />
+    <TemplatePage title="User Name" backLink="/" linkTitle="Users List">
+      <UserInformation user={user} goToEditUser={goToEditUser} />
     </TemplatePage>
   );
 };

@@ -1,13 +1,22 @@
+.title-container {
+    padding: 56px 0 45px 0;
+    width: 970px;
+    margin: 0 auto;
+    display: flex;
+    font-weight: bold;
+    align-items: flex-end;
+}
+
 .title {
     color: #475666;
     font-size: 35px;
-    text-align: center;
-    font-weight: bold;
-    margin: 56px 0 45px 0;
+    flex-grow: 5;
 }
 
 .title-secondary {
     color: #9BB0CB;
+    font-size: 24px;
+    flex-grow: 3;
 }
 
 .content {
