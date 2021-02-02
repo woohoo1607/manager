@@ -1,0 +1,8 @@
+.no-data {
+    padding: 100px 0 134px 0;
+    text-align: center;
+}
+
+.no-data > .button {
+    cursor: pointer;
+}

@@ -1,0 +1,15 @@
+.table-row {
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+.table-row.active {
+    transform: translateX(-70px);
+}
+
+.table-row.active > .table__cell {
+    opacity: 0.5;
+}
+
+.table-row.active .table__cell:last-child {
+    opacity: 1;
+}

@@ -9,7 +9,7 @@ const TemplatePage = ({ title, children }) => {
     <>
       <Header />
       <h2 className="title">{title}</h2>
-      {children}
+      <div className="content">{children}</div>
     </>
   );
 };

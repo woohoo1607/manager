@@ -5,3 +5,13 @@
     font-weight: bold;
     margin: 56px 0 45px 0;
 }
+
+.title-secondary {
+    color: #9BB0CB;
+}
+
+.content {
+    width: 970px;
+    margin: 0 auto;
+    background: #FAFCFF;
+}
