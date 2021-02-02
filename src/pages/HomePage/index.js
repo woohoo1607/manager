@@ -9,6 +9,7 @@ import "./styles.css";
 
 const data = [
   {
+    id: 1,
     avatar: null,
     firstName: "Name 1",
     lastName: "Surname 1",
@@ -19,6 +20,7 @@ const data = [
     lastUpdate: "",
   },
   {
+    id: 2,
     avatar: null,
     firstName: "Vova",
     lastName: "Korshunov",
@@ -29,6 +31,7 @@ const data = [
     lastUpdate: "",
   },
   {
+    id: 3,
     avatar: null,
     firstName: "Alex",
     lastName: "Green",
@@ -39,6 +42,7 @@ const data = [
     lastUpdate: "",
   },
   {
+    id: 4,
     avatar: null,
     firstName: "Viktor",
     lastName: "Morozov",
@@ -55,12 +59,18 @@ const HomePage = () => {
 
   const createNewUser = () => push(`/users/new`);
 
-  const deleteUser = (i) => () => {};
+  const deleteUser = (id) => () => {};
+
+  const goToUserPage = (id) => () => push(`/users/${id}`);
 
   return (
     <TemplatePage title="List of users">
       <>
-        <UsersTable data={data} deleteUser={deleteUser} />
+        <UsersTable
+          data={data}
+          deleteUser={deleteUser}
+          goToUserPage={goToUserPage}
+        />
         {!data.length && (
           <div className="no-data">
             <h2 className="title title-secondary">No users here:(</h2>

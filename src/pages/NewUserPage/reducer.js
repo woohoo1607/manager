@@ -15,7 +15,7 @@ const initialState = {
   facebook: "",
   language: "",
   fax: "",
-  phones: [""],
+  phones: [],
   skills: [],
   information: "",
   hobbies: [],

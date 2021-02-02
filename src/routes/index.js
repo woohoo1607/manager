@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import NewUserPage from "../pages/NewUserPage";
 import TemplatePage from "../pages/TemplatePage";
 import HomePage from "../pages/HomePage";
+import UserPage from "../pages/UserPage";
 
 const Routes = () => {
   return (
@@ -18,7 +19,7 @@ const Routes = () => {
       <Route
         exact
         path="/users/:id"
-        render={(props) => <TemplatePage {...props} />}
+        render={(props) => <UserPage {...props} />}
       />
       <Route
         path="/users/:id/edit"

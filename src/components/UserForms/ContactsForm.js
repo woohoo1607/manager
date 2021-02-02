@@ -104,7 +104,14 @@ const ContactsForm = ({
     <LayoutForm
       {...props}
       component={ContactsFormBody}
-      initialValues={{ company, github, facebook, language, fax, phones }}
+      initialValues={{
+        company,
+        github,
+        facebook,
+        language,
+        fax,
+        phones: phones.length ? phones : [""],
+      }}
       validationSchema={validationSchema}
       submit={submit}
     />

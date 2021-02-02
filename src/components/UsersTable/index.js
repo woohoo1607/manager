@@ -7,7 +7,11 @@ import TableRow from "../UI/TableRow";
 import TableHeadCell from "../UI/TableHeadCell";
 import RowItem from "./RowItem";
 
-const UsersTable = ({ data = [], deleteUser = () => {} }) => {
+const UsersTable = ({
+  data = [],
+  deleteUser = () => {},
+  goToUserPage = () => {},
+}) => {
   const tableRef = useRef(null);
 
   const [activeRow, setActiveRow] = useState(-1);
@@ -29,13 +33,15 @@ const UsersTable = ({ data = [], deleteUser = () => {} }) => {
     <Table ref={tableRef}>
       <TableHead>
         <TableRow>
-          <TableHeadCell style={{ width: "7.2%" }} />
-          <TableHeadCell style={{ width: "23.7%" }}>name</TableHeadCell>
-          <TableHeadCell style={{ width: "20.6%" }}>company</TableHeadCell>
-          <TableHeadCell style={{ width: "27.8%" }}>contacts</TableHeadCell>
-          <TableHeadCell style={{ width: "13.2%" }}>last update</TableHeadCell>
-          <TableHeadCell style={{ width: "3.75%" }} />
-          <TableHeadCell style={{ width: "3.75%" }} />
+          <TableHeadCell style={{ minWidth: "7.2%" }} />
+          <TableHeadCell style={{ minWidth: "23.7%" }}>name</TableHeadCell>
+          <TableHeadCell style={{ minWidth: "20.6%" }}>company</TableHeadCell>
+          <TableHeadCell style={{ minWidth: "27.8%" }}>contacts</TableHeadCell>
+          <TableHeadCell style={{ minWidth: "13.2%" }}>
+            last update
+          </TableHeadCell>
+          <TableHeadCell style={{ minWidth: "3.75%" }} />
+          <TableHeadCell style={{ minWidth: "3.75%" }} />
         </TableRow>
       </TableHead>
       <TableBody>
@@ -47,6 +53,7 @@ const UsersTable = ({ data = [], deleteUser = () => {} }) => {
             deleteUser={deleteUser}
             changeActiveRow={changeActiveRow}
             activeRow={activeRow}
+            goToUserPage={goToUserPage}
           />
         ))}
       </TableBody>
