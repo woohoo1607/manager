@@ -3,8 +3,20 @@ import Button from "../Button";
 
 import "./styles.css";
 
-const StepWizardHeader = ({ steps = [], activeStep = 0, goToStep }) => {
-  const changeStep = (i) => () => goToStep(i);
+const StepWizardHeader = ({
+  steps = [],
+  activeStep = 0,
+  goToStep = () => {},
+  isEditMode = false,
+  changeUrl = () => {},
+  findTitleTab = () => {},
+  allowedTabs = [],
+}) => {
+  const changeStep = (i) => () => {
+    goToStep(i);
+    changeUrl(findTitleTab(i));
+  };
+
   return (
     <header className="step-wizard-header">
       <nav>
@@ -14,7 +26,7 @@ const StepWizardHeader = ({ steps = [], activeStep = 0, goToStep }) => {
             let className;
             if (activeStep === i) {
               className = "current";
-            } else if (activeStep < i) {
+            } else if (!isEditMode && !allowedTabs.includes(i)) {
               isDisabled = true;
             } else {
               className = "primary";
