@@ -2,9 +2,9 @@ import React from "react";
 
 import "./styles.css";
 
-const ExternalLink = ({ link = "", title = "", ...props }) => (
+const ExternalLink = ({ link = "#", title = "", ...props }) => (
   <a
-    href={`${link}`}
+    href={link}
     className="external-link"
     target="_blank"
     rel="noreferrer"

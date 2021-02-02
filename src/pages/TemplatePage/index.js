@@ -16,17 +16,18 @@ const TemplatePage = ({
     <>
       <Header />
       <div className="title-container">
-        {backLink && (
-          <InternalLink
-            link={backLink}
-            title={linkTitle}
-            className="title-secondary"
-            icon="back"
-          />
-        )}
-        <h2 className="title" style={backLink ? {} : { textAlign: "center" }}>
-          {title}
-        </h2>
+        <div>
+          {backLink && (
+            <InternalLink
+              pathname={backLink}
+              title={linkTitle}
+              className="title-secondary"
+              icon="back"
+            />
+          )}
+        </div>
+        <h2 className="title">{title}</h2>
+        <div></div>
       </div>
       <div className="content">{children}</div>
     </>
