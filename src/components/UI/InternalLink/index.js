@@ -5,14 +5,14 @@ import { ReactComponent as BackIcon } from "../../../icons/back.svg";
 import "./styles.css";
 
 const InternalLink = ({
-  link = "/",
+  pathname = "/",
   title = "",
   className = "",
   icon = "",
   ...props
 }) => (
   <NavLink
-    to={{ pathname: `${link}` }}
+    to={{ pathname }}
     className={`internal-link ${className ? className : ""}`}
     {...props}
   >

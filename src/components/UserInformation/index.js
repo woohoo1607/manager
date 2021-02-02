@@ -9,7 +9,7 @@ import "./styles.css";
 
 const UserInformation = ({
   user: {
-    id = 0,
+    id,
     username = "",
     firstName = "",
     lastName = "",
@@ -54,7 +54,7 @@ const UserInformation = ({
             value={email}
             link={`mailto: ${email}`}
           />
-          {address && <InformationItem title="Address" value={address} />}
+          <InformationItem title="Address" value={address} />
         </InformationBlock>
 
         <InformationBlock
@@ -68,7 +68,7 @@ const UserInformation = ({
             value={facebook}
             link={facebook}
           />
-          {phones[0] &&
+          {phones.length ? (
             phones.map((phone, i) => (
               <InformationItem
                 key={i}
@@ -76,7 +76,10 @@ const UserInformation = ({
                 value={phone}
                 link={`tel: ${phone}`}
               />
-            ))}
+            ))
+          ) : (
+            <InformationItem title={`Phone #1`} />
+          )}
         </InformationBlock>
 
         <InformationBlock
@@ -84,9 +87,7 @@ const UserInformation = ({
           goToEditUser={goToEditUser("capabilities")}
         >
           <InformationItem title="Skills" value={skills.join(", ")} />
-          {hobbies && (
-            <InformationItem title="Hobbies" value={hobbies.join(", ")} />
-          )}
+          <InformationItem title="Hobbies" value={hobbies.join(", ")} />
         </InformationBlock>
       </div>
     </div>

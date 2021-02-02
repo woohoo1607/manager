@@ -5,18 +5,18 @@
     display: flex;
     font-weight: bold;
     align-items: flex-end;
+    justify-content: space-between;
 }
 
 .title {
     color: #475666;
     font-size: 35px;
-    flex-grow: 5;
+    text-align: center;
 }
 
 .title-secondary {
     color: #9BB0CB;
     font-size: 24px;
-    flex-grow: 3;
 }
 
 .content {
