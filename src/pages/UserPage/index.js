@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 import TemplatePage from "../TemplatePage";
 import UserInformation from "../../components/UserInformation";
 
-import "./styles.css";
-
 const user = {
   id: 1,
   avatar: null,
