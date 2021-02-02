@@ -6,10 +6,10 @@
     transform: translateX(-70px);
 }
 
-.table-row.active > .table__cell {
+.table-row.active > .table-cell {
     opacity: 0.5;
 }
 
-.table-row.active .table__cell:last-child {
+.table-row.active .table-cell:last-child {
     opacity: 1;
 }
