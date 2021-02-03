@@ -31,17 +31,14 @@ const UserInformation = ({
         <UserIcon className="user-information-img" />
       </div>
       <div className="user-information">
-        <InformationBlock
-          title="Account"
-          goToEditUser={goToEditUser("account")}
-        >
+        <InformationBlock title="Account" handleClick={goToEditUser("account")}>
           <InformationItem title="User name" value={username} />
           <InformationItem title="Password" value="********" />
         </InformationBlock>
 
         <InformationBlock
           title="Personal"
-          goToEditUser={goToEditUser("profile")}
+          handleClick={goToEditUser("profile")}
         >
           <InformationItem title="First name" value={firstName} />
           <InformationItem title="Last name" value={lastName} />
@@ -59,7 +56,7 @@ const UserInformation = ({
 
         <InformationBlock
           title="Contacts"
-          goToEditUser={goToEditUser("contacts")}
+          handleClick={goToEditUser("contacts")}
         >
           <InformationItem title="Company" value={company} />
           <InformationItem title="Fax" value={fax} link={`tel: ${fax}`} />
@@ -84,7 +81,7 @@ const UserInformation = ({
 
         <InformationBlock
           title="Capabilities"
-          goToEditUser={goToEditUser("capabilities")}
+          handleClick={goToEditUser("capabilities")}
         >
           <InformationItem title="Skills" value={skills.join(", ")} />
           <InformationItem title="Hobbies" value={hobbies.join(", ")} />

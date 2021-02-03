@@ -7,6 +7,8 @@ import TableRow from "../UI/TableRow";
 import TableHeadCell from "../UI/TableHeadCell";
 import RowItem from "./RowItem";
 
+const NO_ACTIVE_ROW = -1;
+
 const UsersTable = ({
   data = [],
   deleteUser = () => {},
@@ -14,13 +16,13 @@ const UsersTable = ({
 }) => {
   const tableRef = useRef(null);
 
-  const [activeRow, setActiveRow] = useState(-1);
+  const [activeRow, setActiveRow] = useState(NO_ACTIVE_ROW);
   const changeActiveRow = (i) => () => setActiveRow(i);
 
   useEffect(() => {
     function handleClickOutside(event) {
       if (tableRef.current && !tableRef.current.contains(event.target)) {
-        setActiveRow(-1);
+        setActiveRow(NO_ACTIVE_ROW);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);

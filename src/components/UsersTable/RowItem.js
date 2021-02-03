@@ -19,7 +19,7 @@ const RowItem = ({
   },
   deleteUser = () => {},
   index = 0,
-  activeRow = -1,
+  activeRow,
   changeActiveRow = () => {},
   goToUserPage = () => {},
 }) => {
@@ -70,7 +70,7 @@ const RowItem = ({
           <Button
             style={{
               position: "absolute",
-              top: "47%",
+              top: "40%",
               marginLeft: "10px",
               color: "#FF8989",
               padding: 0,
