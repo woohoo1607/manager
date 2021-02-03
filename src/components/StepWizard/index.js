@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import StepWizardHeader from "./StepWizardHeader";
 import StepWizardControls from "./StepWizardControls";
@@ -13,7 +14,11 @@ const StepWizard = ({
   isEditMode = false,
   currentTabIndex = 0,
   changeUrl = () => {},
+  url = "",
 }) => {
+  const history = useHistory();
+  console.log(history);
+  console.log(url);
   const [currentStep, setCurrentStep] = useState(currentTabIndex);
   const [allowedTabs, setAllowedTabs] = useState([0]);
 

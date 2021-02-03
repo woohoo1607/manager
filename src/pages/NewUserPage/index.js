@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import TemplatePage from "../TemplatePage";
@@ -33,7 +33,7 @@ const steps = [
   },
 ];
 
-const NewUserPage = () => {
+const NewUserPage = ({ match: { path } }) => {
   const dispatch = useDispatch();
 
   const { push } = useHistory();

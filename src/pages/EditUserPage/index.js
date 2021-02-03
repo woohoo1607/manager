@@ -35,12 +35,13 @@ const steps = [
 
 const EditUserPage = ({
   match: {
-    params: { slug, id },
+    params: { id },
+    url,
   },
 }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
-  const currentTabIndex = steps.findIndex((step) => step.slug === slug);
+  /*  const currentTabIndex = steps.findIndex((step) => step.slug === slug);*/
 
   const user = useSelector((state) => state.user);
 
@@ -62,8 +63,9 @@ const EditUserPage = ({
         data={user}
         submit={saveData}
         isEditMode
-        currentTabIndex={currentTabIndex}
+        /*        currentTabIndex={currentTabIndex}*/
         changeUrl={changeUrl}
+        url={url}
       />
     </TemplatePage>
   );
