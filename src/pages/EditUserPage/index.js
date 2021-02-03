@@ -11,21 +11,24 @@ import { addAccountData } from "../NewUserPage/actions";
 import { useHistory } from "react-router-dom";
 
 const steps = [
-  { title: "Account", component: AccountForm },
-  { title: "Profile", component: ProfileForm },
-  { title: "Contacts", component: ContactsForm },
-  { title: "Capabilities", component: CapabilitiesForm },
+  { title: "Account", component: AccountForm, urlName: "account" },
+  { title: "Profile", component: ProfileForm, urlName: "profile" },
+  { title: "Contacts", component: ContactsForm, urlName: "contacts" },
+  {
+    title: "Capabilities",
+    component: CapabilitiesForm,
+    urlName: "capabilities",
+  },
 ];
 
-const EditUserPage = () => {
+const EditUserPage = ({
+  match: {
+    params: { tabName },
+  },
+}) => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const tabName = history.location.pathname.split("/edit/")[1];
-  const activeTab = steps.findIndex(
-    (step) => step.title.toLowerCase() === tabName
-  );
-
-  const push = history.push;
+  const { push } = useHistory();
+  const currentTab = steps.findIndex((step) => step.urlName === tabName);
 
   const user = useSelector((state) => state.user);
   /*TODO delete below line after DB connect*/
@@ -47,8 +50,8 @@ const EditUserPage = () => {
         steps={steps}
         data={user}
         submit={saveData}
-        isEditMode={true}
-        activeTab={activeTab}
+        isEditMode
+        currentTab={currentTab}
         changeUrl={changeUrl}
       />
     </TemplatePage>

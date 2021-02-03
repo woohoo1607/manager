@@ -11,54 +11,58 @@ const StepWizard = ({
   saveStep = () => {},
   submit = () => {},
   isEditMode = false,
-  activeTab = 0,
+  currentTab = 0,
   changeUrl = () => {},
 }) => {
-  const [activeStep, setActiveStep] = useState(activeTab);
+  const [currentStep, setCurrentStep] = useState(currentTab);
   const [allowedTabs, setAllowedTabs] = useState([0]);
 
-  const findTitleTab = (i) => steps[i].title.toLowerCase();
-
-  const addCompletedTab = (activeStep) => {
-    if (!allowedTabs.includes(activeStep + 1)) {
-      setAllowedTabs([...allowedTabs, activeStep + 1]);
-    }
+  const getNextStepIndex = () => {
+    return currentStep + 1;
+  };
+  const getPreviousStepIndex = () => {
+    return currentStep - 1;
   };
 
-  const isLastStep = steps.length === activeStep + 1;
+  const getTabUrlName = (i) => steps[i].urlName;
+
+  const isLastStep = steps.length === getNextStepIndex();
 
   const nextStep = (data) => {
+    const stepIndex = getNextStepIndex();
     saveStep(data);
-    setActiveStep(activeStep + 1);
-    changeUrl(findTitleTab(activeStep + 1));
-    addCompletedTab(activeStep);
+    setCurrentStep(stepIndex);
+    if (!allowedTabs.includes(stepIndex)) {
+      setAllowedTabs([...allowedTabs, stepIndex]);
+    }
+    changeUrl(getTabUrlName(stepIndex));
   };
 
   const previousStep = () => {
-    setActiveStep(activeStep - 1);
-    changeUrl(findTitleTab(activeStep - 1));
+    const stepIndex = getPreviousStepIndex();
+    setCurrentStep(stepIndex);
+    changeUrl(getTabUrlName(stepIndex));
   };
 
-  const CurrentFrom = steps.filter((step, i) => i === activeStep)[0].component;
+  const CurrentFrom = steps.filter((step, i) => i === currentStep)[0].component;
+
+  const submitForm = isLastStep || isEditMode ? submit : nextStep;
 
   return (
     <div className="step-wizard">
       <StepWizardHeader
         steps={steps}
-        activeStep={activeStep}
-        goToStep={setActiveStep}
+        currentStep={currentStep}
+        goToStep={setCurrentStep}
         isEditMode={isEditMode}
         changeUrl={changeUrl}
-        findTitleTab={findTitleTab}
+        getTabUrlName={getTabUrlName}
         allowedTabs={allowedTabs}
       />
       <div className="step-wizard-body">
-        <CurrentFrom
-          {...data}
-          submit={isLastStep || isEditMode ? submit : nextStep}
-        >
+        <CurrentFrom {...data} submit={submitForm}>
           <StepWizardControls
-            activeStep={activeStep}
+            currentStep={currentStep}
             isLastStep={isLastStep}
             previousStep={previousStep}
             isEditMode={isEditMode}
