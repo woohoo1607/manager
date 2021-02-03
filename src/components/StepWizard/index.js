@@ -11,10 +11,10 @@ const StepWizard = ({
   saveStep = () => {},
   submit = () => {},
   isEditMode = false,
-  currentTab = 0,
+  currentTabIndex = 0,
   changeUrl = () => {},
 }) => {
-  const [currentStep, setCurrentStep] = useState(currentTab);
+  const [currentStep, setCurrentStep] = useState(currentTabIndex);
   const [allowedTabs, setAllowedTabs] = useState([0]);
 
   const getNextStepIndex = () => {
@@ -24,25 +24,25 @@ const StepWizard = ({
     return currentStep - 1;
   };
 
-  const getTabUrlName = (i) => steps[i].urlName;
+  const changeStep = (stepIndex) => {
+    setCurrentStep(stepIndex);
+    changeUrl(getTabSlug(stepIndex));
+  };
+
+  const getTabSlug = (i) => steps[i].slug;
 
   const isLastStep = steps.length === getNextStepIndex();
 
   const nextStep = (data) => {
     const stepIndex = getNextStepIndex();
     saveStep(data);
-    setCurrentStep(stepIndex);
     if (!allowedTabs.includes(stepIndex)) {
       setAllowedTabs([...allowedTabs, stepIndex]);
     }
-    changeUrl(getTabUrlName(stepIndex));
+    changeStep(stepIndex);
   };
 
-  const previousStep = () => {
-    const stepIndex = getPreviousStepIndex();
-    setCurrentStep(stepIndex);
-    changeUrl(getTabUrlName(stepIndex));
-  };
+  const previousStep = () => changeStep(getPreviousStepIndex());
 
   const CurrentFrom = steps.filter((step, i) => i === currentStep)[0].component;
 
@@ -53,10 +53,8 @@ const StepWizard = ({
       <StepWizardHeader
         steps={steps}
         currentStep={currentStep}
-        goToStep={setCurrentStep}
+        goToStep={changeStep}
         isEditMode={isEditMode}
-        changeUrl={changeUrl}
-        getTabUrlName={getTabUrlName}
         allowedTabs={allowedTabs}
       />
       <div className="step-wizard-body">

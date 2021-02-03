@@ -11,39 +11,50 @@ import { addAccountData } from "../NewUserPage/actions";
 import { useHistory } from "react-router-dom";
 
 const steps = [
-  { title: "Account", component: AccountForm, urlName: "account" },
-  { title: "Profile", component: ProfileForm, urlName: "profile" },
-  { title: "Contacts", component: ContactsForm, urlName: "contacts" },
+  {
+    title: "Account",
+    component: AccountForm,
+    slug: "account",
+  },
+  {
+    title: "Profile",
+    component: ProfileForm,
+    slug: "profile",
+  },
+  {
+    title: "Contacts",
+    component: ContactsForm,
+    slug: "contacts",
+  },
   {
     title: "Capabilities",
     component: CapabilitiesForm,
-    urlName: "capabilities",
+    slug: "capabilities",
   },
 ];
 
 const EditUserPage = ({
   match: {
-    params: { tabName },
+    params: { slug, id },
   },
 }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
-  const currentTab = steps.findIndex((step) => step.urlName === tabName);
+  const currentTabIndex = steps.findIndex((step) => step.slug === slug);
 
   const user = useSelector((state) => state.user);
-  /*TODO delete below line after DB connect*/
-  user.id = 0;
+
   const saveData = useCallback(
     (data) => dispatch(addAccountData({ ...data })),
     [dispatch]
   );
 
-  const changeUrl = (tab = "") => push(`/users/${user.id}/edit/${tab}`);
+  const changeUrl = (tab = "") => push(`/users/${id}/edit/${tab}`);
 
   return (
     <TemplatePage
       title="Adding new user"
-      backLink={`/users/${user.id}`}
+      backLink={`/users/${id}`}
       linkTitle="User Profile"
     >
       <StepWizard
@@ -51,7 +62,7 @@ const EditUserPage = ({
         data={user}
         submit={saveData}
         isEditMode
-        currentTab={currentTab}
+        currentTabIndex={currentTabIndex}
         changeUrl={changeUrl}
       />
     </TemplatePage>

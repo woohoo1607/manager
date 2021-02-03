@@ -11,20 +11,32 @@ import CapabilitiesForm from "../../components/UserForms/CapabilitiesForm";
 import { useHistory } from "react-router-dom";
 
 const steps = [
-  { title: "Account", component: AccountForm, urlName: "account" },
-  { title: "Profile", component: ProfileForm, urlName: "profile" },
-  { title: "Contacts", component: ContactsForm, urlName: "contacts" },
+  {
+    title: "Account",
+    component: AccountForm,
+    slug: "account",
+  },
+  {
+    title: "Profile",
+    component: ProfileForm,
+    slug: "profile",
+  },
+  {
+    title: "Contacts",
+    component: ContactsForm,
+    slug: "contacts",
+  },
   {
     title: "Capabilities",
     component: CapabilitiesForm,
-    urlName: "capabilities",
+    slug: "capabilities",
   },
 ];
 
 const NewUserPage = () => {
   const dispatch = useDispatch();
 
-  const push = useHistory().push;
+  const { push } = useHistory();
 
   const user = useSelector((state) => state.user);
 

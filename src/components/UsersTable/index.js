@@ -9,7 +9,7 @@ import RowItem from "./RowItem";
 
 import "./styles.css";
 
-const NO_ACTIVE_ROW = -1;
+const NO_SELECTED_ROW = -1;
 
 const UsersTable = ({
   data = [],
@@ -18,20 +18,20 @@ const UsersTable = ({
 }) => {
   const tableRef = useRef(null);
 
-  const [activeRow, setActiveRow] = useState(NO_ACTIVE_ROW);
-  const changeActiveRow = (i) => () => setActiveRow(i);
+  const [selectedRow, setSelectedRow] = useState(NO_SELECTED_ROW);
+  const changeActiveRow = (i) => () => setSelectedRow(i);
 
   useEffect(() => {
     function handleClickOutside(event) {
       if (tableRef.current && !tableRef.current.contains(event.target)) {
-        setActiveRow(NO_ACTIVE_ROW);
+        setSelectedRow(NO_SELECTED_ROW);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [tableRef, activeRow]);
+  }, [tableRef, selectedRow]);
 
   return (
     <Table ref={tableRef}>
@@ -56,7 +56,7 @@ const UsersTable = ({
             index={i}
             deleteUser={deleteUser}
             changeActiveRow={changeActiveRow}
-            activeRow={activeRow}
+            selectedRow={selectedRow}
             goToUserPage={goToUserPage}
           />
         ))}

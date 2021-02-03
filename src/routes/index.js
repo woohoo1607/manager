@@ -23,7 +23,7 @@ const Routes = () => {
         render={(props) => <UserPage {...props} />}
       />
       <Route
-        path="/users/:id/edit/:tabName"
+        path="/users/:id/edit/:slug"
         render={(props) => <EditUserPage {...props} />}
       />
     </Switch>

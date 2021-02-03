@@ -8,13 +8,10 @@ const StepWizardHeader = ({
   currentStep = 0,
   goToStep = () => {},
   isEditMode = false,
-  changeUrl = () => {},
-  getTabUrlName = () => {},
   allowedTabs = [],
 }) => {
   const changeStep = (i) => () => {
     goToStep(i);
-    changeUrl(getTabUrlName(i));
   };
 
   return (
