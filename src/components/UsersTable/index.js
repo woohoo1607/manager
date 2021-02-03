@@ -7,6 +7,8 @@ import TableRow from "../UI/TableRow";
 import TableHeadCell from "../UI/TableHeadCell";
 import RowItem from "./RowItem";
 
+import "./styles.css";
+
 const NO_ACTIVE_ROW = -1;
 
 const UsersTable = ({

@@ -5,16 +5,16 @@ import "./styles.css";
 
 const StepWizardHeader = ({
   steps = [],
-  activeStep = 0,
+  currentStep = 0,
   goToStep = () => {},
   isEditMode = false,
   changeUrl = () => {},
-  findTitleTab = () => {},
+  getTabUrlName = () => {},
   allowedTabs = [],
 }) => {
   const changeStep = (i) => () => {
     goToStep(i);
-    changeUrl(findTitleTab(i));
+    changeUrl(getTabUrlName(i));
   };
 
   return (
@@ -24,7 +24,7 @@ const StepWizardHeader = ({
           {steps.map(({ title }, i) => {
             let isDisabled = false;
             let className;
-            if (activeStep === i) {
+            if (currentStep === i) {
               className = "current";
             } else if (!isEditMode && !allowedTabs.includes(i)) {
               isDisabled = true;

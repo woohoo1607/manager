@@ -67,19 +67,7 @@ const RowItem = ({
       </TableCell>
       {isActive && (
         <TableCell>
-          <Button
-            style={{
-              position: "absolute",
-              top: "40%",
-              marginLeft: "10px",
-              color: "#FF8989",
-              padding: 0,
-              minWidth: 0,
-              backgroundColor: "#FFFFFF",
-              cursor: "pointer",
-            }}
-            onClick={deleteUser(id)}
-          >
+          <Button type="button" className="delete-row" onClick={deleteUser(id)}>
             x delete
           </Button>
         </TableCell>

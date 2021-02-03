@@ -74,7 +74,9 @@ const HomePage = () => {
         {!data.length && (
           <div className="no-data">
             <h2 className="title title-secondary">No users here:(</h2>
-            <Button onClick={createNewUser}>Create new user</Button>
+            <Button type="button" onClick={createNewUser}>
+              Create new user
+            </Button>
           </div>
         )}
       </>
