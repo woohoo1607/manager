@@ -13,14 +13,12 @@ const StepWizardControls = ({
     <div className="step-wizard__controls">
       {isEditMode ? (
         <Button className={`step-wizard__button`}>Save</Button>
-      ) : (
-        <Button
-          className={`step-wizard__button ${
-            isLastStep && "step-wizard__button-success"
-          }`}
-        >
-          {isLastStep ? "Finish" : "Forward"}
+      ) : isLastStep ? (
+        <Button className={`step-wizard__button step-wizard__button-success`}>
+          Finish
         </Button>
+      ) : (
+        <Button className={`step-wizard__button`}>Forward</Button>
       )}
       {!!currentStep && !isEditMode && (
         <Button
