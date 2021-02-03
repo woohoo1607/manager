@@ -9,6 +9,7 @@ import ProfileForm from "../../components/UserForms/ProfileForm";
 import ContactsForm from "../../components/UserForms/ContactsForm";
 import CapabilitiesForm from "../../components/UserForms/CapabilitiesForm";
 import { useHistory } from "react-router-dom";
+import { addUser } from "../../reducers/usersReducer";
 
 const steps = [
   { title: "Account", component: AccountForm },
@@ -31,8 +32,17 @@ const NewUserPage = () => {
 
   const changeUrl = (tab = "") => push(`/users/new/${tab}`);
 
+  const createUser = useCallback((user) => dispatch(addUser(user)), [dispatch]);
+
   const submit = (data) => {
+    const newUser = { ...user, ...data };
+    delete newUser.repeatPassword;
+    if (!newUser.phones[0].length) {
+      newUser.phones = [];
+    }
+    newUser.lastUpdate = new Date();
     saveStep(data);
+    createUser(newUser);
   };
 
   return (

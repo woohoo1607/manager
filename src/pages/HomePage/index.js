@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import TemplatePage from "../TemplatePage";
 import UsersTable from "../../components/UsersTable";
-import Button from "../../components/Button";
 
+import Button from "../../components/Button";
 import "./styles.css";
+import { getUsers } from "../../reducers/usersReducer";
 
 const data = [
   {
@@ -57,11 +59,19 @@ const data = [
 const HomePage = () => {
   const { push } = useHistory();
 
+  const dispatch = useDispatch();
+
+  const fetchUsers = useCallback(() => dispatch(getUsers()), [dispatch]);
+
   const createNewUser = () => push(`/users/new`);
 
   const deleteUser = (id) => () => {};
 
   const goToUserPage = (id) => () => push(`/users/${id}`);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   return (
     <TemplatePage title="List of users">
