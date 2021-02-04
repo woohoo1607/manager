@@ -5,22 +5,20 @@ import "./styles.css";
 
 const StepWizardHeader = ({
   steps = [],
-  currentStep = 0,
+  currentSlug,
   goToStep = () => {},
-  isEditMode = false,
-  allowedTabs = [],
+  allowedSteps = [],
 }) => {
-  const changeStep = (slug) => () => {
-    goToStep(slug);
-  };
+  const handleClick = (slug) => () => goToStep(slug);
 
   return (
     <header className="step-wizard-header">
       <nav>
         <ul className="step-wizard-menu-list">
-          {steps.map(({ title, isLastStep, slug, isDisabled, isActive }, i) => {
+          {steps.map(({ title, slug }, i) => {
             let className;
-            if (isActive) {
+            const isDisabled = !allowedSteps.includes(slug);
+            if (slug === currentSlug) {
               className = "current";
             } else {
               className = "primary";
@@ -30,7 +28,7 @@ const StepWizardHeader = ({
                 <Button
                   className={"step-wizard-menu__button " + className}
                   disabled={isDisabled}
-                  onClick={changeStep(slug)}
+                  onClick={handleClick(slug)}
                 >
                   {i + 1 + ". " + title}
                 </Button>

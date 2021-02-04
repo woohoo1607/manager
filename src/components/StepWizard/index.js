@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, Route } from "react-router-dom";
 
 import StepWizardHeader from "./StepWizardHeader";
@@ -12,7 +12,6 @@ const StepWizard = ({
   saveStep = () => {},
   submit = () => {},
   isEditMode = false,
-  changeUrl = () => {},
   basePath = "",
 }) => {
   const {
@@ -20,48 +19,54 @@ const StepWizard = ({
     location: { pathname },
   } = useHistory();
 
-  const currentSlug = pathname.split(`${basePath}/`)[1] || steps[0].slug;
+  const [currentSlug, setCurrentSlug] = useState(steps[0].slug);
+  const [allowedSteps, setAllowedSteps] = useState([steps[0].slug]);
 
-  const specialStepsData = steps.map(({ slug, title }, i, array) => {
-    const isLastStep = i + 1 === array.length;
-    const currentStepIndex = array.findIndex(
-      ({ slug }) => slug === currentSlug
-    )[0];
-    const data = { title, slug, isLastStep, isDisabled: true, isActive: false };
-    if (slug === currentSlug) {
-      return { ...data, isActive: true, isDisabled: false };
-    } else if (isEditMode || i < currentStepIndex) {
-      return { ...data, isDisabled: false };
+  useEffect(() => {
+    const urlSlug = pathname.split(`${basePath}/`)[1];
+    if (urlSlug) {
+      setCurrentSlug(urlSlug);
     } else {
-      return data;
+      push(`${basePath}/${steps[0].slug}`);
     }
-  });
-  console.log(specialStepsData);
+  }, [basePath, push, steps]);
+
+  useEffect(() => {
+    if (isEditMode) {
+      const allStepsSlug = steps.map(({ slug }) => slug);
+      setAllowedSteps(allStepsSlug);
+    }
+  }, [isEditMode]);
+
+  const currentStepIndex = steps.findIndex(({ slug }) => slug === currentSlug);
+
   const changeStep = (slug) => {
     push(`${basePath}/${slug}`);
+    setCurrentSlug(slug);
   };
 
-  /*  const isLastStep = steps.length === getNextStepIndex();*/
+  const isLastStep = currentStepIndex === steps.length - 1;
 
   const nextStep = (data) => {
     saveStep(data);
-    const index = specialStepsData.findIndex(
-      ({ slug }) => slug === currentSlug
-    );
-    specialStepsData[index].isActive = false;
-    specialStepsData[index].isDisabled = false;
-    changeStep(specialStepsData[index + 1].slug);
+    const nextStepSlug = steps[currentStepIndex + 1].slug;
+    changeStep(nextStepSlug);
+    setAllowedSteps([...allowedSteps, nextStepSlug]);
   };
 
-  /*  const submitForm = isLastStep || isEditMode ? submit : nextStep;*/
-  const submitForm = isEditMode ? submit : nextStep;
+  const previousStep = () => changeStep(steps[currentStepIndex - 1].slug);
+
+  const isFirstStep = steps[0].slug === currentSlug;
+
+  const submitForm = isLastStep || isEditMode ? submit : nextStep;
 
   return (
     <div className="step-wizard">
       <StepWizardHeader
-        steps={specialStepsData}
+        steps={steps}
         goToStep={changeStep}
-        isEditMode={isEditMode}
+        allowedSteps={allowedSteps}
+        currentSlug={currentSlug}
       />
       <div className="step-wizard-body">
         {steps.map(({ component: Step, slug }, i) => (
@@ -72,10 +77,10 @@ const StepWizard = ({
             render={(props) => (
               <Step {...data} submit={submitForm} {...props}>
                 <StepWizardControls
-                  /*       currentStep={currentStep}*/
-                  /*isLastStep={isLastStep}*/
-                  /*     previousStep={previousStep}*/
+                  isFirstStep={isFirstStep}
+                  previousStep={previousStep}
                   isEditMode={isEditMode}
+                  isLastStep={isLastStep}
                 />
               </Step>
             )}

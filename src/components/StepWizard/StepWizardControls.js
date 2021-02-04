@@ -4,7 +4,7 @@ import "./styles.css";
 import Button from "../Button";
 
 const StepWizardControls = ({
-  currentStep = 0,
+  isFirstStep = 0,
   isLastStep = false,
   previousStep = () => {},
   isEditMode = false,
@@ -20,7 +20,7 @@ const StepWizardControls = ({
       ) : (
         <Button className={`step-wizard__button`}>Forward</Button>
       )}
-      {!!currentStep && !isEditMode && (
+      {!isFirstStep && !isEditMode && (
         <Button
           type="button"
           color="gray"
