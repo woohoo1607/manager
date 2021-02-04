@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useHistory, Route, useRouteMatch, useParams } from "react-router-dom";
 
 import StepWizardHeader from "./StepWizardHeader";
@@ -39,10 +39,6 @@ const StepWizard = ({
 
   const currentStepIndex = steps.findIndex((step) => step.slug === slug);
 
-  const allowedUnsubmittedStepIndex = steps.findIndex(
-    ({ slug }) => slug === allowedUnsubmittedStep
-  );
-
   const changeStep = (slug) => {
     push(`${path}/${slug}`);
   };
@@ -53,7 +49,13 @@ const StepWizard = ({
 
   const nextStep = (data) => {
     const nextStepSlug = steps[currentStepIndex + 1].slug;
-    saveStep({ ...data, allowedUnsubmittedStep: nextStepSlug });
+    saveStep({
+      ...data,
+      allowedUnsubmittedStep:
+        currentStepIndex === allowedUnsubmittedStep
+          ? currentStepIndex + 1
+          : allowedUnsubmittedStep,
+    });
     changeStep(nextStepSlug);
   };
 
@@ -67,11 +69,7 @@ const StepWizard = ({
         steps={steps.map(({ title, slug }, i) => ({
           title,
           slug,
-          isAllowed:
-            isEditMode ||
-            i <= currentStepIndex ||
-            i <= allowedUnsubmittedStepIndex ||
-            slug === allowedUnsubmittedStep,
+          isAllowed: isEditMode || i <= allowedUnsubmittedStep,
           isCurrentStep: i === currentStepIndex,
         }))}
         goToStep={changeStep}

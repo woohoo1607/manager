@@ -4,7 +4,7 @@ import "./styles.css";
 import Button from "../Button";
 
 const StepWizardControls = ({
-  isFirstStep = 0,
+  isFirstStep = true,
   isLastStep = false,
   previousStep = () => {},
   isEditMode = false,
