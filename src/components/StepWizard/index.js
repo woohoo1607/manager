@@ -24,19 +24,19 @@ const StepWizard = ({
 
   useEffect(() => {
     const urlSlug = pathname.split(`${basePath}/`)[1];
-    if (urlSlug) {
+    if (isEditMode && urlSlug) {
       setCurrentSlug(urlSlug);
     } else {
       push(`${basePath}/${steps[0].slug}`);
     }
-  }, [basePath, push, steps]);
+  }, [basePath, push, steps, isEditMode]);
 
   useEffect(() => {
     if (isEditMode) {
       const allStepsSlug = steps.map(({ slug }) => slug);
       setAllowedSteps(allStepsSlug);
     }
-  }, [isEditMode]);
+  }, [isEditMode, steps]);
 
   const currentStepIndex = steps.findIndex(({ slug }) => slug === currentSlug);
 
