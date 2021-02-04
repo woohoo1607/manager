@@ -19,6 +19,7 @@ const initialState = {
   skills: [],
   information: "",
   hobbies: [],
+  allowedUnsubmittedStep: "",
 };
 
 const userReducer = (state = initialState, { type, payload }) => {
