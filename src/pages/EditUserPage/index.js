@@ -8,7 +8,6 @@ import ProfileForm from "../../components/UserForms/ProfileForm";
 import ContactsForm from "../../components/UserForms/ContactsForm";
 import CapabilitiesForm from "../../components/UserForms/CapabilitiesForm";
 import { addAccountData } from "../NewUserPage/actions";
-import { useHistory } from "react-router-dom";
 
 const steps = [
   {
@@ -40,8 +39,6 @@ const EditUserPage = ({
   },
 }) => {
   const dispatch = useDispatch();
-  const { push } = useHistory();
-  /*  const currentTabIndex = steps.findIndex((step) => step.slug === slug);*/
 
   const user = useSelector((state) => state.user);
 
@@ -49,8 +46,6 @@ const EditUserPage = ({
     (data) => dispatch(addAccountData({ ...data })),
     [dispatch]
   );
-
-  const changeUrl = (tab = "") => push(`/users/${id}/edit/${tab}`);
 
   return (
     <TemplatePage
@@ -63,8 +58,6 @@ const EditUserPage = ({
         data={user}
         submit={saveData}
         isEditMode
-        /*        currentTabIndex={currentTabIndex}*/
-        /*changeUrl={changeUrl}*/
         basePath={url}
       />
     </TemplatePage>

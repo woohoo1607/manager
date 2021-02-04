@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import TemplatePage from "../TemplatePage";
@@ -8,7 +8,6 @@ import AccountForm from "../../components/UserForms/AccountForm";
 import ProfileForm from "../../components/UserForms/ProfileForm";
 import ContactsForm from "../../components/UserForms/ContactsForm";
 import CapabilitiesForm from "../../components/UserForms/CapabilitiesForm";
-import { useHistory } from "react-router-dom";
 
 const steps = [
   {
@@ -36,16 +35,12 @@ const steps = [
 const NewUserPage = ({ match: { url } }) => {
   const dispatch = useDispatch();
 
-  const { push } = useHistory();
-
   const user = useSelector((state) => state.user);
 
   const saveStep = useCallback(
     (data) => dispatch(addAccountData({ ...data })),
     [dispatch]
   );
-
-  const changeUrl = (tab = "") => push(`/users/new/${tab}`);
 
   const submit = (data) => {
     saveStep(data);
