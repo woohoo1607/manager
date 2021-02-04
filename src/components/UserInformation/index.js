@@ -1,15 +1,16 @@
 import React from "react";
 import moment from "moment";
 
-import { ReactComponent as UserIcon } from "../../icons/list-of-users.svg";
 import InformationItem from "./InformationItem";
 import InformationBlock from "./InformationBlock";
 
 import "./styles.css";
+import Avatar from "../UI/Avatar";
 
 const UserInformation = ({
   user: {
     id,
+    avatar,
     username = "",
     firstName = "",
     lastName = "",
@@ -27,9 +28,7 @@ const UserInformation = ({
 }) => {
   return (
     <div className="user-information-container">
-      <div className="user-information-img-container">
-        <UserIcon className="user-information-img" />
-      </div>
+      <Avatar avatar={avatar} style={{ minWidth: "200px" }} />
       <div className="user-information">
         <InformationBlock title="Account" handleClick={goToEditUser("account")}>
           <InformationItem title="User name" value={username} />

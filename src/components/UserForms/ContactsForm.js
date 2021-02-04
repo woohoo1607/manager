@@ -8,17 +8,25 @@ import InputField from "../UI/InputField";
 import SelectField from "../UI/SelectField";
 import PhoneField from "../UI/PhoneField";
 import { LANGUAGES } from "./languagesList";
+import { ReactComponent as MinusIcon } from "../../icons/minus.svg";
+import IconButton from "../UI/IconButton";
 
 import "./styles.css";
 
+const URL = /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
+
 const validationSchema = Yup.object({
   language: Yup.string().required("language is required"),
-  fax: Yup.string().test(
-    "len",
-    "wrong fax format",
-    (val) => val && val.length === 18
+  github: Yup.string()
+    .required("github link is required")
+    .matches(URL, "enter correct url"),
+  facebook: Yup.string()
+    .required("facebook link is required")
+    .matches(URL, "enter correct url"),
+  fax: Yup.string().min(18, "wrong fax format"),
+  phones: Yup.array().of(
+    Yup.lazy(() => Yup.string().min(18, "wrong phone format"))
   ),
-  phones: Yup.array(Yup.string().min(18, "wrong phone format")),
 });
 
 const ContactsFormBody = ({ children, currentValues: { phones } }) => {
@@ -36,8 +44,18 @@ const ContactsFormBody = ({ children, currentValues: { phones } }) => {
     <>
       <div style={{ width: "300px" }}>
         <InputField name="company" title="Company" />
-        <InputField name="github" title="Github link" />
-        <InputField name="facebook" title="Facebook link" />
+        <InputField
+          name="github"
+          title="Github link"
+          isRequired
+          isSecondaryColor
+        />
+        <InputField
+          name="facebook"
+          title="Facebook link"
+          isRequired
+          isSecondaryColor
+        />
         <SelectField
           title="Main Language"
           name="language"
@@ -46,25 +64,27 @@ const ContactsFormBody = ({ children, currentValues: { phones } }) => {
       </div>
       <div className="with-controls">
         <div>
-          <PhoneField title="Fax" name="fax" />
+          <PhoneField title="Fax" name="fax" isSecondaryColor />
           {phones.map((phone, i) => (
-            <PhoneField key={i} title={`Phone #${i + 1}`} name={`phones[${i}]`}>
+            <PhoneField
+              key={i}
+              title={`Phone #${i + 1}`}
+              name={`phones[${i}]`}
+              isSecondaryColor
+            >
               {phones.length > 1 && (
-                <Button
+                <IconButton
                   onClick={deletePhoneField(i)}
                   style={{
-                    border: "none",
-                    minWidth: "9px",
-                    height: "2px",
-                    backgroundColor: "#CED9E5",
-                    padding: 0,
                     position: "absolute",
-                    top: "50%",
+                    top: "45%",
                     right: "-20px",
-                    cursor: "pointer",
+                    borderRadius: "50%",
                   }}
                   type="button"
-                />
+                >
+                  <MinusIcon />
+                </IconButton>
               )}
             </PhoneField>
           ))}

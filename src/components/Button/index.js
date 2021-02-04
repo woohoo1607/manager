@@ -5,7 +5,11 @@ import "./styles.css";
 
 const Button = ({ type = "submit", children, className, ...props }) => {
   return (
-    <button className={"button " + className} type={type} {...props}>
+    <button
+      className={`button ${className ? className : ""}`}
+      type={type}
+      {...props}
+    >
       {children}
     </button>
   );

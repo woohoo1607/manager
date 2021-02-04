@@ -5,6 +5,7 @@ import LayoutForm from "./LayoutForm";
 import InputField from "../UI/InputField";
 import PasswordField from "../UI/PasswordField";
 import FileInputField from "../UI/FileInputField";
+import Avatar from "../UI/Avatar";
 
 import "./styles.css";
 
@@ -26,16 +27,8 @@ const validationSchema = Yup.object({
 const AccountFormBody = ({ children, values: { avatar } }) => {
   return (
     <>
-      <div style={{ textAlign: "center" }}>
-        <div className="avatar-container">
-          {avatar && (
-            <img
-              className="avatar"
-              src={URL.createObjectURL(avatar)}
-              alt="avatar"
-            />
-          )}
-        </div>
+      <div style={{ textAlign: "center", width: "200px" }}>
+        <Avatar avatar={avatar} style={{ width: "171px", height: "171px" }} />
         <FileInputField name="avatar" />
       </div>
       <div className="with-controls" style={{ width: "400px" }}>

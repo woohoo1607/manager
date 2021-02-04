@@ -11,11 +11,16 @@ const PhoneField = ({
   name = "",
   mask = "+7 (999) 999 99 99",
   children,
+  isSecondaryColor = false,
 }) => (
   <InputContainer>
     <InputTitle title={title} />
     <FormikField name={name}>
-      <InputWithMask type="tel" mask={mask} />
+      <InputWithMask
+        type="tel"
+        mask={mask}
+        isSecondaryColor={isSecondaryColor}
+      />
     </FormikField>
     {children}
   </InputContainer>
