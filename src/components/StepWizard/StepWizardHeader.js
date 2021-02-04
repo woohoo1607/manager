@@ -10,21 +10,18 @@ const StepWizardHeader = ({
   isEditMode = false,
   allowedTabs = [],
 }) => {
-  const changeStep = (i) => () => {
-    goToStep(i);
+  const changeStep = (slug) => () => {
+    goToStep(slug);
   };
 
   return (
     <header className="step-wizard-header">
       <nav>
         <ul className="step-wizard-menu-list">
-          {steps.map(({ title }, i) => {
-            let isDisabled = false;
+          {steps.map(({ title, isLastStep, slug, isDisabled, isActive }, i) => {
             let className;
-            if (currentStep === i) {
+            if (isActive) {
               className = "current";
-            } else if (!isEditMode && !allowedTabs.includes(i)) {
-              isDisabled = true;
             } else {
               className = "primary";
             }
@@ -33,7 +30,7 @@ const StepWizardHeader = ({
                 <Button
                   className={"step-wizard-menu__button " + className}
                   disabled={isDisabled}
-                  onClick={changeStep(i)}
+                  onClick={changeStep(slug)}
                 >
                   {i + 1 + ". " + title}
                 </Button>

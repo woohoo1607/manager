@@ -33,7 +33,7 @@ const steps = [
   },
 ];
 
-const NewUserPage = ({ match: { path } }) => {
+const NewUserPage = ({ match: { url } }) => {
   const dispatch = useDispatch();
 
   const { push } = useHistory();
@@ -58,7 +58,7 @@ const NewUserPage = ({ match: { path } }) => {
         data={user}
         saveStep={saveStep}
         submit={submit}
-        changeUrl={changeUrl}
+        basePath={url}
       />
     </TemplatePage>
   );

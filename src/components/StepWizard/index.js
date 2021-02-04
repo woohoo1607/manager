@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Route } from "react-router-dom";
 
 import StepWizardHeader from "./StepWizardHeader";
 import StepWizardControls from "./StepWizardControls";
@@ -12,65 +12,83 @@ const StepWizard = ({
   saveStep = () => {},
   submit = () => {},
   isEditMode = false,
-  currentTabIndex = 0,
   changeUrl = () => {},
-  url = "",
+  basePath = "",
 }) => {
-  const history = useHistory();
-  console.log(history);
-  console.log(url);
-  const [currentStep, setCurrentStep] = useState(currentTabIndex);
-  const [allowedTabs, setAllowedTabs] = useState([0]);
+  const {
+    push,
+    location: { pathname },
+  } = useHistory();
 
-  const getNextStepIndex = () => {
-    return currentStep + 1;
+  const currentSlug = pathname.split(`${basePath}/`)[1] || steps[0].slug;
+
+  const specialStepsData = steps.map(({ slug, title }, i, array) => {
+    const isLastStep = i + 1 === array.length;
+    const currentStepIndex = array.findIndex(
+      ({ slug }) => slug === currentSlug
+    )[0];
+    const data = { title, slug, isLastStep, isDisabled: true, isActive: false };
+    if (slug === currentSlug) {
+      return { ...data, isActive: true, isDisabled: false };
+    } else if (isEditMode || i < currentStepIndex) {
+      return { ...data, isDisabled: false };
+    } else {
+      return data;
+    }
+  });
+  console.log(specialStepsData);
+  const changeStep = (slug) => {
+    push(`${basePath}/${slug}`);
   };
-  const getPreviousStepIndex = () => {
-    return currentStep - 1;
-  };
 
-  const changeStep = (stepIndex) => {
-    setCurrentStep(stepIndex);
-    changeUrl(getTabSlug(stepIndex));
-  };
-
-  const getTabSlug = (i) => steps[i].slug;
-
-  const isLastStep = steps.length === getNextStepIndex();
+  /*  const isLastStep = steps.length === getNextStepIndex();*/
 
   const nextStep = (data) => {
-    const stepIndex = getNextStepIndex();
     saveStep(data);
-    if (!allowedTabs.includes(stepIndex)) {
-      setAllowedTabs([...allowedTabs, stepIndex]);
-    }
-    changeStep(stepIndex);
+    const index = specialStepsData.findIndex(
+      ({ slug }) => slug === currentSlug
+    );
+    specialStepsData[index].isActive = false;
+    specialStepsData[index].isDisabled = false;
+    changeStep(specialStepsData[index + 1].slug);
   };
 
-  const previousStep = () => changeStep(getPreviousStepIndex());
-
-  const CurrentFrom = steps.filter((step, i) => i === currentStep)[0].component;
-
-  const submitForm = isLastStep || isEditMode ? submit : nextStep;
+  /*  const submitForm = isLastStep || isEditMode ? submit : nextStep;*/
+  const submitForm = isEditMode ? submit : nextStep;
 
   return (
     <div className="step-wizard">
       <StepWizardHeader
-        steps={steps}
-        currentStep={currentStep}
+        steps={specialStepsData}
         goToStep={changeStep}
         isEditMode={isEditMode}
-        allowedTabs={allowedTabs}
       />
       <div className="step-wizard-body">
-        <CurrentFrom {...data} submit={submitForm}>
+        {steps.map(({ component: Step, slug }, i) => (
+          <Route
+            key={i}
+            exact
+            path={`${basePath}/${slug}`}
+            render={(props) => (
+              <Step {...data} submit={submitForm} {...props}>
+                <StepWizardControls
+                  /*       currentStep={currentStep}*/
+                  /*isLastStep={isLastStep}*/
+                  /*     previousStep={previousStep}*/
+                  isEditMode={isEditMode}
+                />
+              </Step>
+            )}
+          />
+        ))}
+        {/*        <CurrentFrom {...data} submit={submitForm}>
           <StepWizardControls
             currentStep={currentStep}
             isLastStep={isLastStep}
             previousStep={previousStep}
             isEditMode={isEditMode}
           />
-        </CurrentFrom>
+        </CurrentFrom>*/}
       </div>
     </div>
   );

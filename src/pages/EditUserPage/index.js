@@ -64,8 +64,8 @@ const EditUserPage = ({
         submit={saveData}
         isEditMode
         /*        currentTabIndex={currentTabIndex}*/
-        changeUrl={changeUrl}
-        url={url}
+        /*changeUrl={changeUrl}*/
+        basePath={url}
       />
     </TemplatePage>
   );
