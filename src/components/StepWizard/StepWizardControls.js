@@ -9,37 +9,39 @@ const StepWizardControls = ({
   previousStep = () => {},
   isEditMode = false,
 }) => {
-  let submitButtonTitle = "";
-  let isShowBackButton = false;
-  let isSuccessSubmit = false;
-  if (isEditMode) {
-    submitButtonTitle = "Save";
-  } else {
-    submitButtonTitle = isLastStep ? "Finish" : "Forward";
-    isShowBackButton = !isFirstStep;
-    isSuccessSubmit = isLastStep;
-  }
-  return (
-    <div className="step-wizard__controls">
-      <Button
-        className={`step-wizard__button ${
-          isSuccessSubmit ? "step-wizard__button-success" : ""
-        }`}
-      >
-        {submitButtonTitle}
-      </Button>
-      {isShowBackButton && (
-        <Button
-          type="button"
-          color="gray"
-          className="step-wizard__button step-wizard__button-back"
-          onClick={previousStep}
-        >
-          Back
-        </Button>
-      )}
-    </div>
+  const submitButton = ({ title, className }) => (
+    <Button className={`step-wizard__button ${className ? className : ""}`}>
+      {title}
+    </Button>
   );
+  const backButton = (
+    <Button
+      type="button"
+      color="gray"
+      className="step-wizard__button step-wizard__button-back"
+      onClick={previousStep}
+    >
+      Back
+    </Button>
+  );
+  const controls = [];
+
+  if (isEditMode) {
+    controls.push(submitButton({ title: "Save" }));
+  } else {
+    isLastStep
+      ? controls.push(
+          submitButton({
+            title: "Finish",
+            className: "step-wizard__button-success",
+          })
+        )
+      : controls.push(submitButton({ title: "Forward" }));
+    if (!isFirstStep) {
+      controls.push(backButton);
+    }
+  }
+  return <div className="step-wizard__controls">{controls}</div>;
 };
 
 export default StepWizardControls;

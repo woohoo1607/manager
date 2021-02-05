@@ -69,7 +69,7 @@ const RowItem = ({
         <TableCell>
           <Button
             type="button"
-            className="delete-selected-row"
+            className="selected-row-button"
             onClick={deleteUser(id)}
           >
             x delete
