@@ -12,7 +12,7 @@ const EditUserPage = ({
 }) => {
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.user);
+  const user = useSelector(({ user }) => user);
 
   const saveData = useCallback(
     (data) => dispatch(addAccountData({ ...data })),

@@ -4,10 +4,10 @@ import { useDispatch } from "react-redux";
 
 import TemplatePage from "../TemplatePage";
 import UsersTable from "../../components/UsersTable";
+import Button from "../../components/UI/Button";
 
-import Button from "../../components/Button";
-import "./styles.css";
 import { getUsers } from "../../reducers/usersReducer";
+import "./styles.css";
 
 const data = [
   {

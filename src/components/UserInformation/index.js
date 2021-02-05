@@ -9,7 +9,6 @@ import "./styles.css";
 
 const UserInformation = ({
   user: {
-    id,
     username = "",
     firstName = "",
     lastName = "",
@@ -26,6 +25,7 @@ const UserInformation = ({
   goToEditUser = () => {},
 }) => {
   return (
+    /*TODO: refactor with STEPS usage*/
     <div className="user-information-container">
       <div className="user-information-img-container">
         <UserIcon className="user-information-img" />

@@ -4,7 +4,7 @@ import TableCell from "../UI/TableCell";
 import { ReactComponent as UserIcon } from "../../icons/list-of-users.svg";
 import { ReactComponent as EditIcon } from "../../icons/Edit.svg";
 import { ReactComponent as CloseIcon } from "../../icons/Close.svg";
-import Button from "../Button";
+import Button from "../UI/Button";
 
 const RowItem = ({
   data: {
@@ -25,7 +25,7 @@ const RowItem = ({
 }) => {
   const isSelected = index === selectedRow;
   return (
-    <TableRow className={isSelected ? "active" : ""}>
+    <TableRow className={isSelected ? "selected" : ""}>
       <TableCell>
         <div
           style={{
@@ -67,7 +67,11 @@ const RowItem = ({
       </TableCell>
       {isSelected && (
         <TableCell>
-          <Button type="button" className="delete-row" onClick={deleteUser(id)}>
+          <Button
+            type="button"
+            className="delete-selected-row"
+            onClick={deleteUser(id)}
+          >
             x delete
           </Button>
         </TableCell>

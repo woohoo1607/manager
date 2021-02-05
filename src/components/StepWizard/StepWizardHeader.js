@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../Button";
+import Button from "../UI/Button";
 
 import "./styles.css";
 
@@ -11,11 +11,13 @@ const StepWizardHeader = ({ steps = [], goToStep = () => {} }) => {
       <nav>
         <ul className="step-wizard-menu-list">
           {steps.map(({ title, slug, isAllowed, isCurrentStep }, i) => {
-            const className = isCurrentStep ? "current" : "primary";
             return (
               <li className="step-wizard-menu-item" key={i}>
                 <Button
-                  className={"step-wizard-menu__button " + className}
+                  type="button"
+                  className={`step-wizard-menu__button ${
+                    isCurrentStep ? "current" : "primary"
+                  }`}
                   disabled={!isAllowed}
                   onClick={handleClick(slug)}
                 >
