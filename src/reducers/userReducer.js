@@ -1,4 +1,5 @@
-import { ADD_ACCOUNT_DATA } from "./actionTypes";
+export const ADD_ACCOUNT_DATA = "ADD_ACCOUNT_DATA";
+export const GET_USER_DATA = "GET_USER_DATA";
 
 const initialState = {
   avatar: null,

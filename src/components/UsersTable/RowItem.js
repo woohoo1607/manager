@@ -1,4 +1,7 @@
 import React from "react";
+import * as dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
 import TableRow from "../UI/TableRow";
 import TableCell from "../UI/TableCell";
 import { ReactComponent as UserIcon } from "../../icons/list-of-users.svg";
@@ -7,15 +10,15 @@ import { ReactComponent as CloseIcon } from "../../icons/Close.svg";
 import Button from "../UI/Button";
 
 const RowItem = ({
-  data: {
-    id = 0,
+  user: {
+    id,
     firstName = "",
     lastName = "",
     username = "",
     company = "",
     phones = [],
     email = "",
-    lastUpdate = 0,
+    lastUpdate,
   },
   deleteUser = () => {},
   index = 0,
@@ -23,6 +26,7 @@ const RowItem = ({
   changeActiveRow = () => {},
   goToUserPage = () => {},
 }) => {
+  dayjs.extend(relativeTime);
   const isSelected = index === selectedRow;
   return (
     <TableRow className={isSelected ? "selected" : ""}>
@@ -46,12 +50,12 @@ const RowItem = ({
         </div>
       </TableCell>
       <TableCell>
-        {`${firstName}  ${lastName}`}
+        {`${firstName} ${lastName}`}
         <p style={{ fontSize: "9px" }}>{username}</p>
       </TableCell>
       <TableCell>{company}</TableCell>
       <TableCell>{phones[0] || email}</TableCell>
-      <TableCell>{lastUpdate}</TableCell>
+      <TableCell>{`${dayjs(lastUpdate).fromNow(true)} ago`}</TableCell>
       <TableCell>
         {!isSelected && (
           <EditIcon style={{ cursor: "pointer" }} onClick={goToUserPage(id)} />

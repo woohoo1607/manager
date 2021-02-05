@@ -12,7 +12,7 @@ import "./styles.css";
 const NO_SELECTED_ROW = -1;
 
 const UsersTable = ({
-  data = [],
+  users = [],
   deleteUser = () => {},
   goToUserPage = () => {},
 }) => {
@@ -49,10 +49,10 @@ const UsersTable = ({
         </TableRow>
       </TableHead>
       <TableBody>
-        {data.map((item, i) => (
+        {users.map((item, i) => (
           <RowItem
             key={i}
-            data={item}
+            user={item}
             index={i}
             deleteUser={deleteUser}
             changeActiveRow={changeActiveRow}

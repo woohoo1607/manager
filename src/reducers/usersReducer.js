@@ -52,17 +52,4 @@ const usersReducer = (state = initialState, { type, payload }) => {
   }
 };
 
-export const getUsers = () => {
-  return {
-    type: GET_USERS,
-  };
-};
-
-export const addUser = (user) => {
-  return {
-    type: ADD_USER,
-    user,
-  };
-};
-
 export default usersReducer;

@@ -2,9 +2,8 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import TemplatePage from "../TemplatePage";
-import { addAccountData } from "./actions";
 import UserStepWizard from "../../components/UserStepWizard";
-import { addUser } from "../../reducers/usersReducer";
+import { addAccountData, addUser } from "../../reducers/actions";
 
 const NewUserPage = () => {
   const dispatch = useDispatch();
@@ -19,12 +18,8 @@ const NewUserPage = () => {
   const createUser = useCallback((user) => dispatch(addUser(user)), [dispatch]);
 
   const submit = (data) => {
-    const newUser = { ...user, ...data };
-    delete newUser.repeatPassword;
-    delete newUser.allowedUnsubmittedStep;
-    newUser.lastUpdate = new Date();
     saveStep(data);
-    createUser(newUser);
+    createUser({ ...user, ...data });
   };
 
   return (
