@@ -1,76 +1,100 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { useHistory, Route, useRouteMatch, useParams } from "react-router-dom";
 
 import StepWizardHeader from "./StepWizardHeader";
 import StepWizardControls from "./StepWizardControls";
 
 import "./styles.css";
 
+const StepWizardWrapper = (props) => {
+  const match = useRouteMatch();
+  return (
+    <Route
+      path={[`${match.url}/:slug`, match.url]}
+      render={(routeProps) => (
+        <StepWizard {...props} {...routeProps} path={match.url} />
+      )}
+    />
+  );
+};
+
 const StepWizard = ({
-  data = [],
+  data = {},
   steps = [],
   saveStep = () => {},
   submit = () => {},
   isEditMode = false,
-  currentTab = 0,
-  changeUrl = () => {},
+  path = "",
 }) => {
-  const [currentStep, setCurrentStep] = useState(currentTab);
-  const [allowedTabs, setAllowedTabs] = useState([0]);
+  const { slug } = useParams();
+  const { push } = useHistory();
+  const { allowedUnsubmittedStep } = data;
 
-  const getNextStepIndex = () => {
-    return currentStep + 1;
+  useEffect(() => {
+    if (!slug) {
+      if (slug !== steps[0].slug && !isEditMode)
+        push(`${path}/${steps[0].slug}`);
+    }
+  }, [path, push, steps, isEditMode, slug]);
+
+  const currentStepIndex = steps.findIndex((step) => step.slug === slug);
+
+  const changeStep = (slug) => {
+    push(`${path}/${slug}`);
   };
-  const getPreviousStepIndex = () => {
-    return currentStep - 1;
-  };
 
-  const getTabUrlName = (i) => steps[i].urlName;
+  const isLastStep = currentStepIndex === steps.length - 1;
 
-  const isLastStep = steps.length === getNextStepIndex();
+  const isFirstStep = steps[0].slug === slug;
 
   const nextStep = (data) => {
-    const stepIndex = getNextStepIndex();
-    saveStep(data);
-    setCurrentStep(stepIndex);
-    if (!allowedTabs.includes(stepIndex)) {
-      setAllowedTabs([...allowedTabs, stepIndex]);
-    }
-    changeUrl(getTabUrlName(stepIndex));
+    const nextStepSlug = steps[currentStepIndex + 1].slug;
+    saveStep({
+      ...data,
+      allowedUnsubmittedStep:
+        currentStepIndex === allowedUnsubmittedStep
+          ? currentStepIndex + 1
+          : allowedUnsubmittedStep,
+    });
+    changeStep(nextStepSlug);
   };
 
-  const previousStep = () => {
-    const stepIndex = getPreviousStepIndex();
-    setCurrentStep(stepIndex);
-    changeUrl(getTabUrlName(stepIndex));
-  };
-
-  const CurrentFrom = steps.filter((step, i) => i === currentStep)[0].component;
+  const previousStep = () => changeStep(steps[currentStepIndex - 1].slug);
 
   const submitForm = isLastStep || isEditMode ? submit : nextStep;
 
   return (
     <div className="step-wizard">
       <StepWizardHeader
-        steps={steps}
-        currentStep={currentStep}
-        goToStep={setCurrentStep}
-        isEditMode={isEditMode}
-        changeUrl={changeUrl}
-        getTabUrlName={getTabUrlName}
-        allowedTabs={allowedTabs}
+        steps={steps.map(({ title, slug }, i) => ({
+          title,
+          slug,
+          isAllowed: isEditMode || i <= allowedUnsubmittedStep,
+          isCurrentStep: i === currentStepIndex,
+        }))}
+        goToStep={changeStep}
       />
       <div className="step-wizard-body">
-        <CurrentFrom {...data} submit={submitForm}>
-          <StepWizardControls
-            currentStep={currentStep}
-            isLastStep={isLastStep}
-            previousStep={previousStep}
-            isEditMode={isEditMode}
+        {steps.map(({ component: Step, slug }, i) => (
+          <Route
+            key={i}
+            exact
+            path={`${path}/${slug}`}
+            render={(props) => (
+              <Step {...data} submit={submitForm} {...props}>
+                <StepWizardControls
+                  isFirstStep={isFirstStep}
+                  previousStep={previousStep}
+                  isEditMode={isEditMode}
+                  isLastStep={isLastStep}
+                />
+              </Step>
+            )}
           />
-        </CurrentFrom>
+        ))}
       </div>
     </div>
   );
 };
 
-export default StepWizard;
+export default StepWizardWrapper;

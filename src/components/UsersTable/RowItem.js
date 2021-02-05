@@ -19,13 +19,13 @@ const RowItem = ({
   },
   deleteUser = () => {},
   index = 0,
-  activeRow,
+  selectedRow,
   changeActiveRow = () => {},
   goToUserPage = () => {},
 }) => {
-  const isActive = index === activeRow;
+  const isSelected = index === selectedRow;
   return (
-    <TableRow className={isActive ? "active" : ""}>
+    <TableRow className={isSelected ? "active" : ""}>
       <TableCell>
         <div
           style={{
@@ -53,19 +53,19 @@ const RowItem = ({
       <TableCell>{phones[0] || email}</TableCell>
       <TableCell>{lastUpdate}</TableCell>
       <TableCell>
-        {!isActive && (
+        {!isSelected && (
           <EditIcon style={{ cursor: "pointer" }} onClick={goToUserPage(id)} />
         )}
       </TableCell>
       <TableCell>
-        {!isActive && (
+        {!isSelected && (
           <CloseIcon
             style={{ cursor: "pointer" }}
             onClick={changeActiveRow(index)}
           />
         )}
       </TableCell>
-      {isActive && (
+      {isSelected && (
         <TableCell>
           <Button type="button" className="delete-row" onClick={deleteUser(id)}>
             x delete
