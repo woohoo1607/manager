@@ -46,7 +46,7 @@ const Header = () => {
                   }
                 />
                 <NavLink
-                  to={{ pathname: "/users" }}
+                  to={{ pathname: "/" }}
                   className={
                     isAddUserFlow ? "menu-link active-link" : "menu-link"
                   }

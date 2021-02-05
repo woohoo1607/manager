@@ -33,7 +33,7 @@ const UserPage = () => {
     push(`/users/${user.id}/edit/${tab}`);
 
   return (
-    <TemplatePage title="User Name" backLink="/" linkTitle="Users List">
+    <TemplatePage title={user.username} backLink="/" linkTitle="Users List">
       <UserInformation user={user} goToEditUser={goToEditUser} />
     </TemplatePage>
   );

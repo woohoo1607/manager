@@ -24,6 +24,9 @@ const initialState = {
 const userReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ADD_ACCOUNT_DATA: {
+      if (payload.hasOwnProperty("phones")) {
+        payload.phones = payload.phones.filter((phone) => phone.length > 0);
+      }
       return {
         ...state,
         ...payload,

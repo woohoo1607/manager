@@ -5,6 +5,7 @@ import { ReactComponent as UserIcon } from "../../icons/list-of-users.svg";
 import { ReactComponent as EditIcon } from "../../icons/Edit.svg";
 import { ReactComponent as CloseIcon } from "../../icons/Close.svg";
 import Button from "../Button";
+import IconButton from "../UI/IconButton";
 
 const RowItem = ({
   data: {
@@ -54,19 +55,20 @@ const RowItem = ({
       <TableCell>{lastUpdate}</TableCell>
       <TableCell>
         {!isSelected && (
-          <EditIcon style={{ cursor: "pointer" }} onClick={goToUserPage(id)} />
+          <IconButton onClick={goToUserPage(id)}>
+            <EditIcon />
+          </IconButton>
         )}
       </TableCell>
       <TableCell>
         {!isSelected && (
-          <CloseIcon
-            style={{ cursor: "pointer" }}
-            onClick={changeActiveRow(index)}
-          />
+          <IconButton onClick={changeActiveRow(index)}>
+            <CloseIcon />
+          </IconButton>
         )}
       </TableCell>
       {isSelected && (
-        <TableCell>
+        <TableCell style={{ position: "relative" }}>
           <Button type="button" className="delete-row" onClick={deleteUser(id)}>
             x delete
           </Button>

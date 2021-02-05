@@ -15,6 +15,7 @@
 .user-information-block {
     display: flex;
     margin-top: 24px;
+    align-items: flex-start;
 }
 
 .user-information-list {
@@ -33,6 +34,7 @@
     color: #475666;
     font-weight: bold;
     cursor: pointer;
+    display: flex;
 }
 
 .user-information-data {
@@ -41,6 +43,18 @@
     color: #657C9A;
 }
 
+.user-information-icon {
+    margin: 1px 0 0 7px
+}
+
 .user-information-icon path {
     fill: #475666;
+}
+
+.user-information-title:hover {
+    color: #4E86E4;
+}
+
+.user-information-title:hover .user-information-icon path {
+    fill: #4E86E4;
 }

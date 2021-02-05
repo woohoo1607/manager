@@ -23,9 +23,9 @@ const validationSchema = Yup.object({
   facebook: Yup.string()
     .required("facebook link is required")
     .matches(URL, "enter correct url"),
-  fax: Yup.string().min(18, "wrong fax format"),
+  fax: Yup.string().min(19, "wrong fax format").required("fax is required"),
   phones: Yup.array().of(
-    Yup.lazy(() => Yup.string().min(18, "wrong phone format"))
+    Yup.lazy(() => Yup.string().min(19, "wrong phone format"))
   ),
 });
 
@@ -64,7 +64,7 @@ const ContactsFormBody = ({ children, currentValues: { phones } }) => {
       </div>
       <div className="with-controls">
         <div>
-          <PhoneField title="Fax" name="fax" isSecondaryColor />
+          <PhoneField title="Fax" name="fax" isSecondaryColor isRequired />
           {phones.map((phone, i) => (
             <PhoneField
               key={i}
