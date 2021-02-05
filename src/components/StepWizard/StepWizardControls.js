@@ -3,45 +3,58 @@ import React from "react";
 import "./styles.css";
 import Button from "../UI/Button";
 
+const ControlButton = ({
+  title = "",
+  className,
+  children = "Save",
+  ...props
+}) => (
+  <Button
+    className={`step-wizard__button ${className ? className : ""}`}
+    {...props}
+  >
+    {children || title}
+  </Button>
+);
+
+const Wrapper = ({ children }) => (
+  <div className="step-wizard__controls">{children}</div>
+);
+
 const StepWizardControls = ({
   isFirstStep = true,
   isLastStep = false,
   previousStep = () => {},
   isEditMode = false,
 }) => {
-  const submitButton = ({ title, className }) => (
-    <Button className={`step-wizard__button ${className ? className : ""}`}>
-      {title}
-    </Button>
-  );
-  const backButton = (
-    <Button
-      type="button"
-      color="gray"
-      className="step-wizard__button step-wizard__button-back"
-      onClick={previousStep}
-    >
-      Back
-    </Button>
-  );
-  const controls = [];
-
   if (isEditMode) {
-    controls.push(submitButton({ title: "Save" }));
+    return (
+      <Wrapper>
+        <ControlButton />
+      </Wrapper>
+    );
   } else {
-    isLastStep
-      ? controls.push(
-          submitButton({
-            title: "Finish",
-            className: "step-wizard__button-success",
-          })
-        )
-      : controls.push(submitButton({ title: "Forward" }));
-    if (!isFirstStep) {
-      controls.push(backButton);
-    }
+    return (
+      <Wrapper>
+        {isLastStep ? (
+          <ControlButton
+            className="step-wizard__button-success"
+            title="Finish"
+          />
+        ) : (
+          <ControlButton title="Forward" />
+        )}
+        {!isFirstStep && (
+          <ControlButton
+            type="button"
+            className="step-wizard__button-back"
+            onClick={previousStep}
+            title="Back"
+          />
+        )}
+      </Wrapper>
+    );
   }
-  return <div className="step-wizard__controls">{controls}</div>;
 };
 
 export default StepWizardControls;
