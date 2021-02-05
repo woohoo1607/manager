@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import EyeIcon from "../../icons/eye.svg";
 import EyeStrikeIcon from "../../icons/eye-strike.svg";
 import Input from "../UI/Input";
-import Button from "../Button";
+import Button from "../UI/Button";
 
 import "./styles.css";
 

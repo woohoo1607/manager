@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./styles.css";
-import Button from "../Button";
+import Button from "../UI/Button";
 
 const StepWizardControls = ({
   isFirstStep = true,
@@ -9,18 +9,24 @@ const StepWizardControls = ({
   previousStep = () => {},
   isEditMode = false,
 }) => {
+  let submitButtonTitle = "";
+  let isShowBackButton = false;
+  if (isEditMode) {
+    submitButtonTitle = "Save";
+  } else {
+    submitButtonTitle = isLastStep ? "Finish" : "Forward";
+    isShowBackButton = !isFirstStep;
+  }
   return (
     <div className="step-wizard__controls">
-      {isEditMode ? (
-        <Button className={`step-wizard__button`}>Save</Button>
-      ) : isLastStep ? (
-        <Button className={`step-wizard__button step-wizard__button-success`}>
-          Finish
-        </Button>
-      ) : (
-        <Button className={`step-wizard__button`}>Forward</Button>
-      )}
-      {!isFirstStep && !isEditMode && (
+      <Button
+        className={`step-wizard__button ${
+          isLastStep ? "step-wizard__button-success" : ""
+        }`}
+      >
+        {submitButtonTitle}
+      </Button>
+      {isShowBackButton && (
         <Button
           type="button"
           color="gray"

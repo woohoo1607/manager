@@ -7,12 +7,12 @@ import StepWizardControls from "./StepWizardControls";
 import "./styles.css";
 
 const StepWizardWrapper = (props) => {
-  const match = useRouteMatch();
+  const { url } = useRouteMatch();
   return (
     <Route
-      path={[`${match.url}/:slug`, match.url]}
+      path={[`${url}/:slug`, url]}
       render={(routeProps) => (
-        <StepWizard {...props} {...routeProps} path={match.url} />
+        <StepWizard {...props} {...routeProps} path={url} />
       )}
     />
   );
@@ -29,15 +29,18 @@ const StepWizard = ({
   const { slug } = useParams();
   const { push } = useHistory();
   const { allowedUnsubmittedStep } = data;
+  const firstStepSlug = steps[0].slug;
 
   useEffect(() => {
     if (!slug) {
-      if (slug !== steps[0].slug && !isEditMode)
-        push(`${path}/${steps[0].slug}`);
+      if (slug !== firstStepSlug && !isEditMode)
+        push(`${path}/${firstStepSlug}`);
     }
-  }, [path, push, steps, isEditMode, slug]);
+  }, [path, push, firstStepSlug, isEditMode, slug]);
 
-  const currentStepIndex = steps.findIndex((step) => step.slug === slug);
+  const currentStepIndex = steps.findIndex(
+    ({ slug: foundSlug }) => foundSlug === slug
+  );
 
   const changeStep = (slug) => {
     push(`${path}/${slug}`);
@@ -45,10 +48,9 @@ const StepWizard = ({
 
   const isLastStep = currentStepIndex === steps.length - 1;
 
-  const isFirstStep = steps[0].slug === slug;
+  const isFirstStep = firstStepSlug === slug;
 
   const nextStep = (data) => {
-    const nextStepSlug = steps[currentStepIndex + 1].slug;
     saveStep({
       ...data,
       allowedUnsubmittedStep:
@@ -56,12 +58,10 @@ const StepWizard = ({
           ? currentStepIndex + 1
           : allowedUnsubmittedStep,
     });
-    changeStep(nextStepSlug);
+    changeStep(steps[currentStepIndex + 1].slug);
   };
 
   const previousStep = () => changeStep(steps[currentStepIndex - 1].slug);
-
-  const submitForm = isLastStep || isEditMode ? submit : nextStep;
 
   return (
     <div className="step-wizard">
@@ -81,7 +81,11 @@ const StepWizard = ({
             exact
             path={`${path}/${slug}`}
             render={(props) => (
-              <Step {...data} submit={submitForm} {...props}>
+              <Step
+                {...data}
+                submit={isLastStep || isEditMode ? submit : nextStep}
+                {...props}
+              >
                 <StepWizardControls
                   isFirstStep={isFirstStep}
                   previousStep={previousStep}

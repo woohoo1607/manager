@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import TemplatePage from "../TemplatePage";
 import UsersTable from "../../components/UsersTable";
-import Button from "../../components/Button";
+import Button from "../../components/UI/Button";
 
 import "./styles.css";
 
