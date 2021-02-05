@@ -11,17 +11,19 @@ const StepWizardControls = ({
 }) => {
   let submitButtonTitle = "";
   let isShowBackButton = false;
+  let isSuccessSubmit = false;
   if (isEditMode) {
     submitButtonTitle = "Save";
   } else {
     submitButtonTitle = isLastStep ? "Finish" : "Forward";
     isShowBackButton = !isFirstStep;
+    isSuccessSubmit = isLastStep;
   }
   return (
     <div className="step-wizard__controls">
       <Button
         className={`step-wizard__button ${
-          isLastStep ? "step-wizard__button-success" : ""
+          isSuccessSubmit ? "step-wizard__button-success" : ""
         }`}
       >
         {submitButtonTitle}
