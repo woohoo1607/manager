@@ -27,6 +27,7 @@ const UserInformation = ({
   goToEditUser = () => {},
 }) => {
   return (
+    /*TODO: refactor with STEPS usage*/
     <div className="user-information-container">
       <Avatar avatar={avatar} style={{ minWidth: "200px" }} />
       <div className="user-information">
