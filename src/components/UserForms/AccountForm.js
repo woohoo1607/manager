@@ -10,13 +10,18 @@ import Avatar from "../UI/Avatar";
 import "./styles.css";
 
 const MAX_PHOTO_SIZE = 1048576;
+const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 
 const validationSchema = Yup.object({
-  avatar: Yup.mixed().test(
-    "fileSize",
-    "the file size must not exceed 1 MB",
-    (value) => (value ? value.size <= MAX_PHOTO_SIZE : true)
-  ),
+  avatar: Yup.mixed()
+    .test("fileSize", "the file size must not exceed 1 MB", (value) =>
+      value ? value.size <= MAX_PHOTO_SIZE : true
+    )
+    .test(
+      "fileFormat",
+      "Unsupported Format",
+      (value) => value && SUPPORTED_FORMATS.includes(value.type)
+    ),
   username: Yup.string().required("user name is required"),
   password: Yup.string().required("password is required"),
   repeatPassword: Yup.string()
