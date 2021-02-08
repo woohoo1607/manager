@@ -1,3 +1,15 @@
 .internal-link {
     text-decoration: none;
 }
+
+.internal-link:hover {
+    color: #475666;
+}
+
+.internal-link__icon {
+    margin-right: 10px;
+}
+
+.internal-link:hover .internal-link__icon path{
+    stroke: #475666;
+}

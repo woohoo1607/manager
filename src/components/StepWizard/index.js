@@ -32,18 +32,32 @@ const StepWizard = ({
   const firstStepSlug = steps[0].slug;
 
   useEffect(() => {
-    if (!slug) {
-      if (slug !== firstStepSlug && !isEditMode)
+    if (!isEditMode) {
+      const slugIndex = steps.findIndex(
+        ({ slug: foundSlug }) => foundSlug === slug
+      );
+      if (slugIndex === -1 || slugIndex > allowedUnsubmittedStep) {
         push(`${path}/${firstStepSlug}`);
+      }
     }
-  }, [path, push, firstStepSlug, isEditMode, slug]);
+  }, [
+    path,
+    push,
+    firstStepSlug,
+    isEditMode,
+    slug,
+    steps,
+    allowedUnsubmittedStep,
+  ]);
 
   const currentStepIndex = steps.findIndex(
     ({ slug: foundSlug }) => foundSlug === slug
   );
 
-  const changeStep = (slug) => {
-    push(`${path}/${slug}`);
+  const changeStep = (slug = "") => {
+    if (typeof slug === "string") {
+      push(`${path}/${slug}`);
+    }
   };
 
   const isLastStep = currentStepIndex === steps.length - 1;
@@ -58,10 +72,14 @@ const StepWizard = ({
           ? currentStepIndex + 1
           : allowedUnsubmittedStep,
     });
-    changeStep(steps[currentStepIndex + 1].slug);
+    const { slug } = steps[currentStepIndex + 1] || {};
+    changeStep(slug);
   };
 
-  const previousStep = () => changeStep(steps[currentStepIndex - 1].slug);
+  const previousStep = () => {
+    const { slug } = steps[currentStepIndex - 1] || {};
+    changeStep(slug);
+  };
 
   return (
     <div className="step-wizard">

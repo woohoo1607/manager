@@ -9,6 +9,7 @@
     overflow: hidden;
     line-height: 20px;
     font-weight: bold;
+    margin: 5px 0 2px 0;
 }
 
 .text-area:focus {

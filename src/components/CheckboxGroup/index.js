@@ -3,6 +3,8 @@ import React from "react";
 import FormikField from "../FormikField";
 import Checkbox from "../UI/Checkbox";
 
+import "./styles.css";
+
 const CheckboxGroup = ({ variants = [], name, currentValues }) => {
   const activeCheckboxes = currentValues ? currentValues[name] : [];
 

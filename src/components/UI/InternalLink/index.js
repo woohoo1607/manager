@@ -16,7 +16,7 @@ const InternalLink = ({
     className={`internal-link ${className ? className : ""}`}
     {...props}
   >
-    {isBack && <BackIcon />}
+    {isBack && <BackIcon className="internal-link__icon" />}
     {title}
   </NavLink>
 );
