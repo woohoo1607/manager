@@ -3,18 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import TemplatePage from "../TemplatePage";
 import { addAccountData } from "./actions";
-import StepWizard from "../../components/StepWizard";
-import AccountForm from "../../components/UserForms/AccountForm";
-import ProfileForm from "../../components/UserForms/ProfileForm";
-import ContactsForm from "../../components/UserForms/ContactsForm";
-import CapabilitiesForm from "../../components/UserForms/CapabilitiesForm";
-
-const steps = [
-  { title: "Account", component: AccountForm },
-  { title: "Profile", component: ProfileForm },
-  { title: "Contacts", component: ContactsForm },
-  { title: "Capabilities", component: CapabilitiesForm },
-];
+import UserStepWizard from "../../components/UserStepWizard";
 
 const NewUserPage = () => {
   const dispatch = useDispatch();
@@ -32,12 +21,7 @@ const NewUserPage = () => {
 
   return (
     <TemplatePage title="Adding new user">
-      <StepWizard
-        steps={steps}
-        data={user}
-        saveStep={saveStep}
-        submit={submit}
-      />
+      <UserStepWizard user={user} saveStep={saveStep} submit={submit} />
     </TemplatePage>
   );
 };

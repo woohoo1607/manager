@@ -45,16 +45,13 @@
     margin-bottom: 16px;
     color: #475666;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .user-information-data {
     margin-left: 75px;
     width: 229px;
     color: #657C9A;
-}
-
-.user-information-icon {
-    cursor: pointer;
 }
 
 .user-information-icon path {

@@ -8,7 +8,7 @@ const InternalLink = ({
   pathname = "/",
   title = "",
   className = "",
-  icon = "",
+  isBack = false,
   ...props
 }) => (
   <NavLink
@@ -16,7 +16,7 @@ const InternalLink = ({
     className={`internal-link ${className ? className : ""}`}
     {...props}
   >
-    {icon === "back" && <BackIcon />}
+    {isBack && <BackIcon />}
     {title}
   </NavLink>
 );

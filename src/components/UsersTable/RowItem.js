@@ -4,7 +4,7 @@ import TableCell from "../UI/TableCell";
 import { ReactComponent as UserIcon } from "../../icons/list-of-users.svg";
 import { ReactComponent as EditIcon } from "../../icons/Edit.svg";
 import { ReactComponent as CloseIcon } from "../../icons/Close.svg";
-import Button from "../Button";
+import Button from "../UI/Button";
 
 const RowItem = ({
   data: {
@@ -19,13 +19,13 @@ const RowItem = ({
   },
   deleteUser = () => {},
   index = 0,
-  activeRow = -1,
+  selectedRow,
   changeActiveRow = () => {},
   goToUserPage = () => {},
 }) => {
-  const isActive = index === activeRow;
+  const isSelected = index === selectedRow;
   return (
-    <TableRow className={isActive ? "active" : ""}>
+    <TableRow className={isSelected ? "selected" : ""}>
       <TableCell>
         <div
           style={{
@@ -53,31 +53,23 @@ const RowItem = ({
       <TableCell>{phones[0] || email}</TableCell>
       <TableCell>{lastUpdate}</TableCell>
       <TableCell>
-        {!isActive && (
+        {!isSelected && (
           <EditIcon style={{ cursor: "pointer" }} onClick={goToUserPage(id)} />
         )}
       </TableCell>
       <TableCell>
-        {!isActive && (
+        {!isSelected && (
           <CloseIcon
             style={{ cursor: "pointer" }}
             onClick={changeActiveRow(index)}
           />
         )}
       </TableCell>
-      {isActive && (
+      {isSelected && (
         <TableCell>
           <Button
-            style={{
-              position: "absolute",
-              top: "47%",
-              marginLeft: "10px",
-              color: "#FF8989",
-              padding: 0,
-              minWidth: 0,
-              backgroundColor: "#FFFFFF",
-              cursor: "pointer",
-            }}
+            type="button"
+            className="selected-row-button"
             onClick={deleteUser(id)}
           >
             x delete

@@ -30,6 +30,10 @@
     cursor: pointer;
 }
 
+.step-wizard-menu__button:hover:enabled {
+    opacity: 0.6;
+}
+
 .step-wizard-menu__button:disabled {
     color: #9BB0CB;
     background: rgba(151,186,244,0.2);
@@ -40,6 +44,10 @@
     color: #FFFFFF;
     background: #4E86E4;
     cursor: initial;
+}
+
+.step-wizard-menu__button.current:hover {
+    opacity: 1;
 }
 
 .step-wizard__controls {

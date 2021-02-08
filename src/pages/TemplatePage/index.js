@@ -22,7 +22,7 @@ const TemplatePage = ({
               pathname={backLink}
               title={linkTitle}
               className="title-secondary"
-              icon="back"
+              isBack
             />
           )}
         </div>

@@ -1,34 +1,59 @@
 import React from "react";
 
+import Button from "../UI/Button";
 import "./styles.css";
-import Button from "../Button";
+
+const ControlButton = ({
+  title = "Save",
+  variant = "primary",
+  children,
+  ...props
+}) => (
+  <Button
+    className={`step-wizard__button 
+    ${variant === "success" ? "step-wizard__button-success" : ""} 
+    ${variant === "light" ? "step-wizard__button-back" : ""}`}
+    {...props}
+  >
+    {children || title}
+  </Button>
+);
+
+const Wrapper = ({ children }) => (
+  <div className="step-wizard__controls">{children}</div>
+);
 
 const StepWizardControls = ({
-  activeStep = 0,
+  isFirstStep = true,
   isLastStep = false,
-  previousStep,
+  previousStep = () => {},
+  isEditMode = false,
 }) => {
-  return (
-    <div className="step-wizard__controls">
-      <Button
-        type="submit"
-        className={`step-wizard__button ${
-          isLastStep && "step-wizard__button-success"
-        }`}
-      >
-        {isLastStep ? "Finish" : "Forward"}
-      </Button>
-      {!!activeStep && (
-        <Button
-          color="gray"
-          className="step-wizard__button step-wizard__button-back"
-          onClick={previousStep}
-        >
-          Back
-        </Button>
-      )}
-    </div>
-  );
+  if (isEditMode) {
+    return (
+      <Wrapper>
+        <ControlButton />
+      </Wrapper>
+    );
+  } else {
+    return (
+      <Wrapper>
+        {isLastStep ? (
+          <ControlButton variant="success" title="Finish" />
+        ) : (
+          <ControlButton title="Forward" />
+        )}
+        {!isFirstStep && (
+          <ControlButton
+            type="button"
+            variant="light"
+            onClick={previousStep}
+            title="Back"
+          />
+        )}
+      </Wrapper>
+    );
+  }
 };
 
 export default StepWizardControls;
