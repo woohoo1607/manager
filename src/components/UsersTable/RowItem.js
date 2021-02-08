@@ -5,7 +5,7 @@ import { ReactComponent as UserIcon } from "../../icons/list-of-users.svg";
 import { ReactComponent as EditIcon } from "../../icons/Edit.svg";
 import { ReactComponent as CloseIcon } from "../../icons/Close.svg";
 
-import Button from "../Button";
+import Button from "../UI/Button";
 import IconButton from "../UI/IconButton";
 
 const RowItem = ({
