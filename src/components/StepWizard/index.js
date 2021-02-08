@@ -65,15 +65,18 @@ const StepWizard = ({
   const isFirstStep = firstStepSlug === slug;
 
   const nextStep = (data) => {
+    const { slug } = steps[currentStepIndex + 1] || {};
     saveStep({
       ...data,
       allowedUnsubmittedStep:
         currentStepIndex === allowedUnsubmittedStep
           ? currentStepIndex + 1
           : allowedUnsubmittedStep,
+      meta: { redirect: push, path: `${path}/${slug}` },
     });
-    const { slug } = steps[currentStepIndex + 1] || {};
+    /*
     changeStep(slug);
+*/
   };
 
   const previousStep = () => {

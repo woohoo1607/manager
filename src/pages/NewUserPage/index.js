@@ -8,9 +8,12 @@ import {
   addUser,
   clearUserState,
 } from "../../reducers/actions";
+import { useHistory } from "react-router-dom";
 
 const NewUserPage = () => {
   const dispatch = useDispatch();
+
+  const { push } = useHistory();
 
   const user = useSelector((state) => state.user);
 
@@ -22,8 +25,7 @@ const NewUserPage = () => {
   const createUser = useCallback((user) => dispatch(addUser(user)), [dispatch]);
 
   const submit = (data) => {
-    saveStep(data);
-    createUser({ ...user, ...data });
+    createUser({ ...user, ...data, meta: { redirect: push, path: "/" } });
   };
 
   useEffect(() => {

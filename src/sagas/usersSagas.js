@@ -1,7 +1,5 @@
 import { put, call, takeEvery, all } from "redux-saga/effects";
 import {
-  ADD_USER,
-  ADD_USER_SUCCESS,
   DELETE_USER,
   DELETE_USER_SUCCESS,
   GET_USERS,
@@ -12,6 +10,8 @@ import {
 
 import { usersService } from "../services/db/UsersService";
 import { getUserData, openPopUp } from "../reducers/actions";
+import { ADD_USER, ADD_USER_SUCCESS } from "../reducers/userReducer";
+import { removeData } from "../helpers/localStorageHelper";
 
 export function* getUsersSaga() {
   try {
@@ -29,13 +29,15 @@ export function* watchGetUsersSaga() {
   yield takeEvery(GET_USERS, getUsersSaga);
 }
 
-export function* addUserSaga({ user }) {
+export function* addUserSaga({ meta: { redirect, path }, user }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
     yield call(usersService.add, user);
     yield put({ type: ADD_USER_SUCCESS });
     yield put({ type: GET_USERS });
     yield put(openPopUp({ msg: "User added successfully" }));
+    yield call(redirect, path);
+    yield call(removeData, "newUserData");
   } catch ({ message }) {
     yield put(openPopUp({ msg: message, variant: "error" }));
     yield put({ type: IS_LOADING, payload: false });

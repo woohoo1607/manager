@@ -1,6 +1,7 @@
-import { ADD_USER, DELETE_USER, GET_USERS, UPDATE_USER } from "./usersReducer";
+import { DELETE_USER, GET_USERS, UPDATE_USER } from "./usersReducer";
 import {
   ADD_ACCOUNT_DATA,
+  ADD_USER,
   CLEAR_USER_STATE,
   GET_USER_DATA,
 } from "./userReducer";
@@ -20,10 +21,11 @@ export const getUsers = () => {
   };
 };
 
-export const addUser = (user) => {
+export const addUser = ({ meta, ...user }) => {
   return {
     type: ADD_USER,
     user: removeUnnecessaryUserProperties(user),
+    meta: meta,
   };
 };
 
@@ -41,8 +43,11 @@ export const deleteUser = (id) => {
   };
 };
 
-export const addAccountData = (payload) => {
-  return { type: ADD_ACCOUNT_DATA, payload };
+export const addAccountData = ({ meta, ...userData }) => {
+  if (userData.hasOwnProperty("phones")) {
+    userData.phones = userData.phones.filter((phone) => phone.length > 0);
+  }
+  return { type: ADD_ACCOUNT_DATA, userData, meta };
 };
 
 export const getUserData = (id) => {
