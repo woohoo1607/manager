@@ -1,5 +1,6 @@
 export const ADD_ACCOUNT_DATA = "ADD_ACCOUNT_DATA";
 export const GET_USER_DATA = "GET_USER_DATA";
+export const CLEAR_USER_STATE = "CLEAR_USER_STATE";
 
 const initialState = {
   avatar: null,
@@ -32,6 +33,12 @@ const userReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         ...payload,
+      };
+    }
+    case CLEAR_USER_STATE: {
+      return {
+        ...state,
+        ...initialState,
       };
     }
     default:

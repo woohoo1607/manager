@@ -1,20 +1,17 @@
 import { put, call, takeEvery, all } from "redux-saga/effects";
 import {
   ADD_USER,
-  ADD_USER_ERROR,
   ADD_USER_SUCCESS,
   DELETE_USER,
-  DELETE_USER_ERROR,
   DELETE_USER_SUCCESS,
   GET_USERS,
-  GET_USERS_ERROR,
   GET_USERS_SUCCESS,
   IS_LOADING,
   UPDATE_USER,
-  UPDATE_USER_ERROR,
-  UPDATE_USER_SUCCESS,
 } from "../reducers/usersReducer";
+
 import { usersService } from "../services/db/UsersService";
+import { getUserData, openPopUp } from "../reducers/actions";
 
 export function* getUsersSaga() {
   try {
@@ -22,8 +19,8 @@ export function* getUsersSaga() {
     const res = yield call(usersService.getAll);
     yield put({ type: GET_USERS_SUCCESS, payload: res });
     yield put({ type: IS_LOADING, payload: false });
-  } catch (error) {
-    yield put({ type: GET_USERS_ERROR, payload: error });
+  } catch ({ message }) {
+    yield put(openPopUp({ msg: message, variant: "error" }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -38,8 +35,9 @@ export function* addUserSaga({ user }) {
     yield call(usersService.add, user);
     yield put({ type: ADD_USER_SUCCESS });
     yield put({ type: GET_USERS });
-  } catch (error) {
-    yield put({ type: ADD_USER_ERROR, payload: error });
+    yield put(openPopUp({ msg: "User added successfully" }));
+  } catch ({ message }) {
+    yield put(openPopUp({ msg: message, variant: "error" }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -51,11 +49,12 @@ export function* watchAddUserSaga() {
 export function* updateUserSaga({ user }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
-    yield call(usersService.put, user);
-    yield put({ type: UPDATE_USER_SUCCESS });
+    const id = yield call(usersService.put, user);
+    yield put(getUserData(id));
     yield put({ type: IS_LOADING, payload: false });
-  } catch (error) {
-    yield put({ type: UPDATE_USER_ERROR, payload: error });
+    yield put(openPopUp({ msg: "User updated successfully" }));
+  } catch ({ message }) {
+    yield put(openPopUp({ msg: message, variant: "error" }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -70,8 +69,9 @@ export function* deleteUserSaga({ id }) {
     yield call(usersService.delete, id);
     yield put({ type: DELETE_USER_SUCCESS });
     yield put({ type: GET_USERS });
-  } catch (error) {
-    yield put({ type: DELETE_USER_ERROR, payload: error });
+    yield put(openPopUp({ msg: "User deleted successfully" }));
+  } catch ({ message }) {
+    yield put(openPopUp({ msg: message, variant: "error" }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }

@@ -8,21 +8,20 @@ import Button from "../../components/UI/Button";
 import { deleteUser, getUsers } from "../../reducers/actions";
 
 import "./styles.css";
+import Spinner from "../../components/UI/Spinner";
 
 const HomePage = () => {
   const { push } = useHistory();
 
   const dispatch = useDispatch();
 
-  const users = useSelector(({ users: { users } }) => users);
+  const { users, isLoading } = useSelector(({ users }) => users);
 
   const fetchUsers = useCallback(() => dispatch(getUsers()), [dispatch]);
 
   const createNewUser = () => push(`/users/new`);
 
-  const deleteUsr = (id) => () => {
-    dispatch(deleteUser(id));
-  };
+  const deleteUsr = (id) => dispatch(deleteUser(id));
 
   const goToUserPage = (id) => () => push(`/users/${id}`);
 
@@ -46,6 +45,7 @@ const HomePage = () => {
             </Button>
           </div>
         )}
+        {isLoading && <Spinner />}
       </>
     </TemplatePage>
   );

@@ -17,10 +17,8 @@ const validationSchema = Yup.object({
     .test("fileSize", "the file size must not exceed 1 MB", (value) =>
       value ? value.size <= MAX_PHOTO_SIZE : true
     )
-    .test(
-      "fileFormat",
-      "Unsupported Format",
-      (value) => value && SUPPORTED_FORMATS.includes(value.type)
+    .test("fileFormat", "Unsupported Format", (value) =>
+      value ? SUPPORTED_FORMATS.includes(value.type) : true
     ),
   username: Yup.string().required("user name is required"),
   password: Yup.string().required("password is required"),

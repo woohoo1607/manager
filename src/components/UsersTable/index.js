@@ -33,6 +33,11 @@ const UsersTable = ({
     };
   }, [tableRef, selectedRow]);
 
+  const removeUser = (id) => () => {
+    setSelectedRow(NO_SELECTED_ROW);
+    deleteUser(id);
+  };
+
   return (
     <Table ref={tableRef}>
       <TableHead>
@@ -54,7 +59,7 @@ const UsersTable = ({
             key={i}
             user={item}
             index={i}
-            deleteUser={deleteUser}
+            deleteUser={removeUser}
             changeActiveRow={changeActiveRow}
             selectedRow={selectedRow}
             goToUserPage={goToUserPage}

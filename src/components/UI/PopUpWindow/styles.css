@@ -1,0 +1,18 @@
+.popup {
+    width: 350px;
+    background-color: #FFF;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    border: 2px solid var(--primary-bg-color);
+    color: #475666;
+    padding: 20px 10px;
+}
+
+.popup.error {
+    border-color: var(--error-bg-color);
+}
+
+.popup.success {
+    border-color: var(--success-bg-color);
+}

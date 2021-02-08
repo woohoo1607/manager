@@ -36,11 +36,11 @@ class DBService {
       .store.add({ ...data, id: uuidv4() });
   };
 
-  put = async (data) => {
+  put = async ({ id, ...data }) => {
     const db = await dbPromise(this.tablespace);
     return await db
       .transaction(this.tablespace, "readwrite")
-      .store.put({ ...data, id: uuidv4() });
+      .store.put({ ...data, id });
   };
 
   delete = async (id) => {

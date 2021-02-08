@@ -1,5 +1,10 @@
 import { ADD_USER, DELETE_USER, GET_USERS, UPDATE_USER } from "./usersReducer";
-import { ADD_ACCOUNT_DATA, GET_USER_DATA } from "./userReducer";
+import {
+  ADD_ACCOUNT_DATA,
+  CLEAR_USER_STATE,
+  GET_USER_DATA,
+} from "./userReducer";
+import { CLOSE_POPUP, OPEN_POPUP } from "./popupReducer";
 
 const removeUnnecessaryUserProperties = (user) => {
   const newUser = { ...user };
@@ -46,3 +51,20 @@ export const getUserData = (id) => {
     id,
   };
 };
+
+export const openPopUp = ({ msg = "", variant = "success" }) => {
+  return {
+    type: OPEN_POPUP,
+    payload: { msg, variant },
+  };
+};
+
+export const closePopUp = () => {
+  return {
+    type: CLOSE_POPUP,
+  };
+};
+
+export const clearUserState = () => ({
+  type: CLEAR_USER_STATE,
+});
