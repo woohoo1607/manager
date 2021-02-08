@@ -1,16 +1,18 @@
 import React from "react";
 
-import "./styles.css";
 import Button from "../UI/Button";
+import "./styles.css";
 
 const ControlButton = ({
-  title = "",
-  className,
-  children = "Save",
+  title = "Save",
+  variant = "primary",
+  children,
   ...props
 }) => (
   <Button
-    className={`step-wizard__button ${className ? className : ""}`}
+    className={`step-wizard__button 
+    ${variant === "success" ? "step-wizard__button-success" : ""} 
+    ${variant === "light" ? "step-wizard__button-back" : ""}`}
     {...props}
   >
     {children || title}
@@ -37,17 +39,14 @@ const StepWizardControls = ({
     return (
       <Wrapper>
         {isLastStep ? (
-          <ControlButton
-            className="step-wizard__button-success"
-            title="Finish"
-          />
+          <ControlButton variant="success" title="Finish" />
         ) : (
           <ControlButton title="Forward" />
         )}
         {!isFirstStep && (
           <ControlButton
             type="button"
-            className="step-wizard__button-back"
+            variant="light"
             onClick={previousStep}
             title="Back"
           />
