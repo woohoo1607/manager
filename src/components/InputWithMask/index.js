@@ -3,7 +3,7 @@ import { useFormikContext } from "formik";
 import InputMask from "react-input-mask";
 import Input from "../UI/Input";
 
-const InputWithMask = ({ name, ...props }) => {
+const InputWithMask = ({ name, placeholder, ...props }) => {
   const { setFieldValue } = useFormikContext();
   return (
     <InputMask
@@ -12,7 +12,7 @@ const InputWithMask = ({ name, ...props }) => {
       name={name}
       maskChar=""
     >
-      {(inputProps) => <Input {...inputProps} />}
+      {(inputProps) => <Input {...inputProps} placeholder={placeholder} />}
     </InputMask>
   );
 };

@@ -5,6 +5,20 @@
     padding-left: 10px;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
+    margin: 5px 0 2px 0;
+}
+
+.input::placeholder {
+    color: #9BB0CB;
+    opacity: 1;
+}
+
+.input:-ms-input-placeholder {
+    color: #9BB0CB;
+}
+
+.input::-ms-input-placeholder {
+    color: #9BB0CB;
 }
 
 .input:focus {
@@ -13,4 +27,11 @@
 
 .input.error {
     border: 1px solid #EB5757;
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
 }

@@ -9,13 +9,15 @@ import InputWithMask from "../../InputWithMask";
 const PhoneField = ({
   title = "",
   name = "",
-  mask = "+7 (999) 999 99 99",
+  mask = "+38 (999) 999 99 99",
   children,
+  isRequired = false,
+  placeholder = "",
 }) => (
   <InputContainer>
-    <InputTitle title={title} />
+    <InputTitle title={title} isRequired={isRequired} />
     <FormikField name={name}>
-      <InputWithMask type="tel" mask={mask} />
+      <InputWithMask type="tel" mask={mask} placeholder={placeholder} />
     </FormikField>
     {children}
   </InputContainer>

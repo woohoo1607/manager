@@ -31,6 +31,7 @@ const SelectInput = ({
         backgroundColor: "#FFFFFF",
         minHeight: "40px",
         boxShadow: "none",
+        margin: "5px 0 2px 0",
         "&:hover": { border: `1px solid ${borderColor}` },
       };
     },
@@ -42,6 +43,17 @@ const SelectInput = ({
       overflowY: "scroll",
       "::-webkit-scrollbar": {
         display: "none",
+      },
+    }),
+    input: (base) => ({
+      ...base,
+      fontWeight: "bold",
+      margin: 0,
+      "& div": {
+        width: isMulti ? "100%" : "inherit",
+      },
+      "& input": {
+        fontWeight: "inherit",
       },
     }),
     multiValue: (base) => ({
@@ -64,6 +76,8 @@ const SelectInput = ({
       ...base,
       height: menuListHeight,
       color: "#657C9A",
+      paddingTop: 0,
+      paddingBottom: 0,
       "::-webkit-scrollbar": {
         width: "2px",
       },
@@ -88,12 +102,10 @@ const SelectInput = ({
   };
 
   const getValue = () => {
-    if (options) {
-      return isMulti
-        ? options.filter((option) => value.indexOf(option.value) >= 0)
-        : options.find((option) => option.value === value);
+    if (isMulti) {
+      return options.filter((option) => value.indexOf(option.value) >= 0);
     } else {
-      return isMulti ? [] : "";
+      return options.find((option) => option.value === value);
     }
   };
 
@@ -108,7 +120,7 @@ const SelectInput = ({
       onChange={(option) =>
         setFieldValue(
           name,
-          isMulti ? option.map((item) => item.value) : option.value
+          isMulti ? option.map(({ value }) => value) : option.value
         )
       }
       components={{

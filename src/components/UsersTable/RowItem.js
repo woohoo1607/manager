@@ -2,9 +2,8 @@ import React from "react";
 import TableRow from "../UI/TableRow";
 import TableCell from "../UI/TableCell";
 import { ReactComponent as UserIcon } from "../../icons/list-of-users.svg";
-import { ReactComponent as EditIcon } from "../../icons/Edit.svg";
-import { ReactComponent as CloseIcon } from "../../icons/Close.svg";
 import Button from "../UI/Button";
+import IconButton from "../UI/IconButton";
 
 const RowItem = ({
   data: {
@@ -53,20 +52,15 @@ const RowItem = ({
       <TableCell>{phones[0] || email}</TableCell>
       <TableCell>{lastUpdate}</TableCell>
       <TableCell>
-        {!isSelected && (
-          <EditIcon style={{ cursor: "pointer" }} onClick={goToUserPage(id)} />
-        )}
+        {!isSelected && <IconButton onClick={goToUserPage(id)} icon="edit" />}
       </TableCell>
       <TableCell>
         {!isSelected && (
-          <CloseIcon
-            style={{ cursor: "pointer" }}
-            onClick={changeActiveRow(index)}
-          />
+          <IconButton onClick={changeActiveRow(index)} icon="close" />
         )}
       </TableCell>
       {isSelected && (
-        <TableCell>
+        <TableCell style={{ position: "relative" }}>
           <Button
             type="button"
             className="selected-row-button"

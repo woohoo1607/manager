@@ -16,6 +16,8 @@ const LayoutForm = ({
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values) => submit(values)}
+      validateOnChange={false}
+      validateOnBlur={false}
     >
       {({ handleSubmit, ...props }) => {
         return (

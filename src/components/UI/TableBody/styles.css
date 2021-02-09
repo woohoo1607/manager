@@ -1,8 +1,6 @@
 .table-body {
     width: 100%;
     background: #FFFFFF;
-    border-top: 29px solid #FFFFFF;
-    position: relative;
 }
 
 .table-body tr:nth-child(odd) {
