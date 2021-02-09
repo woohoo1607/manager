@@ -3,6 +3,7 @@ import { useHistory, Route, useRouteMatch, useParams } from "react-router-dom";
 
 import StepWizardHeader from "./StepWizardHeader";
 import StepWizardControls from "./StepWizardControls";
+import StepWizardFrame from "./StepWizardFrame";
 
 import "./styles.css";
 
@@ -25,6 +26,9 @@ const StepWizard = ({
   submit = () => {},
   isEditMode = false,
   path = "",
+  unsavedData = null,
+  removeUnsavedData = () => {},
+  loadUnsavedData = () => {},
 }) => {
   const { slug } = useParams();
   const { push } = useHistory();
@@ -74,9 +78,6 @@ const StepWizard = ({
           : allowedUnsubmittedStep,
       meta: { redirect: push, path: `${path}/${slug}` },
     });
-    /*
-    changeStep(slug);
-*/
   };
 
   const previousStep = () => {
@@ -96,6 +97,12 @@ const StepWizard = ({
         goToStep={changeStep}
       />
       <div className="step-wizard-body">
+        {unsavedData && (
+          <StepWizardFrame
+            loadUnsavedData={loadUnsavedData}
+            removeUnsavedData={removeUnsavedData}
+          />
+        )}
         {steps.map(({ component: Step, slug }, i) => (
           <Route
             key={i}

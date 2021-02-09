@@ -13,6 +13,7 @@ const EditUserPage = ({
   const dispatch = useDispatch();
 
   const user = useSelector(({ user }) => user || {});
+  const { username = "" } = user;
 
   const saveData = useCallback(
     (updateInfo) => dispatch(updateUser({ ...user, ...updateInfo })),
@@ -21,7 +22,7 @@ const EditUserPage = ({
 
   return (
     <TemplatePage
-      title="Adding new user"
+      title={`Adding ${username}`}
       backLink={`/users/${id}`}
       linkTitle="User Profile"
     >

@@ -17,6 +17,7 @@
 .step-wizard-body {
     padding: 65px 100px;
     background: rgba(231,240,255,0.2);
+    position: relative;
 }
 
 .step-wizard-menu__button {
@@ -64,4 +65,26 @@
 
 .step-wizard__button-success {
     background-color: #4EE4A5;
+}
+
+.step-wizard__frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #5E97F3;
+    width: 100%;
+    color: #FFFFFF;
+    padding: 13px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.step-wizard__frame__button {
+    padding: 0;
+    margin-left: 15px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 0px;
 }

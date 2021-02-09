@@ -34,6 +34,9 @@ const UserStepWizard = ({
   saveStep = () => {},
   submit = () => {},
   isEditMode = false,
+  unsavedData,
+  removeUnsavedData = () => {},
+  loadUnsavedData = () => {},
 }) => (
   <StepWizardWrapper
     steps={steps}
@@ -41,6 +44,9 @@ const UserStepWizard = ({
     saveStep={saveStep}
     submit={submit}
     isEditMode={isEditMode}
+    unsavedData={unsavedData}
+    removeUnsavedData={removeUnsavedData}
+    loadUnsavedData={loadUnsavedData}
   />
 );
 

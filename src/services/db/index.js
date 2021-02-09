@@ -7,10 +7,11 @@ const DATABASE_VERSION = 1;
 const dbPromise = async ({ tablespace }) =>
   await openDB(DATABASE_NAME, DATABASE_VERSION, {
     upgrade(db) {
-      db.createObjectStore(tablespace, {
+      const store = db.createObjectStore(tablespace, {
         keyPath: "id",
         autoIncrement: true,
       });
+      store.createIndex("username", "username");
     },
   });
 
@@ -51,6 +52,11 @@ class DBService {
   clearAll = async () => {
     const db = await dbPromise(this.tablespace);
     return await db.transaction(this.tablespace, "readwrite").store.clear();
+  };
+
+  getFromIndex = async ({ index, query }) => {
+    const db = await dbPromise(this.tablespace);
+    return await db.getFromIndex(this.tablespace, index, query);
   };
 }
 
