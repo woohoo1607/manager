@@ -6,16 +6,16 @@ import TemplatePage from "../TemplatePage";
 import UsersTable from "../../components/UsersTable";
 import Button from "../../components/UI/Button";
 import { deleteUser, getUsers } from "../../reducers/actions";
+import Spinner from "../../components/UI/Spinner";
 
 import "./styles.css";
-import Spinner from "../../components/UI/Spinner";
 
 const HomePage = () => {
   const { push } = useHistory();
 
   const dispatch = useDispatch();
 
-  const { users, isLoading } = useSelector(({ users }) => users);
+  const { users = [], isLoading = false } = useSelector(({ users }) => users);
 
   const fetchUsers = useCallback(() => dispatch(getUsers()), [dispatch]);
 
