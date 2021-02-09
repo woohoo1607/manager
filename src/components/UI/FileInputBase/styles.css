@@ -5,11 +5,7 @@
     font-weight: bold;
 }
 
-.file-input:focus-within {
-    border: 1px solid #A1C4FF;
-}
-
-.file-input:hover {
+.file-input:focus-within, .file-input:hover {
     color: #657C9A;
 }
 
