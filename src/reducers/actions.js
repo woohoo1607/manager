@@ -44,7 +44,7 @@ export const deleteUser = (id) => {
 };
 
 export const addAccountData = ({ meta, ...userData }) => {
-  if (userData.hasOwnProperty("phones")) {
+  if (Object.prototype.hasOwnProperty.call(userData, "phones")) {
     userData.phones = userData.phones.filter((phone) => phone.length > 0);
   }
   return { type: ADD_ACCOUNT_DATA, userData, meta };

@@ -18,7 +18,7 @@ const IconButton = ({
   iconProps = {},
   ...props
 }) => {
-  const { component: Icon } = icons.filter(({ name }) => name === icon)[0] || {
+  const { component: Icon } = icons.find(({ name }) => name === icon) || {
     component: MinusIcon,
   };
   return (

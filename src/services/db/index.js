@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 const DATABASE_NAME = "manager";
 const DATABASE_VERSION = 1;
 
-const dbPromise = async ({ tablespace }) =>
+const dbPromise = async (tablespace) =>
   await openDB(DATABASE_NAME, DATABASE_VERSION, {
     upgrade(db) {
       const store = db.createObjectStore(tablespace, {

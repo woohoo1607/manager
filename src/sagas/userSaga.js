@@ -28,7 +28,7 @@ export function* addUserDataSaga({
   meta: { redirect, path } = { redirect: () => {}, path: "" },
 }) {
   try {
-    if ("username" in userData) {
+    if (Object.prototype.hasOwnProperty.call(userData, "username")) {
       const res = yield call(usersService.getFromIndex, {
         index: "username",
         query: userData.username,
@@ -39,7 +39,10 @@ export function* addUserDataSaga({
     }
     const userDataForLocalStorage = { ...userData };
 
-    if ("avatar" in userData && userData.avatar !== null) {
+    if (
+      Object.prototype.hasOwnProperty.call(userData, "avatar") &&
+      userData.avatar !== null
+    ) {
       if (userData.avatar instanceof Blob) {
         userDataForLocalStorage.avatar = yield call(
           convertBlobToBase64,
