@@ -12,16 +12,16 @@ import IconButton from "../UI/IconButton";
 
 import "./styles.css";
 
-const URLPattern = /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
+const URL_PATTERN = /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
 
 const validationSchema = Yup.object({
   language: Yup.string().required("language is required"),
   github: Yup.string()
     .required("github link is required")
-    .matches(URLPattern, "enter correct url"),
+    .matches(URL_PATTERN, "enter correct url"),
   facebook: Yup.string()
     .required("facebook link is required")
-    .matches(URLPattern, "enter correct url"),
+    .matches(URL_PATTERN, "enter correct url"),
   fax: Yup.string().min(19, "wrong fax format").required("fax is required"),
   phones: Yup.array().of(
     Yup.lazy(() => Yup.string().min(19, "wrong phone format"))
@@ -71,7 +71,7 @@ const ContactsFormBody = ({ children, currentValues: { phones } }) => {
                   onClick={deletePhoneField(i)}
                   className="phones-controls-icon"
                   type="button"
-                  isMinusIcon
+                  icon="minus"
                 />
               )}
             </PhoneField>

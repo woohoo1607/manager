@@ -50,7 +50,7 @@ const SelectInput = ({
       fontWeight: "bold",
       margin: 0,
       "& div": {
-        width: "100%",
+        width: isMulti ? "100%" : "inherit",
       },
       "& input": {
         fontWeight: "inherit",
@@ -103,9 +103,9 @@ const SelectInput = ({
 
   const getValue = () => {
     if (isMulti) {
-      return options.filter((option) => value.indexOf(option.value) >= 0) || [];
+      return options.filter((option) => value.indexOf(option.value) >= 0);
     } else {
-      return options.find((option) => option.value === value) || "";
+      return options.find((option) => option.value === value);
     }
   };
 

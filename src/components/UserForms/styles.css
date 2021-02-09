@@ -28,3 +28,12 @@
     cursor: pointer;
     color: #657C9A;
 }
+
+
+.icon-button__icon {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+}

@@ -52,11 +52,11 @@ const RowItem = ({
       <TableCell>{phones[0] || email}</TableCell>
       <TableCell>{lastUpdate}</TableCell>
       <TableCell>
-        {!isSelected && <IconButton onClick={goToUserPage(id)} isEditIcon />}
+        {!isSelected && <IconButton onClick={goToUserPage(id)} icon="edit" />}
       </TableCell>
       <TableCell>
         {!isSelected && (
-          <IconButton onClick={changeActiveRow(index)} isCloseIcon />
+          <IconButton onClick={changeActiveRow(index)} icon="close" />
         )}
       </TableCell>
       {isSelected && (
