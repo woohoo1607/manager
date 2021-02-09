@@ -13,6 +13,7 @@ const UserPage = () => {
   const dispatch = useDispatch();
 
   const user = useSelector(({ user }) => user || {});
+  const { username = "" } = user;
 
   const goToEditUser = (tab = "") => () => push(`/users/${id}/edit/${tab}`);
 
@@ -23,7 +24,7 @@ const UserPage = () => {
   }, [id, fetchUser]);
 
   return (
-    <TemplatePage title={user.username} backLink="/" linkTitle="Users List">
+    <TemplatePage title={username} backLink="/" linkTitle="Users List">
       <UserInformation user={user} goToEditUser={goToEditUser} />
     </TemplatePage>
   );
