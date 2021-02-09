@@ -14,9 +14,11 @@ const StepWizardFrame = ({
         Continue
       </Button>
     </p>
-    <IconButton onClick={removeUnsavedData}>
-      <CloseIcon stroke="#FFFFFF" />
-    </IconButton>
+    <IconButton
+      onClick={removeUnsavedData}
+      icon="close"
+      iconProps={{ stroke: "#FFFFFF" }}
+    />
   </div>
 );
 
