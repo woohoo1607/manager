@@ -18,4 +18,5 @@
 .avatar.default {
     height: 90%;
     object-fit: contain;
+    margin-top: 10%;
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "../UI/Button";
 import IconButton from "../UI/IconButton";
-import { ReactComponent as CloseIcon } from "../../icons/Close.svg";
 
 const StepWizardFrame = ({
   loadUnsavedData = () => {},
