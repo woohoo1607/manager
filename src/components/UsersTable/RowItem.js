@@ -2,9 +2,6 @@ import React from "react";
 import TableRow from "../UI/TableRow";
 import TableCell from "../UI/TableCell";
 import { ReactComponent as UserIcon } from "../../icons/list-of-users.svg";
-import { ReactComponent as EditIcon } from "../../icons/Edit.svg";
-import { ReactComponent as CloseIcon } from "../../icons/Close.svg";
-
 import Button from "../UI/Button";
 import IconButton from "../UI/IconButton";
 
@@ -55,17 +52,11 @@ const RowItem = ({
       <TableCell>{phones[0] || email}</TableCell>
       <TableCell>{lastUpdate}</TableCell>
       <TableCell>
-        {!isSelected && (
-          <IconButton onClick={goToUserPage(id)}>
-            <EditIcon />
-          </IconButton>
-        )}
+        {!isSelected && <IconButton onClick={goToUserPage(id)} isEditIcon />}
       </TableCell>
       <TableCell>
         {!isSelected && (
-          <IconButton onClick={changeActiveRow(index)}>
-            <CloseIcon />
-          </IconButton>
+          <IconButton onClick={changeActiveRow(index)} isCloseIcon />
         )}
       </TableCell>
       {isSelected && (

@@ -6,13 +6,13 @@ import Input from "../Input";
 const InputField = ({
   title = "",
   name = "",
+  placeholder = "",
   isRequired = false,
-  isSecondaryColor = false,
 }) => (
   <InputContainer>
     <InputTitle title={title} isRequired={isRequired} />
     <FormikField name={name}>
-      <Input isSecondaryColor={isSecondaryColor} />
+      <Input placeholder={placeholder} />
     </FormikField>
   </InputContainer>
 );

@@ -45,6 +45,17 @@ const SelectInput = ({
         display: "none",
       },
     }),
+    input: (base) => ({
+      ...base,
+      fontWeight: "bold",
+      margin: 0,
+      "& div": {
+        width: "100%",
+      },
+      "& input": {
+        fontWeight: "inherit",
+      },
+    }),
     multiValue: (base) => ({
       ...base,
       color: "#9BB0CB",
@@ -88,22 +99,13 @@ const SelectInput = ({
       ...base,
       position: "absolute",
     }),
-    singleValue: (base) => ({
-      ...base,
-      fontWeight: "bold",
-    }),
   };
 
   const getValue = () => {
-    if (options && value) {
-      if (isMulti) {
-        return options.filter((option) => value.indexOf(option.value) >= 0);
-      } else {
-        const currentValue = options.find((option) => option.value === value);
-        return { ...currentValue, label: currentValue.label.slice(0, 3) };
-      }
+    if (isMulti) {
+      return options.filter((option) => value.indexOf(option.value) >= 0) || [];
     } else {
-      return isMulti ? [] : "";
+      return options.find((option) => option.value === value) || "";
     }
   };
 
@@ -118,7 +120,7 @@ const SelectInput = ({
       onChange={(option) =>
         setFieldValue(
           name,
-          isMulti ? option.map((item) => item.value) : option.value
+          isMulti ? option.map(({ value }) => value) : option.value
         )
       }
       components={{

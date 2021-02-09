@@ -13,3 +13,18 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+.phones-controls-icon {
+    position: absolute;
+    top: 45%;
+    right: -20px;
+    border-radius: 50%;
+}
+
+.phones-controls-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    color: #657C9A;
+}
