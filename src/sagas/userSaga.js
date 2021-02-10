@@ -30,10 +30,7 @@ export function* addUserDataSaga({
   try {
     const { username, avatar } = userData;
     if (username) {
-      const res = yield call(usersService.getFromIndex, {
-        index: "username",
-        query: username,
-      });
+      const res = yield call(usersService.checkUsername, username);
       if (res) {
         throw new Error("username already exists");
       }

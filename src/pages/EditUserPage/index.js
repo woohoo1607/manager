@@ -22,7 +22,7 @@ const EditUserPage = ({
 
   return (
     <TemplatePage
-      title={`Adding ${username}`}
+      title={`Editing ${username}`}
       backLink={`/users/${id}`}
       linkTitle="User Profile"
     >

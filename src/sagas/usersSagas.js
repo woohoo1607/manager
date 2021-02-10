@@ -33,7 +33,7 @@ export function* watchGetUsersSaga() {
 export function* addUserSaga({ meta: { redirect, path }, user }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
-    yield call(usersService.add, user);
+    yield call(usersService.addUser, user);
     yield put({ type: ADD_USER_SUCCESS });
     yield put({ type: GET_USERS });
     yield put(openNotification({ message: "User added successfully" }));
@@ -52,7 +52,7 @@ export function* watchAddUserSaga() {
 export function* updateUserSaga({ user }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
-    const id = yield call(usersService.put, user);
+    const id = yield call(usersService.updateUser, user);
     yield put(getUserData(id));
     yield put({ type: IS_LOADING, payload: false });
     yield put(openNotification({ message: "User updated successfully" }));
