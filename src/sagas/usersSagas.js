@@ -2,6 +2,7 @@ import { put, call, takeEvery, all } from "redux-saga/effects";
 import {
   DELETE_USER,
   DELETE_USER_SUCCESS,
+  GENERATE_USERS,
   GET_USERS,
   GET_USERS_SUCCESS,
   IS_LOADING,
@@ -83,11 +84,28 @@ export function* watchDeleteUserSaga() {
   yield takeEvery(DELETE_USER, deleteUserSaga);
 }
 
+export function* addRandomUsersSaga({ count }) {
+  try {
+    yield put({ type: IS_LOADING, payload: true });
+    yield call(usersService.generateUsers, count);
+    yield put({ type: GET_USERS });
+    yield put(openNotification({ message: "Users generate successfully" }));
+  } catch ({ message }) {
+    yield put(openNotification({ message, variant: "error" }));
+    yield put({ type: IS_LOADING, payload: false });
+  }
+}
+
+export function* watchAddRandomUsersSaga() {
+  yield takeEvery(GENERATE_USERS, addRandomUsersSaga);
+}
+
 export default function* usersSaga() {
   yield all([
     watchGetUsersSaga(),
     watchAddUserSaga(),
     watchUpdateUserSaga(),
     watchDeleteUserSaga(),
+    watchAddRandomUsersSaga(),
   ]);
 }

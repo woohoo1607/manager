@@ -5,7 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import TemplatePage from "../TemplatePage";
 import UsersTable from "../../components/UsersTable";
 import Button from "../../components/UI/Button";
-import { deleteUser, getUsers } from "../../actions/userActions";
+import {
+  deleteUser,
+  generateRandomUsers,
+  getUsers,
+} from "../../actions/userActions";
 import Spinner from "../../components/UI/Spinner";
 
 import "./styles.css";
@@ -24,6 +28,8 @@ const HomePage = () => {
   const deleteUsr = (id) => dispatch(deleteUser(id));
 
   const goToUserPage = (id) => () => push(`/users/${id}`);
+
+  const generateData = () => dispatch(generateRandomUsers(50));
 
   useEffect(() => {
     fetchUsers();
@@ -46,6 +52,7 @@ const HomePage = () => {
           </div>
         )}
         {isLoading && <Spinner />}
+        <Button onClick={generateData}>Generate accounts</Button>
       </>
     </TemplatePage>
   );

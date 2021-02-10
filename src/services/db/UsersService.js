@@ -1,4 +1,5 @@
 import DBService from "./index";
+import { generateAccount } from "../../helpers/generateAccount";
 
 class UsersService extends DBService {
   constructor() {
@@ -16,6 +17,7 @@ class UsersService extends DBService {
       return await this.add(user);
     }
   };
+
   updateUser = async (user) => {
     const { username, id } = user;
     const foundedUser = await this.checkUsername(username);
@@ -23,6 +25,13 @@ class UsersService extends DBService {
       throw new Error("username already exists");
     } else {
       return await this.put(user);
+    }
+  };
+
+  generateUsers = async (count) => {
+    await this.clearAll();
+    for (let i = 0; i < count; i++) {
+      await this.add(generateAccount());
     }
   };
 }
