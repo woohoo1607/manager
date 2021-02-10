@@ -11,13 +11,19 @@ const icons = [
   { name: "close", component: CloseIcon },
 ];
 
-const IconButton = ({ children, className, icon = "minus", ...props }) => {
-  const { component: Icon } = icons.filter(({ name }) => name === icon)[0] || {
+const IconButton = ({
+  children,
+  className,
+  icon = "minus",
+  iconProps = {},
+  ...props
+}) => {
+  const { component: Icon } = icons.find(({ name }) => name === icon) || {
     component: MinusIcon,
   };
   return (
     <button className={`icon-button ${className ? className : ""}`} {...props}>
-      <Icon />
+      <Icon {...iconProps} />
     </button>
   );
 };

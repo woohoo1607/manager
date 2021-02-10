@@ -3,6 +3,7 @@ import { useHistory, Route, useRouteMatch, useParams } from "react-router-dom";
 
 import StepWizardHeader from "./StepWizardHeader";
 import StepWizardControls from "./StepWizardControls";
+import StepWizardFrame from "./StepWizardFrame";
 
 import "./styles.css";
 
@@ -25,6 +26,9 @@ const StepWizard = ({
   submit = () => {},
   isEditMode = false,
   path = "",
+  unsavedData = null,
+  removeUnsavedData = () => {},
+  loadUnsavedData = () => {},
 }) => {
   const { slug } = useParams();
   const { push } = useHistory();
@@ -65,20 +69,22 @@ const StepWizard = ({
   const isFirstStep = firstStepSlug === slug;
 
   const nextStep = (data) => {
+    const { slug } = steps[currentStepIndex + 1] || {};
     saveStep({
       ...data,
       allowedUnsubmittedStep:
         currentStepIndex === allowedUnsubmittedStep
           ? currentStepIndex + 1
           : allowedUnsubmittedStep,
+      meta: { redirect: push, path: `${path}/${slug}` },
     });
-    const { slug } = steps[currentStepIndex + 1] || {};
-    changeStep(slug);
   };
 
   const previousStep = () => {
-    const { slug } = steps[currentStepIndex - 1] || {};
-    changeStep(slug);
+    if (currentStepIndex) {
+      const { slug } = steps[currentStepIndex - 1] || {};
+      changeStep(slug);
+    }
   };
 
   return (
@@ -93,6 +99,12 @@ const StepWizard = ({
         goToStep={changeStep}
       />
       <div className="step-wizard-body">
+        {unsavedData && (
+          <StepWizardFrame
+            loadUnsavedData={loadUnsavedData}
+            removeUnsavedData={removeUnsavedData}
+          />
+        )}
         {steps.map(({ component: Step, slug }, i) => (
           <Route
             key={i}

@@ -71,6 +71,13 @@ body {
 }
 
 /*-------------------------------------     fonts*/
+
+:root {
+  --primary-bg-color: #5E97F3;
+  --error-bg-color: #EB5757;
+  --success-bg-color: #4EE4A5;
+}
+
 .App {
   font-family: 'Roboto', sans-serif;
   font-style: normal;

@@ -1,11 +1,11 @@
 import React from "react";
-import moment from "moment";
+import * as dayjs from "dayjs";
 
 import InformationItem from "./InformationItem";
 import InformationBlock from "./InformationBlock";
+import Avatar from "../UI/Avatar";
 
 import "./styles.css";
-import Avatar from "../UI/Avatar";
 
 const UserInformation = ({
   user: {
@@ -44,7 +44,7 @@ const UserInformation = ({
           <InformationItem title="Last name" value={lastName} />
           <InformationItem
             title="Birth date"
-            value={moment(birthDate).format("DD.MM.YYYY")}
+            value={dayjs(birthDate).format("DD.MM.YYYY")}
           />
           <InformationItem
             title="Email"

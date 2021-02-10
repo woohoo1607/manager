@@ -1,39 +1,30 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React, { useCallback, useEffect } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
 import TemplatePage from "../TemplatePage";
 import UserInformation from "../../components/UserInformation";
-
-const user = {
-  id: 1,
-  avatar: null,
-  username: "woohoo",
-  password: "12345678",
-  firstName: "Maksym",
-  lastName: "Volkov",
-  birthDate: "1993-07-15T22:00:00.000Z",
-  email: "woohoo1607@gmail.com",
-  address: "г. Сумы, ул. Ивани Сирко, 15",
-  gender: "Male",
-  company: "Brocoders",
-  github: "github/woohoo1607",
-  facebook: "https://facebook.com/woohoo1607",
-  language: "English",
-  fax: "+7 (233) 333 33 33",
-  phones: ["+7 (233) 777 33 33"],
-  skills: ["React", "Javascript", "NodeJS"],
-  information: "Information about me",
-  hobbies: ["Art", "Sport, fitness, aerobica and staff like that"],
-};
+import { getUserData } from "../../actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const UserPage = () => {
   const { push } = useHistory();
+  const { id } = useParams();
 
-  const goToEditUser = (tab = "") => () =>
-    push(`/users/${user.id}/edit/${tab}`);
+  const dispatch = useDispatch();
+
+  const user = useSelector(({ user }) => user || {});
+  const { username = "" } = user;
+
+  const goToEditUser = (tab = "") => () => push(`/users/${id}/edit/${tab}`);
+
+  const fetchUser = useCallback((id) => dispatch(getUserData(id)), [dispatch]);
+
+  useEffect(() => {
+    fetchUser(id);
+  }, [id, fetchUser]);
 
   return (
-    <TemplatePage title={user.username} backLink="/" linkTitle="Users List">
+    <TemplatePage title={username} backLink="/" linkTitle="Users List">
       <UserInformation user={user} goToEditUser={goToEditUser} />
     </TemplatePage>
   );

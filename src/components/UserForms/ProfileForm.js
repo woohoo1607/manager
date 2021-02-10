@@ -5,13 +5,22 @@ import LayoutForm from "./LayoutForm";
 import InputField from "../UI/InputField";
 import DateField from "../UI/DateField";
 import RadioGroupField from "../UI/RadioGroupField";
+import * as dayjs from "dayjs";
 
 import "./styles.css";
+
+const MIN_USER_AGE = 18;
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("first name is required"),
   lastName: Yup.string().required("last name is required"),
-  birthDate: Yup.string().required("birth date is required"),
+  birthDate: Yup.string()
+    .required("birth date is required")
+    .test(
+      "birthDate",
+      `User must be over ${MIN_USER_AGE} years old`,
+      (value) => dayjs().diff(dayjs(value), "years") >= MIN_USER_AGE
+    ),
   email: Yup.string()
     .required("email is required")
     .email("invalid email address"),

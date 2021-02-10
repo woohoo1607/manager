@@ -50,7 +50,7 @@ const SelectInput = ({
       fontWeight: "bold",
       margin: 0,
       "& div": {
-        width: isMulti ? "100%" : "inherit",
+        width: isMulti ? "inherit" : "100%",
       },
       "& input": {
         fontWeight: "inherit",

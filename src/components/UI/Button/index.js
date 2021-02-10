@@ -17,7 +17,6 @@ const Button = ({ type = "submit", children, className, ...props }) => {
 
 Button.propTypes = {
   type: PropTypes.string,
-  btnColors: PropTypes.string,
   children: PropTypes.string,
 };
 

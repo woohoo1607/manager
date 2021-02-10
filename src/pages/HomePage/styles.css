@@ -5,4 +5,10 @@
 
 .no-data > .button {
     cursor: pointer;
+    margin-top: 64px;
+}
+
+.no-data > .title {
+    color: #9BB0CB;
+    font-weight: bold;
 }

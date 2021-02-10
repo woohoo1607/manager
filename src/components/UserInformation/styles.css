@@ -26,14 +26,13 @@
 
 .user-information-block-item {
     display: flex;
+    margin-bottom: 16px;
 }
 
 .user-information-title {
     width: 95px;
-    margin-bottom: 16px;
     color: #475666;
     font-weight: bold;
-    cursor: pointer;
     display: flex;
 }
 
@@ -51,10 +50,14 @@
     fill: #475666;
 }
 
-.user-information-title:hover {
+.user-information-block > .user-information-title {
+    cursor: pointer;
+}
+
+.user-information-block > .user-information-title:hover {
     color: #4E86E4;
 }
 
-.user-information-title:hover .user-information-icon path {
+.user-information-block > .user-information-title:hover .user-information-icon path {
     fill: #4E86E4;
 }

@@ -3,8 +3,6 @@
     height: 200px;
     border: 3px solid #5E97F3;
     border-radius: 50%;
-    display: flex;
-    align-items: flex-end;
     background-color: #FFFFFF;
     margin: 0 auto 10px auto;
 }
@@ -14,9 +12,11 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    vertical-align: middle;
 }
 
 .avatar.default {
     height: 90%;
     object-fit: contain;
+    margin-top: 10%;
 }

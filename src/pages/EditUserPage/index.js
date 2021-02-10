@@ -2,8 +2,8 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import TemplatePage from "../TemplatePage";
-import { addAccountData } from "../NewUserPage/actions";
 import UserStepWizard from "../../components/UserStepWizard";
+import { updateUser } from "../../actions/userActions";
 
 const EditUserPage = ({
   match: {
@@ -12,16 +12,17 @@ const EditUserPage = ({
 }) => {
   const dispatch = useDispatch();
 
-  const user = useSelector(({ user }) => user);
+  const user = useSelector(({ user }) => user || {});
+  const { username = "" } = user;
 
   const saveData = useCallback(
-    (data) => dispatch(addAccountData({ ...data })),
-    [dispatch]
+    (updateInfo) => dispatch(updateUser({ ...user, ...updateInfo })),
+    [dispatch, user]
   );
 
   return (
     <TemplatePage
-      title="Adding new user"
+      title={`Editing ${username}`}
       backLink={`/users/${id}`}
       linkTitle="User Profile"
     >

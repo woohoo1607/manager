@@ -10,7 +10,6 @@ const LayoutForm = ({
   children,
 }) => {
   const FormBody = component;
-
   return (
     <Formik
       initialValues={initialValues}
