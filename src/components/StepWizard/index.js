@@ -81,8 +81,10 @@ const StepWizard = ({
   };
 
   const previousStep = () => {
-    const { slug } = steps[currentStepIndex - 1] || {};
-    changeStep(slug);
+    if (currentStepIndex) {
+      const { slug } = steps[currentStepIndex - 1] || {};
+      changeStep(slug);
+    }
   };
 
   return (

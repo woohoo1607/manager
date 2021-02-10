@@ -5,17 +5,17 @@ import {
   ADD_ACCOUNT_DATA_SUCCESS,
   GET_USER_DATA,
 } from "../reducers/userReducer";
-import { openPopUp } from "../reducers/actions";
 import { setData } from "../helpers/localStorageHelper";
 import { dataURItoBlob } from "../helpers/dataURItoBlob";
 import { convertBlobToBase64 } from "../helpers/convertBlobToBase64";
+import { openNotification } from "../actions/notificationActions";
 
 export function* getUserSaga({ id }) {
   try {
     const res = yield call(usersService.getByID, id);
     yield put({ type: ADD_ACCOUNT_DATA_SUCCESS, payload: res });
   } catch ({ message }) {
-    yield put(openPopUp({ msg: message, variant: "error" }));
+    yield put(openNotification({ message, variant: "error" }));
   }
 }
 
@@ -28,10 +28,11 @@ export function* addUserDataSaga({
   meta: { redirect, path } = { redirect: () => {}, path: "" },
 }) {
   try {
-    if (Object.prototype.hasOwnProperty.call(userData, "username")) {
+    const { username, avatar } = userData;
+    if (username) {
       const res = yield call(usersService.getFromIndex, {
         index: "username",
-        query: userData.username,
+        query: username,
       });
       if (res) {
         throw new Error("username already exists");
@@ -39,17 +40,14 @@ export function* addUserDataSaga({
     }
     const userDataForLocalStorage = { ...userData };
 
-    if (
-      Object.prototype.hasOwnProperty.call(userData, "avatar") &&
-      userData.avatar !== null
-    ) {
-      if (userData.avatar instanceof Blob) {
+    if (avatar) {
+      if (avatar instanceof Blob) {
         userDataForLocalStorage.avatar = yield call(
           convertBlobToBase64,
-          userData.avatar
+          avatar
         );
       } else {
-        userData.avatar = dataURItoBlob(userData.avatar);
+        userData.avatar = dataURItoBlob(avatar);
       }
     }
 
@@ -57,7 +55,7 @@ export function* addUserDataSaga({
     yield put({ type: ADD_ACCOUNT_DATA_SUCCESS, payload: userData });
     yield call(redirect, path);
   } catch ({ message }) {
-    yield put(openPopUp({ msg: message, variant: "error" }));
+    yield put(openNotification({ message, variant: "error" }));
   }
 }
 

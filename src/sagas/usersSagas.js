@@ -9,9 +9,10 @@ import {
 } from "../reducers/usersReducer";
 
 import { usersService } from "../services/db/UsersService";
-import { getUserData, openPopUp } from "../reducers/actions";
+import { getUserData } from "../actions/userActions";
 import { ADD_USER, ADD_USER_SUCCESS } from "../reducers/userReducer";
 import { removeData } from "../helpers/localStorageHelper";
+import { openNotification } from "../actions/notificationActions";
 
 export function* getUsersSaga() {
   try {
@@ -20,7 +21,7 @@ export function* getUsersSaga() {
     yield put({ type: GET_USERS_SUCCESS, payload: res });
     yield put({ type: IS_LOADING, payload: false });
   } catch ({ message }) {
-    yield put(openPopUp({ msg: message, variant: "error" }));
+    yield put(openNotification({ message, variant: "error" }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -35,11 +36,11 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
     yield call(usersService.add, user);
     yield put({ type: ADD_USER_SUCCESS });
     yield put({ type: GET_USERS });
-    yield put(openPopUp({ msg: "User added successfully" }));
+    yield put(openNotification({ message: "User added successfully" }));
     yield call(redirect, path);
     yield call(removeData, "newUserData");
   } catch ({ message }) {
-    yield put(openPopUp({ msg: message, variant: "error" }));
+    yield put(openNotification({ message, variant: "error" }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -54,9 +55,9 @@ export function* updateUserSaga({ user }) {
     const id = yield call(usersService.put, user);
     yield put(getUserData(id));
     yield put({ type: IS_LOADING, payload: false });
-    yield put(openPopUp({ msg: "User updated successfully" }));
+    yield put(openNotification({ message: "User updated successfully" }));
   } catch ({ message }) {
-    yield put(openPopUp({ msg: message, variant: "error" }));
+    yield put(openNotification({ message, variant: "error" }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -71,9 +72,9 @@ export function* deleteUserSaga({ id }) {
     yield call(usersService.delete, id);
     yield put({ type: DELETE_USER_SUCCESS });
     yield put({ type: GET_USERS });
-    yield put(openPopUp({ msg: "User deleted successfully" }));
+    yield put(openNotification({ message: "User deleted successfully" }));
   } catch ({ message }) {
-    yield put(openPopUp({ msg: message, variant: "error" }));
+    yield put(openNotification({ message, variant: "error" }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }

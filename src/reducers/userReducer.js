@@ -44,7 +44,6 @@ const userReducer = (state = initialState, { type, payload }) => {
     }
     case ADD_USER_SUCCESS: {
       return {
-        ...state,
         ...initialState,
       };
     }

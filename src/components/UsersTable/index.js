@@ -54,10 +54,10 @@ const UsersTable = ({
         </TableRow>
       </TableHead>
       <TableBody>
-        {users.map((item, i) => (
+        {users.map((user, i) => (
           <RowItem
-            key={i}
-            user={item}
+            key={user.id || i}
+            user={user}
             index={i}
             deleteUser={removeUser}
             changeActiveRow={changeActiveRow}

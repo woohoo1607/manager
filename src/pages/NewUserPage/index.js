@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import TemplatePage from "../TemplatePage";
@@ -7,7 +7,7 @@ import {
   addAccountData,
   addUser,
   clearUserState,
-} from "../../reducers/actions";
+} from "../../actions/userActions";
 import { useHistory } from "react-router-dom";
 import { getData, removeData } from "../../helpers/localStorageHelper";
 
@@ -20,16 +20,12 @@ const NewUserPage = () => {
 
   const user = useSelector(({ user }) => user);
 
-  const savePart = useCallback((data) => dispatch(addAccountData(data)), [
-    dispatch,
-  ]);
-
-  const saveStep = (data) => savePart({ ...user, ...data });
-
-  const createUser = useCallback((user) => dispatch(addUser(user)), [dispatch]);
+  const saveStep = (data) => dispatch(addAccountData({ ...user, ...data }));
 
   const submit = (data) =>
-    createUser({ ...user, ...data, meta: { redirect: push, path: "/" } });
+    dispatch(
+      addUser({ ...user, ...data, meta: { redirect: push, path: "/" } })
+    );
 
   useEffect(() => {
     dispatch(clearUserState());

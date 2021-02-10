@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TemplatePage from "../TemplatePage";
 import UsersTable from "../../components/UsersTable";
 import Button from "../../components/UI/Button";
-import { deleteUser, getUsers } from "../../reducers/actions";
+import { deleteUser, getUsers } from "../../actions/userActions";
 import Spinner from "../../components/UI/Spinner";
 
 import "./styles.css";

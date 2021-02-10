@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 
 import store from "./store";
 import Routes from "./routes";
-import PopUp from "./components/PopUp";
+import Notification from "./components/Notification";
 
 import "./App.css";
 
@@ -13,7 +13,7 @@ function App() {
       <Router>
         <div className="App">
           <Routes />
-          <PopUp />
+          <Notification />
         </div>
       </Router>
     </Provider>

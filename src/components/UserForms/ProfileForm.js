@@ -9,6 +9,8 @@ import * as dayjs from "dayjs";
 
 import "./styles.css";
 
+const MIN_USER_AGE = 18;
+
 const validationSchema = Yup.object({
   firstName: Yup.string().required("first name is required"),
   lastName: Yup.string().required("last name is required"),
@@ -16,8 +18,8 @@ const validationSchema = Yup.object({
     .required("birth date is required")
     .test(
       "birthDate",
-      "User must be over 18 years old",
-      (value) => dayjs().diff(dayjs(value), "years") >= 18
+      `User must be over ${MIN_USER_AGE} years old`,
+      (value) => dayjs().diff(dayjs(value), "years") >= MIN_USER_AGE
     ),
   email: Yup.string()
     .required("email is required")
