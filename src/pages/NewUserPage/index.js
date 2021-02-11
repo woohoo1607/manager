@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import TemplatePage from "../TemplatePage";
 import UserStepWizard from "../../components/UserStepWizard";
@@ -7,18 +8,22 @@ import {
   addAccountData,
   addUser,
   clearUserState,
+  deleteTempUserData,
+  getTempUserData,
 } from "../../actions/userActions";
-import { useHistory } from "react-router-dom";
-import { getData, removeData } from "../../helpers/localStorageHelper";
 
 const NewUserPage = () => {
   const dispatch = useDispatch();
 
   const { push } = useHistory();
 
-  const [unsavedData, setUnsavedData] = useState(null);
+  const { user, unsavedData } = useSelector(({ user }) => user);
 
-  const user = useSelector(({ user }) => user);
+  const fetchTempUserData = useCallback(() => dispatch(getTempUserData()), [
+    dispatch,
+  ]);
+
+  const removeUnsavedData = () => dispatch(deleteTempUserData());
 
   const saveStep = (data) => dispatch(addAccountData({ ...user, ...data }));
 
@@ -32,22 +37,12 @@ const NewUserPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    (async () => {
-      const data = await getData("newUserData");
-      if (data) {
-        setUnsavedData(JSON.parse(data));
-      }
-    })();
+    fetchTempUserData();
   }, []);
-
-  const removeUnsavedData = () => {
-    setUnsavedData(null);
-    removeData("newUserData");
-  };
 
   const loadUnsavedData = () => {
     saveStep({ ...unsavedData, meta: { redirect: push, path: "/users/new" } });
-    setUnsavedData(null);
+    removeUnsavedData();
   };
 
   return (

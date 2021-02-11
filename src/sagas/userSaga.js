@@ -3,12 +3,14 @@ import { usersService } from "../services/db/UsersService";
 import {
   ADD_ACCOUNT_DATA,
   ADD_ACCOUNT_DATA_SUCCESS,
+  GET_TEMP_USER_DATA,
+  GET_TEMP_USER_DATA_SUCCESS,
   GET_USER_DATA,
+  REMOVE_TEMP_USER_DATA,
+  REMOVE_TEMP_USER_DATA_SUCCESS,
 } from "../reducers/userReducer";
-import { setData } from "../helpers/localStorageHelper";
-import { dataURItoBlob } from "../helpers/dataURItoBlob";
-import { convertBlobToBase64 } from "../helpers/convertBlobToBase64";
 import { openNotification } from "../actions/notificationActions";
+import { usersTempDataService } from "../services/db/UsersTempDataService";
 
 export function* getUserSaga({ id }) {
   try {
@@ -28,28 +30,17 @@ export function* addUserDataSaga({
   meta: { redirect, path } = { redirect: () => {}, path: "" },
 }) {
   try {
-    const { username, avatar } = userData;
+    const { username } = userData;
+
     if (username) {
       const res = yield call(usersService.checkUsername, username);
       if (res) {
         throw new Error("username already exists");
       }
     }
-    const userDataForLocalStorage = { ...userData };
 
-    if (avatar) {
-      if (avatar instanceof Blob) {
-        userDataForLocalStorage.avatar = yield call(
-          convertBlobToBase64,
-          avatar
-        );
-      } else {
-        userData.avatar = dataURItoBlob(avatar);
-      }
-    }
-
-    yield call(setData, "newUserData", JSON.stringify(userDataForLocalStorage));
-    yield put({ type: ADD_ACCOUNT_DATA_SUCCESS, payload: userData });
+    const res = yield call(usersTempDataService.addData, userData);
+    yield put({ type: ADD_ACCOUNT_DATA_SUCCESS, payload: res });
     yield call(redirect, path);
   } catch ({ message }) {
     yield put(openNotification({ message, variant: "error" }));
@@ -60,6 +51,37 @@ export function* watchAddUserDataSaga() {
   yield takeEvery(ADD_ACCOUNT_DATA, addUserDataSaga);
 }
 
+export function* getTempUserDataSaga() {
+  try {
+    const res = yield call(usersTempDataService.getAll);
+    yield put({ type: GET_TEMP_USER_DATA_SUCCESS, payload: res[0] || null });
+  } catch ({ message }) {
+    yield put(openNotification({ message, variant: "error" }));
+  }
+}
+
+export function* watchGetTempUserDataSaga() {
+  yield takeEvery(GET_TEMP_USER_DATA, getTempUserDataSaga);
+}
+
+export function* deleteTempUserDataSaga() {
+  try {
+    yield call(usersTempDataService.clearAll);
+    yield put({ type: REMOVE_TEMP_USER_DATA_SUCCESS });
+  } catch ({ message }) {
+    yield put(openNotification({ message, variant: "error" }));
+  }
+}
+
+export function* watchDeleteTempUserDataSaga() {
+  yield takeEvery(REMOVE_TEMP_USER_DATA, deleteTempUserDataSaga);
+}
+
 export default function* userSaga() {
-  yield all([watchGetUserSaga(), watchAddUserDataSaga()]);
+  yield all([
+    watchGetUserSaga(),
+    watchAddUserDataSaga(),
+    watchGetTempUserDataSaga(),
+    watchDeleteTempUserDataSaga(),
+  ]);
 }

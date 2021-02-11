@@ -3,7 +3,9 @@ import {
   ADD_ACCOUNT_DATA,
   ADD_USER,
   CLEAR_USER_STATE,
+  GET_TEMP_USER_DATA,
   GET_USER_DATA,
+  REMOVE_TEMP_USER_DATA,
 } from "../reducers/userReducer";
 
 const removeUnnecessaryUserProperties = (user) => {
@@ -58,4 +60,12 @@ export const getUserData = (id) => {
 
 export const clearUserState = () => ({
   type: CLEAR_USER_STATE,
+});
+
+export const getTempUserData = () => ({
+  type: GET_TEMP_USER_DATA,
+});
+
+export const deleteTempUserData = () => ({
+  type: REMOVE_TEMP_USER_DATA,
 });

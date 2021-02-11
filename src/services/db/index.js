@@ -7,11 +7,15 @@ const DATABASE_VERSION = 1;
 const dbPromise = async (tablespace) =>
   await openDB(DATABASE_NAME, DATABASE_VERSION, {
     upgrade(db) {
-      const store = db.createObjectStore(tablespace, {
+      const store = db.createObjectStore("users", {
         keyPath: "id",
         autoIncrement: true,
       });
       store.createIndex("username", "username");
+      db.createObjectStore("temp", {
+        keyPath: "id",
+        autoIncrement: true,
+      });
     },
   });
 

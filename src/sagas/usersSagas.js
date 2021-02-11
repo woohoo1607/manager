@@ -11,8 +11,8 @@ import {
 import { usersService } from "../services/db/UsersService";
 import { getUserData } from "../actions/userActions";
 import { ADD_USER, ADD_USER_SUCCESS } from "../reducers/userReducer";
-import { removeData } from "../helpers/localStorageHelper";
 import { openNotification } from "../actions/notificationActions";
+import { usersTempDataService } from "../services/db/UsersTempDataService";
 
 export function* getUsersSaga() {
   try {
@@ -35,10 +35,10 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
     yield put({ type: IS_LOADING, payload: true });
     yield call(usersService.addUser, user);
     yield put({ type: ADD_USER_SUCCESS });
+    yield call(usersTempDataService.clearAll);
     yield put({ type: GET_USERS });
     yield put(openNotification({ message: "User added successfully" }));
     yield call(redirect, path);
-    yield call(removeData, "newUserData");
   } catch ({ message }) {
     yield put(openNotification({ message, variant: "error" }));
     yield put({ type: IS_LOADING, payload: false });
