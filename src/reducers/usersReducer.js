@@ -14,6 +14,8 @@ const initialState = {
   isLoading: false,
   error: null,
   message: "",
+  pages: 0,
+  currentPage: 1,
 };
 
 const usersReducer = (state = initialState, { type, payload }) => {
@@ -21,7 +23,7 @@ const usersReducer = (state = initialState, { type, payload }) => {
     case GET_USERS_SUCCESS: {
       return {
         ...state,
-        users: payload,
+        ...payload,
       };
     }
     case IS_LOADING: {

@@ -14,11 +14,14 @@ import { ADD_USER, ADD_USER_SUCCESS } from "../reducers/userReducer";
 import { removeData } from "../helpers/localStorageHelper";
 import { openNotification } from "../actions/notificationActions";
 
-export function* getUsersSaga() {
+export function* getUsersSaga({ page }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
-    const res = yield call(usersService.getAll);
-    yield put({ type: GET_USERS_SUCCESS, payload: res });
+    const res = yield call(usersService.getSomeUsers, page);
+    yield put({
+      type: GET_USERS_SUCCESS,
+      payload: { ...res, currentPage: page },
+    });
     yield put({ type: IS_LOADING, payload: false });
   } catch ({ message }) {
     yield put(openNotification({ message, variant: "error" }));

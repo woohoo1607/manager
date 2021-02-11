@@ -14,9 +14,10 @@ const removeUnnecessaryUserProperties = (user) => {
   return newUser;
 };
 
-export const getUsers = () => {
+export const getUsers = ({ page }) => {
   return {
     type: GET_USERS,
+    page,
   };
 };
 

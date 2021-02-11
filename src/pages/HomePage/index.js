@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useMemo } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,17 +7,29 @@ import UsersTable from "../../components/UsersTable";
 import Button from "../../components/UI/Button";
 import { deleteUser, getUsers } from "../../actions/userActions";
 import Spinner from "../../components/UI/Spinner";
+import Paginator from "../../components/Paginator";
 
 import "./styles.css";
 
 const HomePage = () => {
-  const { push } = useHistory();
+  const {
+    push,
+    location: { search },
+  } = useHistory();
+  const query = useMemo(() => new URLSearchParams(search), [search]);
 
   const dispatch = useDispatch();
 
-  const { users = [], isLoading = false } = useSelector(({ users }) => users);
+  const {
+    users = [],
+    isLoading = false,
+    currentPage = 1,
+    pages = 0,
+  } = useSelector(({ users }) => users);
 
-  const fetchUsers = useCallback(() => dispatch(getUsers()), [dispatch]);
+  const fetchUsers = useCallback(({ page }) => dispatch(getUsers({ page })), [
+    dispatch,
+  ]);
 
   const createNewUser = () => push(`/users/new`);
 
@@ -25,9 +37,17 @@ const HomePage = () => {
 
   const goToUserPage = (id) => () => push(`/users/${id}`);
 
+  const changePage = ({ selected = 0 }) => {
+    const selectedPage = selected + 1;
+    if (selectedPage !== currentPage) {
+      push(`/?page=${selectedPage}`);
+    }
+  };
+
   useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
+    const page = query.get("page") > 0 ? query.get("page") : 1;
+    fetchUsers({ page });
+  }, [fetchUsers, query]);
 
   return (
     <TemplatePage title="List of users">
@@ -45,6 +65,13 @@ const HomePage = () => {
             </Button>
           </div>
         )}
+        {pages ? (
+          <Paginator
+            currentPage={currentPage}
+            pages={pages}
+            changePage={changePage}
+          />
+        ) : null}
         {isLoading && <Spinner />}
       </>
     </TemplatePage>

@@ -16,6 +16,7 @@ class UsersService extends DBService {
       return await this.add(user);
     }
   };
+
   updateUser = async (user) => {
     const { username, id } = user;
     const foundedUser = await this.checkUsername(username);
@@ -24,6 +25,15 @@ class UsersService extends DBService {
     } else {
       return await this.put(user);
     }
+  };
+
+  getSomeUsers = async (page = 1, count = 10) => {
+    const allUsers = await this.getAll();
+    const start = page * count - count;
+    return {
+      users: allUsers.slice(start, start + count),
+      pages: Math.round(allUsers.length / count),
+    };
   };
 }
 
