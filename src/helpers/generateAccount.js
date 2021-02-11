@@ -17,7 +17,6 @@ const imageToBlob = async (image) => {
 export const generateAccount = async () => {
   faker.locale = "uk";
   const avatar = await imageToBlob(faker.random.arrayElement(avatars));
-  console.log(avatar);
   return {
     id: faker.random.uuid(),
     avatar: avatar,
