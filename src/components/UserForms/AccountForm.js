@@ -14,13 +14,13 @@ const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 
 const validationSchema = Yup.object({
   avatar: Yup.mixed()
-    .test(
-      "fileSize",
-      "the file size must not exceed 1 MB",
-      (value = { size: "" }) => (value ? value.size <= MAX_PHOTO_SIZE : true)
+    .test("fileSize", "the file size must not exceed 1 MB", (value) =>
+      value && value instanceof Blob ? value.size <= MAX_PHOTO_SIZE : true
     )
-    .test("fileFormat", "Unsupported Format", (value = { type: "" }) =>
-      value ? SUPPORTED_FORMATS.includes(value.type) : true
+    .test("fileFormat", "Unsupported Format", (value) =>
+      value && value instanceof Blob
+        ? SUPPORTED_FORMATS.includes(value.type)
+        : true
     ),
   username: Yup.string().required("user name is required"),
   password: Yup.string().required("password is required"),

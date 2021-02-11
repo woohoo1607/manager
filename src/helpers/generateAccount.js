@@ -12,7 +12,7 @@ export const generateAccount = () => {
   faker.locale = "uk";
   return {
     id: faker.random.uuid(),
-    avatar: null,
+    avatar: faker.image.people("", "", true),
     username: faker.internet.userName(),
     password: faker.internet.password(),
     firstName: faker.name.firstName(),
