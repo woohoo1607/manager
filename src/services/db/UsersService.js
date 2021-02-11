@@ -31,7 +31,7 @@ class UsersService extends DBService {
   generateUsers = async (count) => {
     await this.clearAll();
     for (let i = 0; i < count; i++) {
-      await this.add(generateAccount());
+      await this.add(await generateAccount());
     }
   };
 }

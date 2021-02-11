@@ -2,17 +2,25 @@ import faker from "faker";
 import { SKILLS } from "../components/UserForms/skillsList";
 import { LANGUAGES } from "../components/UserForms/languagesList";
 import { HOBBIES } from "../components/UserForms/hobbies";
+import { avatars } from "./avatars";
 
 const randomDate = (start, end) =>
   new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 
 const getValuesFromObjectsArray = (arr = []) => arr.map(({ value }) => value);
 
-export const generateAccount = () => {
+const imageToBlob = async (image) => {
+  const base64Response = await fetch(image);
+  return await base64Response.blob();
+};
+
+export const generateAccount = async () => {
   faker.locale = "uk";
+  const avatar = await imageToBlob(faker.random.arrayElement(avatars));
+  console.log(avatar);
   return {
     id: faker.random.uuid(),
-    avatar: faker.image.people("", "", true),
+    avatar: avatar,
     username: faker.internet.userName(),
     password: faker.internet.password(),
     firstName: faker.name.firstName(),
