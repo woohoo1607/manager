@@ -27,17 +27,19 @@ const AddressInput = ({ isError, name, value }) => {
             <div className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
               {suggestions.map((suggestion, i) => {
-                const className = suggestion.active
-                  ? "suggestion-item--active"
-                  : "suggestion-item";
+                const { active: isActive, description, index } = suggestion;
                 return (
                   <div
-                    key={i}
+                    key={index || i}
                     {...getSuggestionItemProps(suggestion, {
-                      className,
+                      className: `autocomplete-dropdown-container__item ${
+                        isActive
+                          ? "autocomplete-dropdown-container__item-active"
+                          : ""
+                      }`,
                     })}
                   >
-                    <span>{suggestion.description}</span>
+                    <span>{description}</span>
                   </div>
                 );
               })}
