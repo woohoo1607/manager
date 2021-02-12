@@ -10,8 +10,8 @@ const Paginator = ({ pages = 0, currentPage = 1, changePage = () => {} }) => (
     containerClassName="pagination"
     previousLinkClassName="pagination__link"
     nextLinkClassName="pagination__link"
-    disabledClassName="pagination__link--disabled"
-    activeClassName="pagination__page--active"
+    disabledClassName="pagination__link-disabled"
+    activeClassName="pagination__page-active"
     pageClassName="pagination__page"
     onPageChange={changePage}
   />
