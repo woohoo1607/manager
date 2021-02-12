@@ -5,6 +5,8 @@ import Input from "../UI/Input";
 
 import "./styles.css";
 
+const BLOCK_CLASS_NAME = "autocomplete-dropdown-container";
+
 const AddressInput = ({ isError, name, value }) => {
   const { setFieldValue } = useFormikContext();
 
@@ -24,18 +26,16 @@ const AddressInput = ({ isError, name, value }) => {
         <div>
           <Input {...getInputProps({ placeholder: "" })} isError={isError} />
           {suggestions && (
-            <div className="autocomplete-dropdown-container">
+            <div className={BLOCK_CLASS_NAME}>
               {loading && <div>Loading...</div>}
-              {suggestions.map((suggestion, i) => {
-                const { active: isActive, description, index } = suggestion;
+              {suggestions.map((suggestion) => {
+                const { active: isActive, description, placeId } = suggestion;
                 return (
                   <div
-                    key={index || i}
+                    key={placeId}
                     {...getSuggestionItemProps(suggestion, {
-                      className: `autocomplete-dropdown-container__item ${
-                        isActive
-                          ? "autocomplete-dropdown-container__item-active"
-                          : ""
+                      className: `${BLOCK_CLASS_NAME}__item ${
+                        isActive ? `${BLOCK_CLASS_NAME}__item-active` : ""
                       }`,
                     })}
                   >
