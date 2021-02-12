@@ -8,6 +8,7 @@ import RadioGroupField from "../UI/RadioGroupField";
 import * as dayjs from "dayjs";
 
 import "./styles.css";
+import AddressField from "../UI/AddressField";
 
 const MIN_USER_AGE = 18;
 
@@ -42,7 +43,7 @@ const ProfileFormBody = ({ errors, touched, currentValues, children }) => {
       <div className="with-controls">
         <div>
           <InputField name="email" title="Email" isRequired />
-          <InputField name="address" title="Address" isRequired />
+          <AddressField name="address" title="Address" isRequired />
           <RadioGroupField
             title="Gender"
             variants={["Male", "Female"]}
