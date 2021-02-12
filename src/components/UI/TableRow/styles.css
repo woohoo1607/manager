@@ -4,6 +4,7 @@
 
 .table-row.selected {
     transform: translateX(-70px);
+    background-color: rgba(231, 240, 255, 0.5);
 }
 
 .table-row.selected > .table-cell {

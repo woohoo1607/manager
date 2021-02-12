@@ -3,6 +3,13 @@
     top: 40%;
     color: #FF8989;
     padding: 0;
+    min-width: 70px;
+    text-align: right;
     background-color: #FFFFFF;
     cursor: pointer;
+    font-weight: bold;
+}
+
+.selected-row-button:hover {
+    color: #EB5757;
 }
