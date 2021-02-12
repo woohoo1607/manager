@@ -57,7 +57,7 @@ const RowItem = ({
         )}
       </TableCell>
       {isSelected && (
-        <TableCell style={{ position: "relative" }}>
+        <TableCell>
           <Button
             type="button"
             className="selected-row-button"
