@@ -1,12 +1,16 @@
-# Getting Started with Create React App
+# BRO-manager
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Updates from the main branch are automatically deployed to heroku
+[https://bro-manager.herokuapp.com/](https://bro-manager.herokuapp.com/)
+
+To start PWA locally, you need to make a build `yarn build`, and then start the local server `yarn start`. \
+Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### `yarn start-dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
