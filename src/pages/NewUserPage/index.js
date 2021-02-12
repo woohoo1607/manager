@@ -38,7 +38,7 @@ const NewUserPage = () => {
 
   useEffect(() => {
     fetchTempUserData();
-  }, []);
+  }, [fetchTempUserData]);
 
   const loadUnsavedData = () => {
     saveStep({ ...unsavedData, meta: { redirect: push, path: "/users/new" } });

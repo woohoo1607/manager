@@ -11,7 +11,10 @@ import {
 import { usersService } from "../services/db/UsersService";
 import { getUserData } from "../actions/userActions";
 import { ADD_USER, ADD_USER_SUCCESS } from "../reducers/userReducer";
-import { openNotification } from "../actions/notificationActions";
+import {
+  sendErrorNotification,
+  sendNotification,
+} from "../actions/notificationActions";
 import { usersTempDataService } from "../services/db/UsersTempDataService";
 
 export function* getUsersSaga() {
@@ -21,7 +24,7 @@ export function* getUsersSaga() {
     yield put({ type: GET_USERS_SUCCESS, payload: res });
     yield put({ type: IS_LOADING, payload: false });
   } catch ({ message }) {
-    yield put(openNotification({ message, variant: "error" }));
+    yield put(sendErrorNotification({ message }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -37,10 +40,10 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
     yield put({ type: ADD_USER_SUCCESS });
     yield call(usersTempDataService.clearAll);
     yield put({ type: GET_USERS });
-    yield put(openNotification({ message: "User added successfully" }));
+    yield put(sendNotification({ message: "User added successfully" }));
     yield call(redirect, path);
   } catch ({ message }) {
-    yield put(openNotification({ message, variant: "error" }));
+    yield put(sendErrorNotification({ message }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -55,9 +58,9 @@ export function* updateUserSaga({ user }) {
     const id = yield call(usersService.updateUser, user);
     yield put(getUserData(id));
     yield put({ type: IS_LOADING, payload: false });
-    yield put(openNotification({ message: "User updated successfully" }));
+    yield put(sendNotification({ message: "User updated successfully" }));
   } catch ({ message }) {
-    yield put(openNotification({ message, variant: "error" }));
+    yield put(sendErrorNotification({ message }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -72,9 +75,9 @@ export function* deleteUserSaga({ id }) {
     yield call(usersService.delete, id);
     yield put({ type: DELETE_USER_SUCCESS });
     yield put({ type: GET_USERS });
-    yield put(openNotification({ message: "User deleted successfully" }));
+    yield put(sendNotification({ message: "User deleted successfully" }));
   } catch ({ message }) {
-    yield put(openNotification({ message, variant: "error" }));
+    yield put(sendErrorNotification({ message }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }

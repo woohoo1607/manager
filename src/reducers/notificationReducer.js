@@ -1,4 +1,4 @@
-export const OPEN_NOTIFICATION = "OPEN_NOTIFICATION";
+export const SEND_NOTIFICATION = "SEND_NOTIFICATION";
 export const CLOSE_NOTIFICATION = "CLOSE_NOTIFICATION";
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 
 const notificationReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case OPEN_NOTIFICATION: {
+    case SEND_NOTIFICATION: {
       return {
         ...state,
         isOpen: true,

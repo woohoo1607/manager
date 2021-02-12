@@ -9,7 +9,7 @@ import {
   REMOVE_TEMP_USER_DATA,
   REMOVE_TEMP_USER_DATA_SUCCESS,
 } from "../reducers/userReducer";
-import { openNotification } from "../actions/notificationActions";
+import { sendErrorNotification } from "../actions/notificationActions";
 import { usersTempDataService } from "../services/db/UsersTempDataService";
 
 export function* getUserSaga({ id }) {
@@ -17,7 +17,7 @@ export function* getUserSaga({ id }) {
     const res = yield call(usersService.getByID, id);
     yield put({ type: ADD_ACCOUNT_DATA_SUCCESS, payload: res });
   } catch ({ message }) {
-    yield put(openNotification({ message, variant: "error" }));
+    yield put(sendErrorNotification({ message }));
   }
 }
 
@@ -43,7 +43,7 @@ export function* addUserDataSaga({
     yield put({ type: ADD_ACCOUNT_DATA_SUCCESS, payload: res });
     yield call(redirect, path);
   } catch ({ message }) {
-    yield put(openNotification({ message, variant: "error" }));
+    yield put(sendErrorNotification({ message }));
   }
 }
 
@@ -56,7 +56,7 @@ export function* getTempUserDataSaga() {
     const res = yield call(usersTempDataService.getAll);
     yield put({ type: GET_TEMP_USER_DATA_SUCCESS, payload: res[0] || null });
   } catch ({ message }) {
-    yield put(openNotification({ message, variant: "error" }));
+    yield put(sendErrorNotification({ message }));
   }
 }
 
@@ -64,17 +64,17 @@ export function* watchGetTempUserDataSaga() {
   yield takeEvery(GET_TEMP_USER_DATA, getTempUserDataSaga);
 }
 
-export function* deleteTempUserDataSaga() {
+export function* removeTempUserDataSaga() {
   try {
     yield call(usersTempDataService.clearAll);
     yield put({ type: REMOVE_TEMP_USER_DATA_SUCCESS });
   } catch ({ message }) {
-    yield put(openNotification({ message, variant: "error" }));
+    yield put(sendErrorNotification({ message }));
   }
 }
 
-export function* watchDeleteTempUserDataSaga() {
-  yield takeEvery(REMOVE_TEMP_USER_DATA, deleteTempUserDataSaga);
+export function* watchRemoveTempUserDataSaga() {
+  yield takeEvery(REMOVE_TEMP_USER_DATA, removeTempUserDataSaga);
 }
 
 export default function* userSaga() {
@@ -82,6 +82,6 @@ export default function* userSaga() {
     watchGetUserSaga(),
     watchAddUserDataSaga(),
     watchGetTempUserDataSaga(),
-    watchDeleteTempUserDataSaga(),
+    watchRemoveTempUserDataSaga(),
   ]);
 }
