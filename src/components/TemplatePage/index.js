@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Header from "../../components/Header";
-import InternalLink from "../../components/UI/InternalLink";
+import Header from "../Header";
+import InternalLink from "../UI/InternalLink";
 
 import "./styles.css";
 

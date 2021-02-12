@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import TemplatePage from "../TemplatePage";
-import UserStepWizard from "../../components/UserStepWizard";
+import TemplatePage from "../../../components/TemplatePage";
+import UserStepWizard from "../../../components/UserStepWizard";
 import {
   addAccountData,
   addUser,
   clearUserState,
-} from "../../actions/userActions";
+} from "../../../actions/userActions";
 import { useHistory } from "react-router-dom";
-import { getData, removeData } from "../../helpers/localStorageHelper";
+import { getData, removeData } from "../../../helpers/localStorageHelper";
 
 const NewUserPage = () => {
   const dispatch = useDispatch();

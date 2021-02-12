@@ -1,8 +1,6 @@
 import faker from "faker";
-import { SKILLS } from "../components/UserForms/skillsList";
-import { LANGUAGES } from "../components/UserForms/languagesList";
-import { HOBBIES } from "../components/UserForms/hobbies";
 import { avatars } from "./avatars";
+import { HOBBIES, LANGUAGES, SKILLS } from "../mocks";
 
 const randomDate = (start, end) =>
   new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));

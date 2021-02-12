@@ -5,8 +5,7 @@ import LayoutForm from "./LayoutForm";
 import SelectField from "../UI/SelectField";
 import TextAreaField from "../UI/TextAreaField";
 import CheckboxGroupField from "../UI/CheckboxGroupField";
-import { SKILLS } from "./skillsList";
-import { HOBBIES } from "./hobbies";
+import { HOBBIES, SKILLS } from "../../mocks";
 
 import "./styles.css";
 

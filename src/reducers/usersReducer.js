@@ -9,8 +9,6 @@ export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const DELETE_USER = "DELETE_USER";
 export const DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS";
 
-export const GENERATE_USERS = "GENERATE_USERS";
-
 const initialState = {
   users: [],
   isLoading: false,

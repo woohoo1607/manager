@@ -64,8 +64,3 @@ export const getUserData = (id) => {
 export const clearUserState = () => ({
   type: CLEAR_USER_STATE,
 });
-
-export const generateRandomUsers = (count) => ({
-  type: GENERATE_USERS,
-  count,
-});
