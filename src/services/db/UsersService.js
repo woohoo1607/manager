@@ -32,7 +32,7 @@ class UsersService extends DBService {
     const start = page * count - count;
     return {
       users: allUsers.slice(start, start + count),
-      pages: Math.round(allUsers.length / count),
+      pages: Math.round(allUsers.length / count) || 1,
     };
   };
 }

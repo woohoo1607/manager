@@ -14,7 +14,7 @@ const initialState = {
   isLoading: false,
   error: null,
   message: "",
-  pages: 0,
+  pages: 1,
   currentPage: 1,
 };
 

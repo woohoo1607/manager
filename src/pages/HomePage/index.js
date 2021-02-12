@@ -24,7 +24,7 @@ const HomePage = () => {
     users = [],
     isLoading = false,
     currentPage = 1,
-    pages = 0,
+    pages = 1,
   } = useSelector(({ users }) => users);
 
   const fetchUsers = useCallback(({ page }) => dispatch(getUsers({ page })), [
@@ -45,9 +45,15 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    const page = query.get("page") > 0 ? query.get("page") : 1;
+    const queryPage = query.get("page") || 1;
+    let page;
+    if (queryPage > 0 && queryPage <= pages) {
+      page = queryPage;
+    } else {
+      queryPage > pages ? push(`/?page=${pages}`) : push(`/?page=1`);
+    }
     fetchUsers({ page });
-  }, [fetchUsers, query]);
+  }, [fetchUsers, query, pages, push]);
 
   return (
     <TemplatePage title="List of users">
@@ -57,21 +63,20 @@ const HomePage = () => {
           deleteUser={deleteUsr}
           goToUserPage={goToUserPage}
         />
-        {!users.length && (
+        {!users.length ? (
           <div className="no-data">
             <h2 className="title">No users here :(</h2>
             <Button type="button" onClick={createNewUser}>
               Create new user
             </Button>
           </div>
-        )}
-        {pages ? (
+        ) : (
           <Paginator
             currentPage={currentPage}
             pages={pages}
             changePage={changePage}
           />
-        ) : null}
+        )}
         {isLoading && <Spinner />}
       </>
     </TemplatePage>
