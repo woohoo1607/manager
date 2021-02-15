@@ -20,7 +20,8 @@ export const checkUserForm = () => {
 };
 
 export const updateUserForm = ({ meta, ...userData }) => {
-  if (Object.prototype.hasOwnProperty.call(userData, "phones")) {
+  const { phones } = userData;
+  if (phones) {
     userData.phones = userData.phones.filter((phone) => phone.length > 0);
   }
   return { type: TRIGGER_UPDATE_USER_FORM, userData, meta };

@@ -24,11 +24,10 @@ export function* getUsersSaga() {
     yield put({ type: IS_LOADING, payload: true });
     const res = yield call(usersService.getAll);
     yield put({ type: GET_USERS, payload: res });
-    yield put({ type: IS_LOADING, payload: false });
   } catch ({ message }) {
     yield put(sendErrorNotification({ message }));
-    yield put({ type: IS_LOADING, payload: false });
   }
+  yield put({ type: IS_LOADING, payload: false });
 }
 
 export function* watchGetUsersSaga() {
@@ -40,11 +39,10 @@ export function* getUserSaga({ id }) {
     yield put({ type: IS_LOADING, payload: true });
     const res = yield call(usersService.getByID, id);
     yield put({ type: GET_USER, payload: res });
-    yield put({ type: IS_LOADING, payload: false });
   } catch ({ message }) {
     yield put(sendErrorNotification({ message }));
-    yield put({ type: IS_LOADING, payload: false });
   }
+  yield put({ type: IS_LOADING, payload: false });
 }
 
 export function* watchGetUserSaga() {
@@ -74,12 +72,11 @@ export function* updateUserSaga({ user }) {
     yield put({ type: IS_LOADING, payload: true });
     const updateUser = yield call(usersService.updateUser, user);
     yield put({ type: UPDATE_USER, payload: updateUser });
-    yield put({ type: IS_LOADING, payload: false });
     yield put(sendNotification({ message: "User updated successfully" }));
   } catch ({ message }) {
     yield put(sendErrorNotification({ message }));
-    yield put({ type: IS_LOADING, payload: false });
   }
+  yield put({ type: IS_LOADING, payload: false });
 }
 
 export function* watchUpdateUserSaga() {

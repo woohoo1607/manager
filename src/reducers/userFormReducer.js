@@ -1,8 +1,6 @@
-export const GET_USER_FORM = "GET_USER_DATA";
+export const GET_USER_FORM = "GET_USER_FORM";
 
 export const UPDATE_USER_FORM = "UPDATE_USER_FORM";
-
-export const ADD_USER_FORM = "UPDATE_USER_FORM";
 
 export const REMOVE_USER_FORM = "REMOVE_USER_FORM";
 

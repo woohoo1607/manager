@@ -67,6 +67,7 @@ export function* updateUserFormSaga({
       }
     }
     const res = yield call(userFormService.addData, userData);
+    console.log(userData);
     yield put({ type: UPDATE_USER_FORM, payload: res });
     yield call(redirect, path);
   } catch ({ message }) {

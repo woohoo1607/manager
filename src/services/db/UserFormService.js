@@ -7,11 +7,7 @@ class UserFormService extends DBService {
 
   addData = async (user) => {
     let { id } = user;
-    if (id) {
-      return await this.put(user);
-    } else {
-      return await this.add(user);
-    }
+    return id ? await this.put(user) : await this.add(user);
   };
 }
 
