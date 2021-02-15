@@ -2,7 +2,7 @@ import { openDB } from "idb";
 import { v4 as uuidv4 } from "uuid";
 
 const DATABASE_NAME = "manager";
-const DATABASE_VERSION = 4;
+const DATABASE_VERSION = 2;
 
 const dbPromise = async () =>
   await openDB(DATABASE_NAME, DATABASE_VERSION, {
@@ -19,7 +19,7 @@ const dbPromise = async () =>
           autoIncrement: true,
         });
       }
-      if (oldVersion < 4) {
+      if (oldVersion < 2) {
         transaction.objectStore("users").createIndex("email", "email");
         db.createObjectStore("temp", {
           keyPath: "id",
