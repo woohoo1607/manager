@@ -1,9 +1,4 @@
-import {
-  DELETE_USER,
-  GENERATE_USERS,
-  GET_USERS,
-  UPDATE_USER,
-} from "../reducers/usersReducer";
+import { DELETE_USER, GET_USERS, UPDATE_USER } from "../reducers/usersReducer";
 import {
   ADD_ACCOUNT_DATA,
   ADD_USER,

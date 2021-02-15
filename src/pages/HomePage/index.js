@@ -10,6 +10,8 @@ import Spinner from "../../components/UI/Spinner";
 
 import "./styles.css";
 import { usersService } from "../../services/db/UsersService";
+import { generateAccount } from "../../helpers/generateAccount";
+import { openNotification } from "../../actions/notificationActions";
 
 const HomePage = () => {
   const { push } = useHistory();
@@ -26,14 +28,39 @@ const HomePage = () => {
 
   const goToUserPage = (id) => () => push(`/users/${id}`);
 
-  const generateUsers = async () => {
-    setIsGenerate(true);
-    await usersService.generateUsers(50);
-    fetchUsers();
-    setIsGenerate(false);
-  };
+  const generateUsers = () => setIsGenerate(true);
 
   useEffect(() => {
+    let isMounted = true;
+    if (setIsGenerate) {
+      const promises = [];
+      new Promise((resolve) => {
+        resolve(usersService.clearAll());
+      })
+        .then(() => {
+          for (let i = 0; i < 50; i++) {
+            promises.push(
+              generateAccount().then((res) => usersService.add(res))
+            );
+          }
+          Promise.all(promises)
+            .then(() => (isMounted ? fetchUsers() : null))
+            .catch(({ message = "error" }) => {
+              dispatch(openNotification({ message, variant: "error" }));
+            })
+            .finally(() => {
+              return isMounted ? setIsGenerate(false) : null;
+            });
+        })
+        .catch(({ message }) => {
+          dispatch(openNotification({ message, variant: "error" }));
+        });
+    }
+    return () => (isMounted = false);
+  }, [setIsGenerate, dispatch, fetchUsers]);
+
+  useEffect(() => {
+    generateUsers();
     fetchUsers();
   }, [fetchUsers]);
 
@@ -45,16 +72,20 @@ const HomePage = () => {
           deleteUser={deleteUsr}
           goToUserPage={goToUserPage}
         />
-        {!users.length && (
+        {!users.length && !(isLoading || isGenerate) ? (
           <div className="no-data">
             <h2 className="title">No users here :(</h2>
             <Button type="button" onClick={createNewUser}>
               Create new user
             </Button>
           </div>
-        )}
+        ) : null}
         {isLoading || isGenerate ? <Spinner /> : null}
-        <Button onClick={generateUsers} disabled={isGenerate}>
+        <Button
+          className="generate_button"
+          onClick={generateUsers}
+          disabled={isGenerate}
+        >
           Generate accounts
         </Button>
       </>
