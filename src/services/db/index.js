@@ -7,24 +7,23 @@ const DATABASE_VERSION = 2;
 const dbPromise = async () =>
   await openDB(DATABASE_NAME, DATABASE_VERSION, {
     async upgrade(db, oldVersion, newVersion, transaction) {
-      if (oldVersion < 1) {
-        const store = db.createObjectStore("users", {
-          keyPath: "id",
-          autoIncrement: true,
-        });
-        store.createIndex("username", "username");
-        store.createIndex("email", "email");
-        db.createObjectStore("temp", {
-          keyPath: "id",
-          autoIncrement: true,
-        });
-      }
-      if (oldVersion < 2) {
-        transaction.objectStore("users").createIndex("email", "email");
-        db.createObjectStore("temp", {
-          keyPath: "id",
-          autoIncrement: true,
-        });
+      switch (oldVersion) {
+        case 0: {
+          const store = db.createObjectStore("users", {
+            keyPath: "id",
+            autoIncrement: true,
+          });
+          store.createIndex("username", "username");
+        }
+        case 1: {
+          transaction.objectStore("users").createIndex("email", "email");
+          db.createObjectStore("temp", {
+            keyPath: "id",
+            autoIncrement: true,
+          });
+        }
+        default:
+          break;
       }
     },
   });
