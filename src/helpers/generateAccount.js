@@ -18,6 +18,9 @@ const imageToBlob = async (image) => {
   }
 };
 
+const generatePhone = () =>
+  `+38 ${faker.phone.phoneNumber().replace(/-/gi, " ")}`;
+
 export const generateAccount = async () => {
   try {
     faker.locale = "uk";
@@ -36,8 +39,8 @@ export const generateAccount = async () => {
       github: `www.github.com/${faker.internet.userName()}`,
       facebook: `www.facebook.com/${faker.internet.userName()}`,
       language: faker.random.arrayElement(getValuesFromObjectsArray(LANGUAGES)),
-      fax: `+38 ${faker.phone.phoneNumber().replace(/-/gi, " ")}`,
-      phones: [`+38 ${faker.phone.phoneNumber().replace(/-/gi, " ")}`],
+      fax: generatePhone(),
+      phones: [generatePhone()],
       skills: faker.random.arrayElements(getValuesFromObjectsArray(SKILLS), 3),
       information: faker.lorem.sentence(),
       hobbies: faker.random.arrayElements(HOBBIES),

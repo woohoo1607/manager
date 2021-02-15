@@ -15,7 +15,7 @@ import { openNotification } from "../../actions/notificationActions";
 
 const HomePage = () => {
   const { push } = useHistory();
-  const [isGenerate, setIsGenerate] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const dispatch = useDispatch();
 
   const { users = [], isLoading = false } = useSelector(({ users }) => users);
@@ -28,11 +28,11 @@ const HomePage = () => {
 
   const goToUserPage = (id) => () => push(`/users/${id}`);
 
-  const generateUsers = () => setIsGenerate(true);
+  const generateUsers = () => setIsGenerating(true);
 
   useEffect(() => {
     let isMounted = true;
-    if (setIsGenerate) {
+    if (isGenerating) {
       const promises = [];
       new Promise((resolve) => {
         resolve(usersService.clearAll());
@@ -49,7 +49,7 @@ const HomePage = () => {
               dispatch(openNotification({ message, variant: "error" }));
             })
             .finally(() => {
-              return isMounted ? setIsGenerate(false) : null;
+              return isMounted ? setIsGenerating(false) : null;
             });
         })
         .catch(({ message }) => {
@@ -57,10 +57,9 @@ const HomePage = () => {
         });
     }
     return () => (isMounted = false);
-  }, [setIsGenerate, dispatch, fetchUsers]);
+  }, [isGenerating, dispatch, fetchUsers, setIsGenerating]);
 
   useEffect(() => {
-    generateUsers();
     fetchUsers();
   }, [fetchUsers]);
 
@@ -72,19 +71,19 @@ const HomePage = () => {
           deleteUser={deleteUsr}
           goToUserPage={goToUserPage}
         />
-        {!users.length && !(isLoading || isGenerate) ? (
+        {!users.length && !(isLoading || isGenerating) && (
           <div className="no-data">
             <h2 className="title">No users here :(</h2>
             <Button type="button" onClick={createNewUser}>
               Create new user
             </Button>
           </div>
-        ) : null}
-        {isLoading || isGenerate ? <Spinner /> : null}
+        )}
+        {isLoading || isGenerating ? <Spinner /> : null}
         <Button
           className="generate_button"
           onClick={generateUsers}
-          disabled={isGenerate}
+          disabled={isGenerating}
         >
           Generate accounts
         </Button>
