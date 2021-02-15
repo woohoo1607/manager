@@ -81,7 +81,7 @@ const HomePage = () => {
         )}
         {isLoading || isGenerating ? <Spinner /> : null}
         <Button
-          className="generate_button"
+          className="generate-button"
           onClick={generateUsers}
           disabled={isGenerating}
         >
