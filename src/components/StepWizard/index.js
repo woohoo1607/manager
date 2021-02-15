@@ -26,7 +26,7 @@ const StepWizard = ({
   submit = () => {},
   isEditMode = false,
   path = "",
-  unsavedData = null,
+  isUnsavedData = false,
   removeUnsavedData = () => {},
   loadUnsavedData = () => {},
 }) => {
@@ -99,7 +99,7 @@ const StepWizard = ({
         goToStep={changeStep}
       />
       <div className="step-wizard-body">
-        {unsavedData && (
+        {isUnsavedData && (
           <StepWizardFrame
             loadUnsavedData={loadUnsavedData}
             removeUnsavedData={removeUnsavedData}
