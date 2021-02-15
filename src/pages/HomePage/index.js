@@ -10,8 +10,16 @@ import Spinner from "../../components/UI/Spinner";
 
 import "./styles.css";
 import { usersService } from "../../services/db/UsersService";
-import { generateAccount } from "../../helpers/generateAccount";
+import { generateAccount, generateAvatar } from "../../helpers/generateAccount";
 import { openNotification } from "../../actions/notificationActions";
+
+const generateFakeAccounts = ({ count = 50 }) => {
+  const accounts = [];
+  for (let i = 0; i < count; i++) {
+    accounts.push(generateAccount());
+  }
+  return accounts;
+};
 
 const HomePage = () => {
   const { push } = useHistory();
@@ -28,32 +36,42 @@ const HomePage = () => {
 
   const goToUserPage = (id) => () => push(`/users/${id}`);
 
-  const generateUsers = () => setIsGenerating(true);
+  const handleClickGenerateUsers = () => setIsGenerating(true);
 
   useEffect(() => {
     let isMounted = true;
     if (isGenerating) {
-      const promises = [];
-      new Promise((resolve) => {
-        resolve(usersService.clearAll());
-      })
-        .then(() => {
-          for (let i = 0; i < 50; i++) {
-            promises.push(
-              generateAccount().then((res) => usersService.add(res))
-            );
-          }
-          Promise.all(promises)
-            .then(() => (isMounted ? fetchUsers() : null))
-            .catch(({ message = "error" }) => {
-              dispatch(openNotification({ message, variant: "error" }));
-            })
-            .finally(() => {
-              return isMounted ? setIsGenerating(false) : null;
+      new Promise((resolve, reject) => {
+        const accounts = generateFakeAccounts({ count: 50 });
+        Promise.all(
+          accounts.map((account) => {
+            return new Promise((resolve, reject) => {
+              generateAvatar().then((res) => {
+                account.avatar = res;
+                resolve(account);
+              });
             });
-        })
-        .catch(({ message }) => {
+          })
+        )
+          .then((res) => {
+            usersService
+              .clearAll()
+              .then(() => {
+                usersService
+                  .addMany(res)
+                  .then((res) => resolve(res))
+                  .catch((err) => reject(err));
+              })
+              .catch((err) => reject(err));
+          })
+          .catch((err) => reject(err));
+      })
+        .then(() => (isMounted ? fetchUsers() : null))
+        .catch(({ message = "error" }) => {
           dispatch(openNotification({ message, variant: "error" }));
+        })
+        .finally(() => {
+          return isMounted ? setIsGenerating(false) : null;
         });
     }
     return () => (isMounted = false);
@@ -82,7 +100,7 @@ const HomePage = () => {
         {isLoading || isGenerating ? <Spinner /> : null}
         <Button
           className="generate-button"
-          onClick={generateUsers}
+          onClick={handleClickGenerateUsers}
           disabled={isGenerating}
         >
           Generate accounts

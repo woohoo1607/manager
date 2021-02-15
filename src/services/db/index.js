@@ -58,6 +58,19 @@ class DBService {
     const db = await dbPromise(this.tablespace);
     return await db.getFromIndex(this.tablespace, index, query);
   };
+
+  addMany = async (data) => {
+    const db = await dbPromise(this.tablespace);
+    const tx = db.transaction(this.tablespace, "readwrite");
+    return await Promise.all(
+      data.map(
+        (item) =>
+          new Promise((resolve) => {
+            resolve(tx.store.add({ ...item, id: uuidv4() }));
+          })
+      )
+    );
+  };
 }
 
 export default DBService;
