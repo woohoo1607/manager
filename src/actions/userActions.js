@@ -1,30 +1,21 @@
-import { DELETE_USER, GET_USERS, UPDATE_USER } from "../reducers/usersReducer";
 import {
-  ADD_ACCOUNT_DATA,
-  ADD_USER,
-  CLEAR_USER_STATE,
-  GET_TEMP_USER_DATA,
-  GET_USER_DATA,
-  REMOVE_TEMP_USER_DATA,
-} from "../reducers/userReducer";
-
-const removeUnnecessaryUserProperties = (user) => {
-  const newUser = { ...user };
-  delete newUser.repeatPassword;
-  delete newUser.allowedUnsubmittedStep;
-  newUser.lastUpdate = new Date();
-  return newUser;
-};
+  TRIGGER_ADD_USER,
+  TRIGGER_GET_USER,
+  TRIGGER_GET_USERS,
+  TRIGGER_REMOVE_USER,
+  TRIGGER_UPDATE_USER,
+} from "../sagas/usersSagas";
+import { removeUnnecessaryUserProperties } from "./actionsHelper";
 
 export const getUsers = () => {
   return {
-    type: GET_USERS,
+    type: TRIGGER_GET_USERS,
   };
 };
 
 export const addUser = ({ meta, ...user }) => {
   return {
-    type: ADD_USER,
+    type: TRIGGER_ADD_USER,
     user: removeUnnecessaryUserProperties(user),
     meta: meta,
   };
@@ -32,40 +23,21 @@ export const addUser = ({ meta, ...user }) => {
 
 export const updateUser = (user) => {
   return {
-    type: UPDATE_USER,
+    type: TRIGGER_UPDATE_USER,
     user: removeUnnecessaryUserProperties(user),
   };
 };
 
 export const deleteUser = (id) => {
   return {
-    type: DELETE_USER,
+    type: TRIGGER_REMOVE_USER,
     id,
   };
 };
 
-export const addAccountData = ({ meta, ...userData }) => {
-  if (Object.prototype.hasOwnProperty.call(userData, "phones")) {
-    userData.phones = userData.phones.filter((phone) => phone.length > 0);
-  }
-  return { type: ADD_ACCOUNT_DATA, userData, meta };
-};
-
-export const getUserData = (id) => {
+export const getUser = (id) => {
   return {
-    type: GET_USER_DATA,
+    type: TRIGGER_GET_USER,
     id,
   };
 };
-
-export const clearUserState = () => ({
-  type: CLEAR_USER_STATE,
-});
-
-export const getTempUserData = () => ({
-  type: GET_TEMP_USER_DATA,
-});
-
-export const deleteTempUserData = () => ({
-  type: REMOVE_TEMP_USER_DATA,
-});

@@ -4,28 +4,29 @@ import { useHistory } from "react-router-dom";
 
 import TemplatePage from "../TemplatePage";
 import UserStepWizard from "../../components/UserStepWizard";
+import { addUser } from "../../actions/userActions";
 import {
-  addAccountData,
-  addUser,
-  clearUserState,
-  deleteTempUserData,
-  getTempUserData,
-} from "../../actions/userActions";
+  checkUserForm,
+  clearUserFormState,
+  getUserForm,
+  removeUserForm,
+  updateUserForm,
+} from "../../actions/userFormActions";
 
 const NewUserPage = () => {
   const dispatch = useDispatch();
 
   const { push } = useHistory();
 
-  const { user, unsavedData } = useSelector(({ user }) => user);
+  const { user, isAvailable } = useSelector(({ userForm }) => userForm);
 
-  const fetchTempUserData = useCallback(() => dispatch(getTempUserData()), [
+  const checkUserFormData = useCallback(() => dispatch(checkUserForm()), [
     dispatch,
   ]);
 
-  const removeUnsavedData = () => dispatch(deleteTempUserData());
+  const removeUnsavedData = () => dispatch(removeUserForm());
 
-  const saveStep = (data) => dispatch(addAccountData({ ...user, ...data }));
+  const saveStep = (data) => dispatch(updateUserForm({ ...user, ...data }));
 
   const submit = (data) =>
     dispatch(
@@ -33,16 +34,15 @@ const NewUserPage = () => {
     );
 
   useEffect(() => {
-    dispatch(clearUserState());
+    dispatch(clearUserFormState());
   }, [dispatch]);
 
   useEffect(() => {
-    fetchTempUserData();
-  }, [fetchTempUserData]);
+    checkUserFormData();
+  }, [checkUserFormData]);
 
   const loadUnsavedData = () => {
-    saveStep({ ...unsavedData, meta: { redirect: push, path: "/users/new" } });
-    removeUnsavedData();
+    dispatch(getUserForm({ meta: { redirect: push, path: "/users/new" } }));
   };
 
   return (
@@ -51,7 +51,7 @@ const NewUserPage = () => {
         user={user}
         saveStep={saveStep}
         submit={submit}
-        unsavedData={unsavedData}
+        isUnsavedData={isAvailable}
         removeUnsavedData={removeUnsavedData}
         loadUnsavedData={loadUnsavedData}
       />

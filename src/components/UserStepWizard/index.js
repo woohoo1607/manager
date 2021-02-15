@@ -34,7 +34,7 @@ const UserStepWizard = ({
   saveStep = () => {},
   submit = () => {},
   isEditMode = false,
-  unsavedData,
+  isUnsavedData = false,
   removeUnsavedData = () => {},
   loadUnsavedData = () => {},
 }) => (
@@ -44,7 +44,7 @@ const UserStepWizard = ({
     saveStep={saveStep}
     submit={submit}
     isEditMode={isEditMode}
-    unsavedData={unsavedData}
+    isUnsavedData={isUnsavedData}
     removeUnsavedData={removeUnsavedData}
     loadUnsavedData={loadUnsavedData}
   />

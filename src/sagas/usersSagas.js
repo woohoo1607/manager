@@ -1,27 +1,29 @@
 import { put, call, takeEvery, all } from "redux-saga/effects";
 import {
-  DELETE_USER,
-  DELETE_USER_SUCCESS,
+  GET_USER,
   GET_USERS,
-  GET_USERS_SUCCESS,
   IS_LOADING,
   UPDATE_USER,
 } from "../reducers/usersReducer";
 
 import { usersService } from "../services/db/UsersService";
-import { getUserData } from "../actions/userActions";
-import { ADD_USER, ADD_USER_SUCCESS } from "../reducers/userReducer";
 import {
   sendErrorNotification,
   sendNotification,
 } from "../actions/notificationActions";
-import { usersTempDataService } from "../services/db/UsersTempDataService";
+import { userFormService } from "../services/db/UserFormService";
+
+export const TRIGGER_GET_USERS = "TRIGGER_GET_USERS";
+export const TRIGGER_GET_USER = "TRIGGER_GET_USER";
+export const TRIGGER_ADD_USER = "TRIGGER_ADD_USER";
+export const TRIGGER_REMOVE_USER = "TRIGGER_REMOVE_USER";
+export const TRIGGER_UPDATE_USER = "TRIGGER_UPDATE_USER";
 
 export function* getUsersSaga() {
   try {
     yield put({ type: IS_LOADING, payload: true });
     const res = yield call(usersService.getAll);
-    yield put({ type: GET_USERS_SUCCESS, payload: res });
+    yield put({ type: GET_USERS, payload: res });
     yield put({ type: IS_LOADING, payload: false });
   } catch ({ message }) {
     yield put(sendErrorNotification({ message }));
@@ -30,16 +32,31 @@ export function* getUsersSaga() {
 }
 
 export function* watchGetUsersSaga() {
-  yield takeEvery(GET_USERS, getUsersSaga);
+  yield takeEvery(TRIGGER_GET_USERS, getUsersSaga);
+}
+
+export function* getUserSaga({ id }) {
+  try {
+    yield put({ type: IS_LOADING, payload: true });
+    const res = yield call(usersService.getByID, id);
+    yield put({ type: GET_USER, payload: res });
+    yield put({ type: IS_LOADING, payload: false });
+  } catch ({ message }) {
+    yield put(sendErrorNotification({ message }));
+    yield put({ type: IS_LOADING, payload: false });
+  }
+}
+
+export function* watchGetUserSaga() {
+  yield takeEvery(TRIGGER_GET_USER, getUserSaga);
 }
 
 export function* addUserSaga({ meta: { redirect, path }, user }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
     yield call(usersService.addUser, user);
-    yield put({ type: ADD_USER_SUCCESS });
-    yield call(usersTempDataService.clearAll);
-    yield put({ type: GET_USERS });
+    yield call(userFormService.clearAll);
+    yield put({ type: TRIGGER_GET_USERS });
     yield put(sendNotification({ message: "User added successfully" }));
     yield call(redirect, path);
   } catch ({ message }) {
@@ -49,14 +66,14 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
 }
 
 export function* watchAddUserSaga() {
-  yield takeEvery(ADD_USER, addUserSaga);
+  yield takeEvery(TRIGGER_ADD_USER, addUserSaga);
 }
 
 export function* updateUserSaga({ user }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
-    const id = yield call(usersService.updateUser, user);
-    yield put(getUserData(id));
+    const updateUser = yield call(usersService.updateUser, user);
+    yield put({ type: UPDATE_USER, payload: updateUser });
     yield put({ type: IS_LOADING, payload: false });
     yield put(sendNotification({ message: "User updated successfully" }));
   } catch ({ message }) {
@@ -66,15 +83,14 @@ export function* updateUserSaga({ user }) {
 }
 
 export function* watchUpdateUserSaga() {
-  yield takeEvery(UPDATE_USER, updateUserSaga);
+  yield takeEvery(TRIGGER_UPDATE_USER, updateUserSaga);
 }
 
 export function* deleteUserSaga({ id }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
     yield call(usersService.delete, id);
-    yield put({ type: DELETE_USER_SUCCESS });
-    yield put({ type: GET_USERS });
+    yield put({ type: TRIGGER_GET_USERS });
     yield put(sendNotification({ message: "User deleted successfully" }));
   } catch ({ message }) {
     yield put(sendErrorNotification({ message }));
@@ -83,12 +99,13 @@ export function* deleteUserSaga({ id }) {
 }
 
 export function* watchDeleteUserSaga() {
-  yield takeEvery(DELETE_USER, deleteUserSaga);
+  yield takeEvery(TRIGGER_REMOVE_USER, deleteUserSaga);
 }
 
 export default function* usersSaga() {
   yield all([
     watchGetUsersSaga(),
+    watchGetUserSaga(),
     watchAddUserSaga(),
     watchUpdateUserSaga(),
     watchDeleteUserSaga(),
