@@ -32,7 +32,7 @@ const AccountFormBody = ({ children, values: { avatar } }) => {
     <>
       <div style={{ textAlign: "center", width: "200px" }}>
         <Avatar avatar={avatar} style={{ width: "171px", height: "171px" }} />
-        <FileInputField name="avatar" />
+        <FileInputField name="avatar" avatar={avatar} />
       </div>
       <div className="with-controls" style={{ width: "400px" }}>
         <div>

@@ -15,6 +15,7 @@ const dbPromise = async () =>
           });
           store.createIndex("username", "username");
         }
+        // eslint-disable-next-line no-fallthrough
         case 1: {
           transaction.objectStore("users").createIndex("email", "email");
           db.createObjectStore("temp", {
@@ -22,6 +23,7 @@ const dbPromise = async () =>
             autoIncrement: true,
           });
         }
+        // eslint-disable-next-line no-fallthrough
         default:
           break;
       }

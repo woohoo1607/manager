@@ -9,7 +9,6 @@ import "./styles.css";
 
 const UserInformation = ({
   user: {
-    id,
     avatar,
     username = "",
     firstName = "",
@@ -17,12 +16,15 @@ const UserInformation = ({
     birthDate = "",
     email = "",
     address = "",
+    gender = "",
     company = "",
     fax = "",
     facebook = "",
+    github = "",
     phones = [],
     skills = [],
     hobbies = [],
+    information = "",
   },
   goToEditUser = () => {},
 }) => {
@@ -52,6 +54,7 @@ const UserInformation = ({
             link={`mailto: ${email}`}
           />
           <InformationItem title="Address" value={address} />
+          <InformationItem title="Gender" value={gender} />
         </InformationBlock>
 
         <InformationBlock
@@ -60,6 +63,7 @@ const UserInformation = ({
         >
           <InformationItem title="Company" value={company} />
           <InformationItem title="Fax" value={fax} link={`tel: ${fax}`} />
+          <InformationItem title="Github Link" value={github} link={github} />
           <InformationItem
             title="Facebook Link"
             value={facebook}
@@ -84,7 +88,15 @@ const UserInformation = ({
           handleClick={goToEditUser("capabilities")}
         >
           <InformationItem title="Skills" value={skills.join(", ")} />
-          <InformationItem title="Hobbies" value={hobbies.join(", ")} />
+          <InformationItem title="Hobbies">
+            {hobbies.map((hobby, i) => (
+              <span key={i}>
+                {hobby}
+                <br />
+              </span>
+            ))}
+          </InformationItem>
+          <InformationItem title="Information" value={information} />
         </InformationBlock>
       </div>
     </div>

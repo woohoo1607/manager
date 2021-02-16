@@ -7,11 +7,11 @@ import UsersTable from "../../components/UsersTable";
 import Button from "../../components/UI/Button";
 import { deleteUser, getUsers } from "../../actions/userActions";
 import Spinner from "../../components/UI/Spinner";
-
-import "./styles.css";
 import { usersService } from "../../services/db/UsersService";
 import { generateAccount, generateAvatar } from "../../helpers/generateAccount";
-import { openNotification } from "../../actions/notificationActions";
+import { sendErrorNotification } from "../../actions/notificationActions";
+
+import "./styles.css";
 
 const generateFakeAccounts = ({ count = 50 }) => {
   const accounts = [];
@@ -68,7 +68,7 @@ const HomePage = () => {
       })
         .then(() => (isMounted ? fetchUsers() : null))
         .catch(({ message = "error" }) => {
-          dispatch(openNotification({ message, variant: "error" }));
+          dispatch(sendErrorNotification({ message }));
         })
         .finally(() => {
           return isMounted ? setIsGenerating(false) : null;
