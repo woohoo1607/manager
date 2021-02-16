@@ -22,7 +22,7 @@ const Paginator = ({
         changePage({ selected: 0 });
       }
     }
-  }, [changePage, queryPage, pages]);
+  }, [changePage, queryPage, pages, countItems]);
   return (
     <ReactPaginate
       pageCount={pages}
