@@ -35,15 +35,6 @@ class UsersService extends DBService {
       return await this.put(user);
     }
   };
-
-  getSomeUsers = async (page = 1, count = 10) => {
-    const allUsers = await this.getAll();
-    const start = page * count - count;
-    return {
-      users: allUsers.slice(start, start + count),
-      pages: Math.round(allUsers.length / count) || 1,
-    };
-  };
 }
 
 export const usersService = new UsersService();

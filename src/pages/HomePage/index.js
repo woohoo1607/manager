@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TemplatePage from "../../components/TemplatePage";
 import UsersTable from "../../components/UsersTable";
 import Button from "../../components/UI/Button";
-import { deleteUser, getUsers } from "../../actions/userActions";
+import { deleteUser, getUsers, setIsLoading } from "../../actions/userActions";
 import Spinner from "../../components/UI/Spinner";
 import Paginator from "../../components/Paginator";
 import { usersService } from "../../services/db/UsersService";
@@ -33,15 +33,19 @@ const HomePage = () => {
   const query = useMemo(() => new URLSearchParams(search), [search]);
   const queryPage = query.get("page") || 1;
 
-  const [offset, setOffset] = useState(queryPage - 1);
+  const { users = [], isLoading = false } = useSelector(({ users }) => users);
 
+  const [offset, setOffset] = useState(queryPage - 1);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState(users);
 
   const dispatch = useDispatch();
 
-  const { users = [], isLoading = false } = useSelector(({ users }) => users);
-
   const fetchUsers = useCallback(() => dispatch(getUsers()), [dispatch]);
+  const loading = useCallback(
+    (payload = false) => dispatch(setIsLoading(payload)),
+    [dispatch]
+  );
 
   const createNewUser = () => push(`/users/new`);
 
@@ -50,9 +54,8 @@ const HomePage = () => {
   const goToUserPage = (id) => () => push(`/users/${id}`);
 
   const changePage = ({ selected = 0 }) => {
-    if (selected !== offset) {
-      setOffset(selected);
-    }
+    setOffset(selected);
+    push(selected ? `/?page=${selected + 1}` : "/");
   };
 
   const handleClickGenerateUsers = () => setIsGenerating(true);
@@ -60,6 +63,7 @@ const HomePage = () => {
   useEffect(() => {
     let isMounted = true;
     if (isGenerating) {
+      loading(true);
       new Promise((resolve, reject) => {
         const accounts = generateFakeAccounts({ count: 50 });
         Promise.all(
@@ -94,28 +98,30 @@ const HomePage = () => {
         });
     }
     return () => (isMounted = false);
-  }, [isGenerating, dispatch, fetchUsers, setIsGenerating]);
+  }, [isGenerating, dispatch, fetchUsers, setIsGenerating, loading]);
 
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
 
   useEffect(() => {
-    push(`/?page=${offset + 1}`);
-  }, [offset, push]);
+    setSelectedUsers(
+      users.slice(
+        offset * NUMBER_OF_USERS_TO_SHOW,
+        offset * NUMBER_OF_USERS_TO_SHOW + NUMBER_OF_USERS_TO_SHOW
+      )
+    );
+  }, [offset, push, users]);
 
   return (
     <TemplatePage title="List of users">
       <>
         <UsersTable
-          users={users.slice(
-            offset * NUMBER_OF_USERS_TO_SHOW,
-            offset * NUMBER_OF_USERS_TO_SHOW + NUMBER_OF_USERS_TO_SHOW
-          )}
+          users={selectedUsers}
           deleteUser={deleteUsr}
           goToUserPage={goToUserPage}
         />
-        {!users.length && !(isLoading || isGenerating) ? (
+        {!users.length && !isLoading ? (
           <div className="no-data">
             <h2 className="title">No users here :(</h2>
             <Button type="button" onClick={createNewUser}>
@@ -131,7 +137,7 @@ const HomePage = () => {
             changePage={changePage}
           />
         )}
-        {isLoading || isGenerating ? <Spinner /> : null}
+        {isLoading ? <Spinner /> : null}
         <Button
           className="generate-button"
           onClick={handleClickGenerateUsers}
