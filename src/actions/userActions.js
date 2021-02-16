@@ -7,7 +7,7 @@ import {
 } from "../sagas/usersSagas";
 import { removeUnnecessaryUserProperties } from "./actionsHelper";
 
-export const getUsers = ({ page }) => {
+export const getUsers = () => {
   return {
     type: TRIGGER_GET_USERS,
   };

@@ -19,13 +19,13 @@ export const TRIGGER_ADD_USER = "TRIGGER_ADD_USER";
 export const TRIGGER_REMOVE_USER = "TRIGGER_REMOVE_USER";
 export const TRIGGER_UPDATE_USER = "TRIGGER_UPDATE_USER";
 
-export function* getUsersSaga({ page }) {
+export function* getUsersSaga() {
   try {
     yield put({ type: IS_LOADING, payload: true });
-    const res = yield call(usersService.getSomeUsers, page);
+    const users = yield call(usersService.getAll);
     yield put({
       type: GET_USERS,
-      payload: { ...res, currentPage: page },
+      payload: users,
     });
   } catch ({ message }) {
     yield put(sendErrorNotification({ message }));

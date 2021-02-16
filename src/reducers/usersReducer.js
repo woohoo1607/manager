@@ -11,8 +11,6 @@ const initialState = {
   isLoading: false,
   error: null,
   message: "",
-  pages: 1,
-  currentPage: 1,
 };
 
 const usersReducer = (state = initialState, { type, payload }) => {
@@ -20,7 +18,7 @@ const usersReducer = (state = initialState, { type, payload }) => {
     case GET_USERS: {
       return {
         ...state,
-        ...payload,
+        users: payload,
       };
     }
     case GET_USER:
