@@ -12,3 +12,8 @@
     color: #9BB0CB;
     font-weight: bold;
 }
+
+.generate-button {
+    margin: 20px 0;
+    cursor: pointer;
+}

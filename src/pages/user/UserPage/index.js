@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-
-import TemplatePage from "../TemplatePage";
-import UserInformation from "../../components/UserInformation";
-import { getUser } from "../../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
+
+import TemplatePage from "../../../components/TemplatePage";
+import UserInformation from "../../../components/UserInformation";
+import { getUser } from "../../../actions/userActions";
 
 const UserPage = () => {
   const { push } = useHistory();
