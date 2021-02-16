@@ -50,7 +50,7 @@ const HomePage = () => {
     if (queryPage > 0 && queryPage <= pages) {
       page = queryPage;
     } else {
-      queryPage > pages ? push(`/?page=${pages}`) : push(`/?page=1`);
+      push(`/?page=${queryPage > pages ? pages : 1}`);
     }
     fetchUsers({ page });
   }, [fetchUsers, query, pages, push]);
