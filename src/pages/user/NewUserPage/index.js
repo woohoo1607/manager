@@ -2,16 +2,16 @@ import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import TemplatePage from "../TemplatePage";
-import UserStepWizard from "../../components/UserStepWizard";
-import { addUser } from "../../actions/userActions";
+import TemplatePage from "../../../components/TemplatePage";
+import UserStepWizard from "../../../components/UserStepWizard";
+import { addUser } from "../../../actions/userActions";
 import {
   checkUserForm,
   clearUserFormState,
   getUserForm,
   removeUserForm,
   updateUserForm,
-} from "../../actions/userFormActions";
+} from "../../../actions/userFormActions";
 
 const NewUserPage = () => {
   const dispatch = useDispatch();

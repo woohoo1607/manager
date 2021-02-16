@@ -7,8 +7,8 @@ import Button from "../UI/Button";
 import InputField from "../UI/InputField";
 import SelectField from "../UI/SelectField";
 import PhoneField from "../UI/PhoneField";
-import { LANGUAGES } from "./languagesList";
 import IconButton from "../UI/IconButton";
+import { LANGUAGES } from "../../mocks";
 
 import "./styles.css";
 

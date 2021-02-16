@@ -1,9 +1,9 @@
 import FormikField from "../../FormikField";
 import FileInput from "../../FileInput";
 
-const FileInputField = ({ name = "" }) => (
+const FileInputField = ({ name = "", avatar = null }) => (
   <FormikField name={name}>
-    <FileInput />
+    <FileInput title={avatar ? "edit avatar" : "add avatar"} />
   </FormikField>
 );
 

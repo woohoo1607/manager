@@ -22,13 +22,14 @@ class UsersService extends DBService {
       return await this.add(user);
     }
   };
+
   updateUser = async (user) => {
     const { username, id, email } = user;
     const foundedUser = await this.checkUsername(username);
     const foundedUserByEmail = await this.checkEmail(email);
-    if (foundedUser && foundedUser.id !== id) {
+    if (foundedUser && foundedUser?.id !== id) {
       throw new Error("username already exists");
-    } else if (foundedUserByEmail && foundedUser.id !== id) {
+    } else if (foundedUserByEmail && foundedUserByEmail?.id !== id) {
       throw new Error("email already exists");
     } else {
       return await this.put(user);

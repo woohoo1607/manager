@@ -15,6 +15,7 @@ const dbPromise = async () =>
           });
           store.createIndex("username", "username");
         }
+        // eslint-disable-next-line no-fallthrough
         case 1: {
           transaction.objectStore("users").createIndex("email", "email");
           db.createObjectStore("temp", {
@@ -22,6 +23,7 @@ const dbPromise = async () =>
             autoIncrement: true,
           });
         }
+        // eslint-disable-next-line no-fallthrough
         default:
           break;
       }
@@ -72,6 +74,19 @@ class DBService {
   getFromIndex = async ({ index, query }) => {
     const db = await dbPromise(this.tablespace);
     return await db.getFromIndex(this.tablespace, index, query);
+  };
+
+  addMany = async (data) => {
+    const db = await dbPromise(this.tablespace);
+    const tx = db.transaction(this.tablespace, "readwrite");
+    return await Promise.all(
+      data.map(
+        (item) =>
+          new Promise((resolve) => {
+            resolve(tx.store.add({ ...item, id: uuidv4() }));
+          })
+      )
+    );
   };
 }
 

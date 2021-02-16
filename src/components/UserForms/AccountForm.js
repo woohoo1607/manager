@@ -14,12 +14,10 @@ const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 
 const validationSchema = Yup.object({
   avatar: Yup.mixed()
-    .test(
-      "fileSize",
-      "the file size must not exceed 1 MB",
-      (value = { size: "" }) => (value ? value.size <= MAX_PHOTO_SIZE : true)
+    .test("fileSize", "the file size must not exceed 1 MB", (value) =>
+      value ? value.size <= MAX_PHOTO_SIZE : true
     )
-    .test("fileFormat", "Unsupported Format", (value = { type: "" }) =>
+    .test("fileFormat", "Unsupported Format", (value) =>
       value ? SUPPORTED_FORMATS.includes(value.type) : true
     ),
   username: Yup.string().required("user name is required"),
@@ -34,7 +32,7 @@ const AccountFormBody = ({ children, values: { avatar } }) => {
     <>
       <div style={{ textAlign: "center", width: "200px" }}>
         <Avatar avatar={avatar} style={{ width: "171px", height: "171px" }} />
-        <FileInputField name="avatar" />
+        <FileInputField name="avatar" avatar={avatar} />
       </div>
       <div className="with-controls" style={{ width: "400px" }}>
         <div>

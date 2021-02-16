@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import TemplatePage from "../TemplatePage";
-import UserStepWizard from "../../components/UserStepWizard";
-import { updateUser } from "../../actions/userActions";
+import TemplatePage from "../../../components/TemplatePage";
+import UserStepWizard from "../../../components/UserStepWizard";
+import { updateUser } from "../../../actions/userActions";
 
 const EditUserPage = ({
   match: {
