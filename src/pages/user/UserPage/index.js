@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import TemplatePage from "../../../components/TemplatePage";
 import UserInformation from "../../../components/UserInformation";
-import { getUserData } from "../../../actions/userActions";
-import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../../actions/userActions";
 
 const UserPage = () => {
   const { push } = useHistory();
@@ -12,12 +12,12 @@ const UserPage = () => {
 
   const dispatch = useDispatch();
 
-  const user = useSelector(({ user }) => user || {});
+  const { user } = useSelector(({ users }) => users || {});
   const { username = "" } = user;
 
   const goToEditUser = (tab = "") => () => push(`/users/${id}/edit/${tab}`);
 
-  const fetchUser = useCallback((id) => dispatch(getUserData(id)), [dispatch]);
+  const fetchUser = useCallback((id) => dispatch(getUser(id)), [dispatch]);
 
   useEffect(() => {
     fetchUser(id);

@@ -1,12 +1,19 @@
 import {
   CLOSE_NOTIFICATION,
-  OPEN_NOTIFICATION,
+  SEND_NOTIFICATION,
 } from "../reducers/notificationReducer";
 
-export const openNotification = ({ message = "", variant = "success" }) => {
+export const sendNotification = ({ message = "", variant = "success" }) => {
   return {
-    type: OPEN_NOTIFICATION,
+    type: SEND_NOTIFICATION,
     payload: { message, variant },
+  };
+};
+
+export const sendErrorNotification = ({ message = "" }) => {
+  return {
+    type: SEND_NOTIFICATION,
+    payload: { message, variant: "error" },
   };
 };
 

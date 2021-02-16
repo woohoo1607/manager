@@ -1,26 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import TemplatePage from "../../../components/TemplatePage";
 import UserStepWizard from "../../../components/UserStepWizard";
+import { addUser } from "../../../actions/userActions";
 import {
-  addAccountData,
-  addUser,
-  clearUserState,
-} from "../../../actions/userActions";
-import { useHistory } from "react-router-dom";
-import { getData, removeData } from "../../../helpers/localStorageHelper";
+  checkUserForm,
+  clearUserFormState,
+  getUserForm,
+  removeUserForm,
+  updateUserForm,
+} from "../../../actions/userFormActions";
 
 const NewUserPage = () => {
   const dispatch = useDispatch();
 
   const { push } = useHistory();
 
-  const [unsavedData, setUnsavedData] = useState(null);
+  const { user, isAvailable } = useSelector(({ userForm }) => userForm);
 
-  const user = useSelector(({ user }) => user);
+  const checkUserFormData = useCallback(() => dispatch(checkUserForm()), [
+    dispatch,
+  ]);
 
-  const saveStep = (data) => dispatch(addAccountData({ ...user, ...data }));
+  const removeUnsavedData = () => dispatch(removeUserForm());
+
+  const saveStep = (data) => dispatch(updateUserForm({ ...user, ...data }));
 
   const submit = (data) =>
     dispatch(
@@ -28,26 +34,15 @@ const NewUserPage = () => {
     );
 
   useEffect(() => {
-    dispatch(clearUserState());
+    dispatch(clearUserFormState());
   }, [dispatch]);
 
   useEffect(() => {
-    (async () => {
-      const data = await getData("newUserData");
-      if (data) {
-        setUnsavedData(JSON.parse(data));
-      }
-    })();
-  }, []);
-
-  const removeUnsavedData = () => {
-    setUnsavedData(null);
-    removeData("newUserData");
-  };
+    checkUserFormData();
+  }, [checkUserFormData]);
 
   const loadUnsavedData = () => {
-    saveStep({ ...unsavedData, meta: { redirect: push, path: "/users/new" } });
-    setUnsavedData(null);
+    dispatch(getUserForm({ meta: { redirect: push, path: "/users/new" } }));
   };
 
   return (
@@ -56,7 +51,7 @@ const NewUserPage = () => {
         user={user}
         saveStep={saveStep}
         submit={submit}
-        unsavedData={unsavedData}
+        isUnsavedData={isAvailable}
         removeUnsavedData={removeUnsavedData}
         loadUnsavedData={loadUnsavedData}
       />

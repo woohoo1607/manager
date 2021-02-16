@@ -17,7 +17,11 @@ const Notification = () => {
   }, [isOpen, dispatch]);
 
   return (
-    <>{isOpen && <NotificationWindow message={message} variant={variant} />}</>
+    <>
+      {isOpen ? (
+        <NotificationWindow message={message} variant={variant} />
+      ) : null}
+    </>
   );
 };
 

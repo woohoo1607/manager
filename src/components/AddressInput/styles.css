@@ -1,0 +1,21 @@
+.autocomplete-dropdown-container {
+    top: 100%;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    box-shadow: none;
+    margin-bottom: 8px;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    color: #657C9A;
+}
+
+.autocomplete-dropdown-container__item {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.autocomplete-dropdown-container__item-active {
+    background-color: #E7F0FF;
+    cursor: pointer;
+}
