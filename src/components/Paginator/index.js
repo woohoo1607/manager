@@ -13,12 +13,14 @@ const Paginator = ({
   const pages = Math.round(countItems / showCount) || 1;
 
   useEffect(() => {
-    if (Number.isInteger(+queryPage)) {
-      if (queryPage <= 0 || queryPage > pages) {
-        changePage({ selected: queryPage > pages ? pages - 1 : 0 });
+    if (countItems) {
+      if (Number.isInteger(+queryPage)) {
+        if (queryPage <= 0 || queryPage > pages) {
+          changePage({ selected: queryPage > pages ? pages - 1 : 0 });
+        }
+      } else {
+        changePage({ selected: 0 });
       }
-    } else {
-      changePage({ selected: 0 });
     }
   }, [changePage, queryPage, pages]);
   return (
