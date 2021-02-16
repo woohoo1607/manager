@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import userReducer from "./userReducer";
 import usersReducer from "./usersReducer";
 import notificationReducer from "./notificationReducer";
+import userFormReducer from "./userFormReducer";
 
 export default combineReducers({
-  user: userReducer,
   users: usersReducer,
   notification: notificationReducer,
+  userForm: userFormReducer,
 });

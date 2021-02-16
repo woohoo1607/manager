@@ -1,7 +1,7 @@
 import { all } from "redux-saga/effects";
 import usersSaga from "./usersSagas";
-import userSaga from "./userSaga";
+import userFormSaga from "./userFormSaga";
 
 export function* rootSaga() {
-  yield all([usersSaga(), userSaga()]);
+  yield all([usersSaga(), userFormSaga()]);
 }
