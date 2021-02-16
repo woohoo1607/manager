@@ -5,8 +5,6 @@ import EyeStrikeIcon from "../../icons/eye-strike.svg";
 import Input from "../UI/Input";
 import Button from "../UI/Button";
 
-import "./styles.css";
-
 const PasswordInput = ({ ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => setShowPassword(!showPassword);

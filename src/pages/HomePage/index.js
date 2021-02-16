@@ -11,6 +11,7 @@ import Paginator from "../../components/Paginator";
 import UserGenerator from "./UserGenerator";
 
 import "./styles.css";
+import Search from "../../components/Search";
 
 const NUMBER_OF_USERS_TO_SHOW = 10;
 
@@ -22,6 +23,7 @@ const HomePage = () => {
 
   const query = useMemo(() => new URLSearchParams(search), [search]);
   const queryPage = query.get("page") || 1;
+  const querySearch = query.get("search") || "";
 
   const { users = [], isLoading = false } = useSelector(({ users }) => users);
 
@@ -37,6 +39,9 @@ const HomePage = () => {
     [dispatch]
   );
 
+  const [usersFound, setUsersFound] = useState(users);
+  const [searchQuery, setSearchQuery] = useState(querySearch);
+
   const createNewUser = () => push(`/users/new`);
 
   const deleteUsr = (id) => dispatch(deleteUser(id));
@@ -48,22 +53,37 @@ const HomePage = () => {
     push(selected ? `/?page=${selected + 1}` : "/");
   };
 
+  const handleClickSearch = (value) => {
+    const query = value.toLowerCase();
+    const res = users.filter(
+      ({ firstName = "", lastName = "" }) =>
+        firstName.toLowerCase().includes(query) ||
+        lastName.toLowerCase().includes(query)
+    );
+    setUsersFound(res);
+  };
+
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
 
   useEffect(() => {
+    setUsersFound(users);
+  }, [users]);
+
+  useEffect(() => {
     setSelectedUsers(
-      users.slice(
+      usersFound.slice(
         offset * NUMBER_OF_USERS_TO_SHOW,
         offset * NUMBER_OF_USERS_TO_SHOW + NUMBER_OF_USERS_TO_SHOW
       )
     );
-  }, [offset, push, users]);
+  }, [usersFound, setSelectedUsers, offset]);
 
   return (
     <TemplatePage title="List of users">
       <>
+        <Search handleClick={handleClickSearch} />
         <UsersTable
           users={selectedUsers}
           deleteUser={deleteUsr}
@@ -79,7 +99,7 @@ const HomePage = () => {
         ) : (
           <Paginator
             offset={offset}
-            countItems={users.length}
+            countItems={usersFound.length}
             queryPage={queryPage}
             showCount={NUMBER_OF_USERS_TO_SHOW}
             changePage={changePage}
