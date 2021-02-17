@@ -65,14 +65,15 @@ const HomePage = () => {
           deleteUser={deleteUsr}
           goToUserPage={goToUserPage}
         />
-        {!users.length && !isLoading ? (
+        {!users.length && !isLoading && (
           <div className="no-data">
             <h2 className="title">No users here :(</h2>
             <Button type="button" onClick={createNewUser}>
               Create new user
             </Button>
           </div>
-        ) : (
+        )}
+        {users.length > NUMBER_OF_USERS_TO_SHOW && (
           <Paginator
             offset={offset}
             countItems={users.length}
