@@ -3,7 +3,7 @@ import Input from "../UI/Input";
 
 import "./styles.css";
 
-const Search = ({ handleClick = () => {} }) => {
+const Search = ({ handleClick = () => {}, defaultValue = "" }) => {
   let searchDelay;
   const onChange = ({ target: { value = "" } }) => {
     if (searchDelay) {
@@ -14,7 +14,11 @@ const Search = ({ handleClick = () => {} }) => {
 
   return (
     <div className="search">
-      <Input onChange={onChange} placeholder="Search..." />
+      <Input
+        onChange={onChange}
+        placeholder="Search..."
+        defaultValue={defaultValue}
+      />
     </div>
   );
 };

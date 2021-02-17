@@ -15,6 +15,11 @@ import Search from "../../components/Search";
 
 const NUMBER_OF_USERS_TO_SHOW = 10;
 
+const buildUrl = (parameters = []) => {
+  const url = parameters.filter((el) => el !== null).join("&");
+  return url ? `?${url}` : "";
+};
+
 const HomePage = () => {
   const {
     push,
@@ -30,13 +35,11 @@ const HomePage = () => {
   const [offset, setOffset] = useState(queryPage - 1);
 
   const [selectedUsers, setSelectedUsers] = useState(users);
+  const [usersFound, setUsersFound] = useState(users);
 
   const dispatch = useDispatch();
 
   const fetchUsers = useCallback(() => dispatch(getUsers()), [dispatch]);
-
-  const [usersFound, setUsersFound] = useState(users);
-  const [searchQuery, setSearchQuery] = useState(querySearch);
 
   const createNewUser = () => push(`/users/new`);
 
@@ -46,17 +49,20 @@ const HomePage = () => {
 
   const changePage = ({ selected = 0 }) => {
     setOffset(selected);
-    push(selected ? `/?page=${selected + 1}` : "/");
+    const parameters = [
+      selected ? `page=${selected + 1}` : null,
+      querySearch ? `search=${querySearch}` : null,
+    ];
+    push(buildUrl(parameters));
   };
 
   const handleClickSearch = (value) => {
     const query = value.toLowerCase();
-    const res = users.filter(
-      ({ firstName = "", lastName = "" }) =>
-        firstName.toLowerCase().includes(query) ||
-        lastName.toLowerCase().includes(query)
-    );
-    setUsersFound(res);
+    const parameters = [
+      offset ? `page=${offset + 1}` : null,
+      query ? `search=${query}` : null,
+    ];
+    push(buildUrl(parameters));
   };
 
   useEffect(() => {
@@ -66,6 +72,19 @@ const HomePage = () => {
   useEffect(() => {
     setUsersFound(users);
   }, [users]);
+
+  useEffect(() => {
+    if (querySearch) {
+      const result = users.filter(
+        ({ firstName = "", lastName = "" }) =>
+          firstName.toLowerCase().includes(querySearch) ||
+          lastName.toLowerCase().includes(querySearch)
+      );
+      setUsersFound(result);
+    } else if (usersFound.length !== users.length) {
+      setUsersFound(users);
+    }
+  }, [querySearch, usersFound, users]);
 
   useEffect(() => {
     setSelectedUsers(
@@ -79,7 +98,7 @@ const HomePage = () => {
   return (
     <TemplatePage title="List of users">
       <>
-        <Search handleClick={handleClickSearch} />
+        <Search handleClick={handleClickSearch} defaultValue={querySearch} />
         <UsersTable
           users={selectedUsers}
           deleteUser={deleteUsr}
@@ -93,7 +112,7 @@ const HomePage = () => {
             </Button>
           </div>
         )}
-        {users.length > NUMBER_OF_USERS_TO_SHOW && (
+        {usersFound.length > NUMBER_OF_USERS_TO_SHOW && (
           <Paginator
             offset={offset}
             countItems={usersFound.length}
