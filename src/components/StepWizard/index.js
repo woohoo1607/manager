@@ -19,6 +19,9 @@ const StepWizardWrapper = (props) => {
   );
 };
 
+const findStepIndex = (steps, slug) =>
+  steps.findIndex(({ slug: foundSlug }) => foundSlug === slug);
+
 const StepWizard = ({
   data = {},
   steps = [],
@@ -30,33 +33,23 @@ const StepWizard = ({
   removeUnsavedData = () => {},
   loadUnsavedData = () => {},
 }) => {
-  const { slug } = useParams();
+  const { slug: urlSlug } = useParams();
   const { push } = useHistory();
-  const { allowedUnsubmittedStep } = data;
   const firstStepSlug = steps[0].slug;
+  const slug = data.slug ? data.slug : firstStepSlug;
+  const slugIndex = findStepIndex(steps, slug);
+  const currentStepIndex = findStepIndex(steps, urlSlug);
+
+  const isLastStep = currentStepIndex === steps.length - 1;
+  const isFirstStep = firstStepSlug === urlSlug;
 
   useEffect(() => {
     if (!isEditMode) {
-      const slugIndex = steps.findIndex(
-        ({ slug: foundSlug }) => foundSlug === slug
-      );
-      if (slugIndex === -1 || slugIndex > allowedUnsubmittedStep) {
+      if (currentStepIndex === -1 || currentStepIndex > slugIndex) {
         push(`${path}/${firstStepSlug}`);
       }
     }
-  }, [
-    path,
-    push,
-    firstStepSlug,
-    isEditMode,
-    slug,
-    steps,
-    allowedUnsubmittedStep,
-  ]);
-
-  const currentStepIndex = steps.findIndex(
-    ({ slug: foundSlug }) => foundSlug === slug
-  );
+  }, [path, push, firstStepSlug, isEditMode, currentStepIndex, slugIndex]);
 
   const changeStep = (slug = "") => {
     if (typeof slug === "string") {
@@ -64,19 +57,12 @@ const StepWizard = ({
     }
   };
 
-  const isLastStep = currentStepIndex === steps.length - 1;
-
-  const isFirstStep = firstStepSlug === slug;
-
   const nextStep = (data) => {
-    const { slug } = steps[currentStepIndex + 1] || {};
+    const { slug: nextSlug } = steps[currentStepIndex + 1] || {};
     saveStep({
       ...data,
-      allowedUnsubmittedStep:
-        currentStepIndex === allowedUnsubmittedStep
-          ? currentStepIndex + 1
-          : allowedUnsubmittedStep,
-      meta: { redirect: push, path: `${path}/${slug}` },
+      slug: urlSlug === slug ? nextSlug : slug,
+      meta: { redirect: push, path: `${path}/${nextSlug}` },
     });
   };
 
@@ -93,7 +79,7 @@ const StepWizard = ({
         steps={steps.map(({ title, slug }, i) => ({
           title,
           slug,
-          isAllowed: isEditMode || i <= allowedUnsubmittedStep,
+          isAllowed: isEditMode || i <= slugIndex,
           isCurrentStep: i === currentStepIndex,
         }))}
         goToStep={changeStep}

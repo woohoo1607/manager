@@ -26,7 +26,7 @@ const initialState = {
     skills: [],
     information: "",
     hobbies: [],
-    allowedUnsubmittedStep: 0,
+    slug: "",
   },
   isAvailable: false,
   fieldError: {

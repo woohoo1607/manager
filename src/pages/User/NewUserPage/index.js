@@ -42,7 +42,7 @@ const NewUserPage = () => {
   }, [checkUserFormData]);
 
   const loadUnsavedData = () => {
-    dispatch(getUserForm({ meta: { redirect: push, path: "/users/new" } }));
+    dispatch(getUserForm({ meta: { redirect: push, path: "/users/new/" } }));
   };
 
   return (
