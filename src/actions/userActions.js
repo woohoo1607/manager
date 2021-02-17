@@ -7,7 +7,6 @@ import {
   TRIGGER_UPDATE_USER,
 } from "../sagas/usersSagas";
 import { removeUnnecessaryUserProperties } from "./actionsHelper";
-import { IS_LOADING } from "../reducers/usersReducer";
 
 export const getUsers = () => ({
   type: TRIGGER_GET_USERS,
@@ -32,11 +31,6 @@ export const deleteUser = (id) => ({
 export const getUser = (id) => ({
   type: TRIGGER_GET_USER,
   id,
-});
-
-export const setIsLoading = (payload = false) => ({
-  type: IS_LOADING,
-  payload,
 });
 
 export const generateUsers = (count) => ({
