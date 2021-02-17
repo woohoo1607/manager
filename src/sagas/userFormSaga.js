@@ -22,7 +22,7 @@ export function* getUserFormSaga({
     const res = yield call(userFormService.getAll);
     if (Array.isArray(res) && res.length) {
       const { slug = "" } = res[0];
-      yield put({ type: UPDATE_USER_FORM, payload: res[0] || null });
+      yield put({ type: UPDATE_USER_FORM, payload: res[0] });
       yield put({ type: UPDATE_AVAILABLE_STATUS, payload: false });
       yield call(redirect, `${path}${slug}`);
     } else {

@@ -4,7 +4,7 @@ import { GET_USERS, IS_LOADING, UPDATE_USER } from "../reducers/usersReducer";
 import { usersService } from "../services/db/UsersService";
 import {
   showErrorNotification,
-  showNotification,
+  showSuccessNotification,
 } from "../actions/notificationActions";
 import { userFormService } from "../services/db/UserFormService";
 import {
@@ -58,7 +58,7 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
     yield call(usersService.addUser, user);
     yield call(userFormService.clearAll);
     yield put({ type: TRIGGER_GET_USERS });
-    yield put(showNotification({ message: "User added successfully" }));
+    yield put(showSuccessNotification({ message: "User added successfully" }));
     yield call(redirect, path);
   } catch ({ message }) {
     yield put(showErrorNotification({ message }));
@@ -75,7 +75,9 @@ export function* updateUserSaga({ user }) {
     yield put({ type: IS_LOADING, payload: true });
     const updateUser = yield call(usersService.updateUser, user);
     yield put({ type: UPDATE_USER, payload: updateUser });
-    yield put(showNotification({ message: "User updated successfully" }));
+    yield put(
+      showSuccessNotification({ message: "User updated successfully" })
+    );
   } catch ({ message }) {
     yield put(showErrorNotification({ message }));
   }
@@ -91,7 +93,9 @@ export function* deleteUserSaga({ id }) {
     yield put({ type: IS_LOADING, payload: true });
     yield call(usersService.delete, id);
     yield put({ type: TRIGGER_GET_USERS });
-    yield put(showNotification({ message: "User deleted successfully" }));
+    yield put(
+      showSuccessNotification({ message: "User deleted successfully" })
+    );
   } catch ({ message }) {
     yield put(showErrorNotification({ message }));
     yield put({ type: IS_LOADING, payload: false });
