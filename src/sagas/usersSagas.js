@@ -12,18 +12,26 @@ import {
   sendNotification,
 } from "../actions/notificationActions";
 import { userFormService } from "../services/db/UserFormService";
+import {
+  generateAvatar,
+  generateFakeAccounts,
+} from "../helpers/generateAccount";
 
 export const TRIGGER_GET_USERS = "TRIGGER_GET_USERS";
 export const TRIGGER_GET_USER = "TRIGGER_GET_USER";
 export const TRIGGER_ADD_USER = "TRIGGER_ADD_USER";
 export const TRIGGER_REMOVE_USER = "TRIGGER_REMOVE_USER";
 export const TRIGGER_UPDATE_USER = "TRIGGER_UPDATE_USER";
+export const TRIGGER_GENERATE_USERS = "TRIGGER_GENERATE_USERS";
 
 export function* getUsersSaga() {
   try {
     yield put({ type: IS_LOADING, payload: true });
-    const res = yield call(usersService.getAll);
-    yield put({ type: GET_USERS, payload: res });
+    const users = yield call(usersService.getAll);
+    yield put({
+      type: GET_USERS,
+      payload: users,
+    });
   } catch ({ message }) {
     yield put(sendErrorNotification({ message }));
   }
@@ -99,6 +107,28 @@ export function* watchDeleteUserSaga() {
   yield takeEvery(TRIGGER_REMOVE_USER, deleteUserSaga);
 }
 
+export function* generateUsersSaga({ count }) {
+  try {
+    yield put({ type: IS_LOADING, payload: true });
+    const accounts = yield call(generateFakeAccounts, count);
+    const avatars = yield all(accounts.map(() => call(generateAvatar)));
+    const fakeAccounts = avatars.map((avatar, i) => {
+      accounts[i].avatar = avatar;
+      return accounts[i];
+    });
+    yield call(usersService.clearAll);
+    yield call(usersService.import, fakeAccounts);
+    yield put({ type: TRIGGER_GET_USERS });
+  } catch ({ message }) {
+    yield put(sendErrorNotification({ message }));
+  }
+  yield put({ type: IS_LOADING, payload: false });
+}
+
+export function* watchGenerateUsersSaga() {
+  yield takeEvery(TRIGGER_GENERATE_USERS, generateUsersSaga);
+}
+
 export default function* usersSaga() {
   yield all([
     watchGetUsersSaga(),
@@ -106,5 +136,6 @@ export default function* usersSaga() {
     watchAddUserSaga(),
     watchUpdateUserSaga(),
     watchDeleteUserSaga(),
+    watchGenerateUsersSaga(),
   ]);
 }

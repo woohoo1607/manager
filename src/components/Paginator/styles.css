@@ -1,0 +1,29 @@
+.pagination {
+    display: flex;
+    background: #4E86E4;
+    justify-content: space-between;
+    color: #FFFFFF;
+    padding: 15px;
+}
+
+.pagination__item {
+    cursor: pointer;
+}
+
+.pagination__item:hover {
+    color: #82c1fa;
+}
+
+.pagination__item_link_disabled, .pagination__item_link_disabled .pagination__item:hover {
+    cursor: default;
+    color: #9BB0CB;
+}
+
+.pagination__item_active {
+    color: #000000;
+    cursor: default;
+}
+
+.pagination__item_active:hover {
+    color: #000000;
+}

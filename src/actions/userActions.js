@@ -1,5 +1,6 @@
 import {
   TRIGGER_ADD_USER,
+  TRIGGER_GENERATE_USERS,
   TRIGGER_GET_USER,
   TRIGGER_GET_USERS,
   TRIGGER_REMOVE_USER,
@@ -7,37 +8,32 @@ import {
 } from "../sagas/usersSagas";
 import { removeUnnecessaryUserProperties } from "./actionsHelper";
 
-export const getUsers = () => {
-  return {
-    type: TRIGGER_GET_USERS,
-  };
-};
+export const getUsers = () => ({
+  type: TRIGGER_GET_USERS,
+});
 
-export const addUser = ({ meta, ...user }) => {
-  return {
-    type: TRIGGER_ADD_USER,
-    user: removeUnnecessaryUserProperties(user),
-    meta: meta,
-  };
-};
+export const addUser = ({ meta, ...user }) => ({
+  type: TRIGGER_ADD_USER,
+  user: removeUnnecessaryUserProperties(user),
+  meta: meta,
+});
 
-export const updateUser = (user) => {
-  return {
-    type: TRIGGER_UPDATE_USER,
-    user: removeUnnecessaryUserProperties(user),
-  };
-};
+export const updateUser = (user) => ({
+  type: TRIGGER_UPDATE_USER,
+  user: removeUnnecessaryUserProperties(user),
+});
 
-export const deleteUser = (id) => {
-  return {
-    type: TRIGGER_REMOVE_USER,
-    id,
-  };
-};
+export const deleteUser = (id) => ({
+  type: TRIGGER_REMOVE_USER,
+  id,
+});
 
-export const getUser = (id) => {
-  return {
-    type: TRIGGER_GET_USER,
-    id,
-  };
-};
+export const getUser = (id) => ({
+  type: TRIGGER_GET_USER,
+  id,
+});
+
+export const generateUsers = (count) => ({
+  type: TRIGGER_GENERATE_USERS,
+  count,
+});
