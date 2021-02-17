@@ -76,7 +76,7 @@ class DBService {
     return await db.getFromIndex(this.tablespace, index, query);
   };
 
-  addMany = async (data) => {
+  import = async (data) => {
     const db = await dbPromise(this.tablespace);
     const tx = db.transaction(this.tablespace, "readwrite");
     return await Promise.all(

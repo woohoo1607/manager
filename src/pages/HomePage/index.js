@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TemplatePage from "../../components/TemplatePage";
 import UsersTable from "../../components/UsersTable";
 import Button from "../../components/UI/Button";
-import { deleteUser, getUsers, setIsLoading } from "../../actions/userActions";
+import { deleteUser, getUsers } from "../../actions/userActions";
 import Spinner from "../../components/UI/Spinner";
 import Paginator from "../../components/Paginator";
 import UserGenerator from "./UserGenerator";
@@ -34,10 +34,6 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   const fetchUsers = useCallback(() => dispatch(getUsers()), [dispatch]);
-  const loading = useCallback(
-    (payload = false) => dispatch(setIsLoading(payload)),
-    [dispatch]
-  );
 
   const [usersFound, setUsersFound] = useState(users);
   const [searchQuery, setSearchQuery] = useState(querySearch);
@@ -89,14 +85,15 @@ const HomePage = () => {
           deleteUser={deleteUsr}
           goToUserPage={goToUserPage}
         />
-        {!users.length && !isLoading ? (
+        {!users.length && !isLoading && (
           <div className="no-data">
             <h2 className="title">No users here :(</h2>
             <Button type="button" onClick={createNewUser}>
               Create new user
             </Button>
           </div>
-        ) : (
+        )}
+        {users.length > NUMBER_OF_USERS_TO_SHOW && (
           <Paginator
             offset={offset}
             countItems={usersFound.length}
@@ -106,7 +103,7 @@ const HomePage = () => {
           />
         )}
         {isLoading ? <Spinner /> : null}
-        <UserGenerator loading={loading} fetchUsers={fetchUsers} />
+        <UserGenerator isLoading={isLoading} />
       </>
     </TemplatePage>
   );
