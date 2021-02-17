@@ -1,10 +1,10 @@
 import { put, call, takeEvery, all } from "redux-saga/effects";
 import { usersService } from "../services/db/UsersService";
 
-import { sendErrorNotification } from "../actions/notificationActions";
+import { showErrorNotification } from "../actions/notificationActions";
 import { userFormService } from "../services/db/UserFormService";
 import {
-  GET_USER_FORM,
+  CREATE_FIELD_ERROR,
   REMOVE_USER_FORM,
   UPDATE_AVAILABLE_STATUS,
   UPDATE_USER_FORM,
@@ -20,11 +20,11 @@ export function* getUserFormSaga({
 }) {
   try {
     const res = yield call(userFormService.getAll);
-    yield put({ type: GET_USER_FORM, payload: res[0] || null });
+    yield put({ type: UPDATE_USER_FORM, payload: res[0] || null });
     yield put({ type: UPDATE_AVAILABLE_STATUS, payload: false });
     yield call(redirect, path);
   } catch ({ message }) {
-    yield put(sendErrorNotification({ message }));
+    yield put(showErrorNotification({ message }));
   }
 }
 
@@ -39,7 +39,7 @@ export function* checkUserFormSaga() {
       yield put({ type: UPDATE_AVAILABLE_STATUS, payload: true });
     }
   } catch ({ message }) {
-    yield put(sendErrorNotification({ message }));
+    yield put(showErrorNotification({ message }));
   }
 }
 
@@ -57,12 +57,20 @@ export function* updateUserFormSaga({
     if (username) {
       const res = yield call(usersService.checkUsername, username);
       if (res) {
+        yield put({
+          type: CREATE_FIELD_ERROR,
+          payload: { fieldName: "username", error: "username already exists" },
+        });
         throw new Error("username already exists");
       }
     }
     if (email) {
       const res = yield call(usersService.checkEmail, email);
       if (res) {
+        yield put({
+          type: CREATE_FIELD_ERROR,
+          payload: { fieldName: "email", error: "email already exists" },
+        });
         throw new Error("email already exists");
       }
     }
@@ -70,7 +78,7 @@ export function* updateUserFormSaga({
     yield put({ type: UPDATE_USER_FORM, payload: res });
     yield call(redirect, path);
   } catch ({ message }) {
-    yield put(sendErrorNotification({ message }));
+    yield put(showErrorNotification({ message }));
   }
 }
 
@@ -83,7 +91,7 @@ export function* removeUserFormSaga() {
     yield call(userFormService.clearAll);
     yield put({ type: REMOVE_USER_FORM });
   } catch ({ message }) {
-    yield put(sendErrorNotification({ message }));
+    yield put(showErrorNotification({ message }));
   }
 }
 

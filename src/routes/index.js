@@ -1,25 +1,18 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import NewUserPage from "../pages/user/NewUserPage";
+import NewUserPage from "../pages/User/NewUserPage";
 import HomePage from "../pages/HomePage";
-import UserPage from "../pages/user/UserPage";
-import EditUserPage from "../pages/user/EditUserPage";
+import UserPage from "../pages/User/UserPage";
+import EditUserPage from "../pages/User/EditUserPage";
 
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/" render={(props) => <HomePage {...props} />} />
-      <Route path="/users/new" render={(props) => <NewUserPage {...props} />} />
-      <Route
-        exact
-        path="/users/:id"
-        render={(props) => <UserPage {...props} />}
-      />
-      <Route
-        path="/users/:id/edit"
-        render={(props) => <EditUserPage {...props} />}
-      />
+      <Route exact path="/" component={HomePage} />
+      <Route path="/users/new" component={NewUserPage} />
+      <Route exact path="/users/:id" component={UserPage} />
+      <Route path="/users/:id/edit" component={EditUserPage} />
     </Switch>
   );
 };

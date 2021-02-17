@@ -13,3 +13,7 @@
 .selected-row-button:hover {
     color: #EB5757;
 }
+
+.table-cell__icon-button {
+    vertical-align: middle;
+}

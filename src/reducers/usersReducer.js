@@ -1,7 +1,6 @@
 export const IS_LOADING = "IS_LOADING";
 
 export const GET_USERS = "GET_USERS";
-export const GET_USER = "GET_USER";
 
 export const UPDATE_USER = "UPDATE_USER";
 
@@ -21,7 +20,6 @@ const usersReducer = (state = initialState, { type, payload }) => {
         users: payload,
       };
     }
-    case GET_USER:
     case UPDATE_USER: {
       return {
         ...state,

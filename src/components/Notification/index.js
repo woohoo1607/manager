@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import NotificationWindow from "../UI/NotificationWindow";
-import { closeNotification } from "../../actions/notificationActions";
+import { hideNotification } from "../../actions/notificationActions";
 
 const Notification = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const Notification = () => {
 
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => dispatch(closeNotification()), 6000);
+      setTimeout(() => dispatch(hideNotification()), 6000);
     }
   }, [isOpen, dispatch]);
 

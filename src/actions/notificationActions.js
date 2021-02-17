@@ -1,24 +1,24 @@
 import {
-  CLOSE_NOTIFICATION,
-  SEND_NOTIFICATION,
+  HIDE_NOTIFICATION,
+  SHOW_NOTIFICATION,
 } from "../reducers/notificationReducer";
 
-export const sendNotification = ({ message = "", variant = "success" }) => {
+export const showNotification = ({ message = "", variant = "success" }) => {
   return {
-    type: SEND_NOTIFICATION,
+    type: SHOW_NOTIFICATION,
     payload: { message, variant },
   };
 };
 
-export const sendErrorNotification = ({ message = "" }) => {
+export const showErrorNotification = ({ message = "" }) => {
   return {
-    type: SEND_NOTIFICATION,
+    type: SHOW_NOTIFICATION,
     payload: { message, variant: "error" },
   };
 };
 
-export const closeNotification = () => {
+export const hideNotification = () => {
   return {
-    type: CLOSE_NOTIFICATION,
+    type: HIDE_NOTIFICATION,
   };
 };

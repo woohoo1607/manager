@@ -60,13 +60,13 @@ const ProfileFormBody = ({ errors, touched, currentValues, children }) => {
 };
 
 const ProfileForm = ({
-  submit,
-  firstName,
-  lastName,
-  birthDate,
-  email,
-  address,
-  gender,
+  submit = () => {},
+  firstName = "",
+  lastName = "",
+  birthDate = "",
+  email = "",
+  address = "",
+  gender = "",
   ...props
 }) => {
   return (

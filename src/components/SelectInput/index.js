@@ -103,7 +103,7 @@ const SelectInput = ({
 
   const getValue = () => {
     if (isMulti) {
-      return options.filter((option) => value.indexOf(option.value) >= 0);
+      return options.filter((option) => value?.indexOf(option.value) >= 0);
     } else {
       return options.find((option) => option.value === value);
     }
