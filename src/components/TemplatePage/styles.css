@@ -9,18 +9,17 @@
 }
 
 .title {
-    color: #475666;
     font-size: 35px;
     text-align: center;
 }
 
 .title-secondary {
-    color: #9BB0CB;
+    color: var(--secondary-text-color);
     font-size: 24px;
 }
 
 .content {
     width: 970px;
     margin: 0 auto 100px auto;
-    background: #FAFCFF;
+    background: var(--secondary-bg-color--lighter);
 }

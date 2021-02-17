@@ -20,7 +20,7 @@
 }
 
 .react-datepicker__current-month {
-    color: #475666;
+    color: var(--main-text-color);
     font-family: Roboto, sans-serif;
     font-size: 14px;
 }
@@ -28,7 +28,7 @@
 .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
     font-size: 9px;
     font-family: 'Roboto', sans-serif;
-    color: #475666;
+    color: var(--main-text-color);
 }
 
 .react-datepicker__month {

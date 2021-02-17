@@ -9,16 +9,16 @@
 }
 
 .input::placeholder {
-    color: #9BB0CB;
+    color: var(--secondary-text-color);
     opacity: 1;
 }
 
 .input:-ms-input-placeholder {
-    color: #9BB0CB;
+    color: var(--secondary-text-color);
 }
 
 .input::-ms-input-placeholder {
-    color: #9BB0CB;
+    color: var(--secondary-text-color);
 }
 
 .input:focus {
@@ -26,7 +26,7 @@
 }
 
 .input.error {
-    border: 1px solid #EB5757;
+    border: 1px solid var(--error-color);
 }
 
 .input:-webkit-autofill,

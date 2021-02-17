@@ -3,7 +3,7 @@
 }
 
 .internal-link:hover {
-    color: #475666;
+    color: var(--main-text-color);
 }
 
 .internal-link__icon {
@@ -11,5 +11,5 @@
 }
 
 .internal-link:hover .internal-link__icon path{
-    stroke: #475666;
+    stroke: var(--main-text-color);
 }

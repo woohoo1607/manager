@@ -1,5 +1,5 @@
 .app-header {
-    background: radial-gradient(50% 28800% at 50% 68.33%, #4E86E4 0%, #2F68C8 100%);
+    background: var(--main-gradient);
     box-shadow: 0 1px 5px #C1CEDE;
     padding: 21px 0;
 }

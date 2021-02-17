@@ -1,12 +1,12 @@
 .file-input {
-    color: #9BB0CB;
+    color: var(--secondary-text-color);
     cursor: pointer;
     text-align: center;
     font-weight: bold;
 }
 
 .file-input:focus-within, .file-input:hover {
-    color: #657C9A;
+    color: var(--secondary-text-color--darked);
 }
 
 .file-input > input {
@@ -15,5 +15,5 @@
 }
 
 .input.error {
-    border: 1px solid #EB5757;
+    border: 1px solid var(--error-color);
 }

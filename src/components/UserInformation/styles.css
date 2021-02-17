@@ -31,7 +31,6 @@
 
 .user-information-title {
     width: 95px;
-    color: #475666;
     font-weight: bold;
     display: flex;
 }
@@ -39,7 +38,7 @@
 .user-information-data {
     margin-left: 75px;
     width: 229px;
-    color: #657C9A;
+    color: var(--secondary-text-color--darked);
 }
 
 .user-information-icon {
