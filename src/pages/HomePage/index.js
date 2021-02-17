@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TemplatePage from "../../components/TemplatePage";
 import UsersTable from "../../components/UsersTable";
 import Button from "../../components/UI/Button";
-import { deleteUser, getUsers, setIsLoading } from "../../actions/userActions";
+import { deleteUser, getUsers } from "../../actions/userActions";
 import Spinner from "../../components/UI/Spinner";
 import Paginator from "../../components/Paginator";
 import UserGenerator from "./UserGenerator";
@@ -32,10 +32,6 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   const fetchUsers = useCallback(() => dispatch(getUsers()), [dispatch]);
-  const loading = useCallback(
-    (payload = false) => dispatch(setIsLoading(payload)),
-    [dispatch]
-  );
 
   const createNewUser = () => push(`/users/new`);
 
@@ -86,7 +82,7 @@ const HomePage = () => {
           />
         )}
         {isLoading ? <Spinner /> : null}
-        <UserGenerator loading={loading} fetchUsers={fetchUsers} />
+        <UserGenerator isLoading={isLoading} />
       </>
     </TemplatePage>
   );

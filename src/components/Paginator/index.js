@@ -16,10 +16,8 @@ const Paginator = ({
     if (!countItems) return;
     if (queryPage <= 0 || queryPage > pages) {
       changePage({ selected: queryPage > pages ? pages - 1 : 0 });
-    } else {
-      if (!Number.isInteger(+queryPage) || (queryPage === 1 && offset)) {
-        changePage({ selected: 0 });
-      }
+    } else if (!Number.isInteger(+queryPage) || (queryPage === 1 && offset)) {
+      changePage({ selected: 0 });
     }
   }, [changePage, queryPage, pages, countItems]);
   return (

@@ -53,3 +53,6 @@ export const generateAccount = () => {
     lastUpdate: randomDate(new Date(2021, 0, 1), new Date()),
   };
 };
+
+export const generateFakeAccounts = ({ count = 50 }) =>
+  Array.from({ length: count }, () => generateAccount());
