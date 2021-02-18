@@ -20,6 +20,7 @@ const Paginator = ({
       changePage({ selected: 0 });
     }
   }, [changePage, queryPage, pages, countItems, offset]);
+
   return (
     <>
       {pages > 1 && (

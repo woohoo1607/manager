@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import Input from "../UI/Input";
 
 import "./styles.css";
@@ -16,6 +17,7 @@ const Search = ({ handleClick = () => {}, querySearch = "" }) => {
   }, [querySearch]);
 
   let searchDelay;
+
   const onChange = ({ target: { value = "" } }) => {
     setInputValue(value);
     if (searchDelay) {
@@ -23,6 +25,7 @@ const Search = ({ handleClick = () => {}, querySearch = "" }) => {
     }
     searchDelay = setTimeout(() => handleClick(value), 600);
   };
+
   return (
     <div className="search">
       <Input onChange={onChange} placeholder="Search..." value={inputValue} />

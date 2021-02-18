@@ -1,7 +1,9 @@
 import React from "react";
-import Button from "../../components/UI/Button";
 import { useDispatch } from "react-redux";
+
 import { generateUsers } from "../../actions/userActions";
+
+import Button from "../../components/UI/Button";
 
 const UserGenerator = ({ isLoading = false }) => {
   const dispatch = useDispatch();

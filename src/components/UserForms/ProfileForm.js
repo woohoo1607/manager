@@ -1,14 +1,14 @@
 import React from "react";
 import * as Yup from "yup";
+import * as dayjs from "dayjs";
 
 import LayoutForm from "./LayoutForm";
 import InputField from "../UI/InputField";
 import DateField from "../UI/DateField";
 import RadioGroupField from "../UI/RadioGroupField";
-import * as dayjs from "dayjs";
+import AddressField from "../UI/AddressField";
 
 import "./styles.css";
-import AddressField from "../UI/AddressField";
 
 const MIN_USER_AGE = 18;
 
@@ -29,35 +29,33 @@ const validationSchema = Yup.object({
   gender: Yup.string().required("gender is required"),
 });
 
-const ProfileFormBody = ({ errors, touched, currentValues, children }) => {
-  return (
-    <>
-      <div>
-        <InputField name="firstName" title="First name" isRequired />
-        <InputField name="lastName" title="Last name" isRequired />
+const ProfileFormBody = ({ errors, touched, currentValues, children }) => (
+  <>
+    <div>
+      <InputField name="firstName" title="First name" isRequired />
+      <InputField name="lastName" title="Last name" isRequired />
 
-        <div style={{ width: "192px" }}>
-          <DateField title="Birth date" name="birthDate" />
-        </div>
+      <div style={{ width: "192px" }}>
+        <DateField title="Birth date" name="birthDate" />
       </div>
-      <div className="with-controls">
-        <div>
-          <InputField name="email" title="Email" isRequired />
-          <AddressField name="address" title="Address" isRequired />
-          <RadioGroupField
-            title="Gender"
-            variants={["Male", "Female"]}
-            name="gender"
-            errors={errors}
-            touched={touched}
-            currentValues={currentValues}
-          />
-        </div>
-        {children}
+    </div>
+    <div className="with-controls">
+      <div>
+        <InputField name="email" title="Email" isRequired />
+        <AddressField name="address" title="Address" isRequired />
+        <RadioGroupField
+          title="Gender"
+          variants={["Male", "Female"]}
+          name="gender"
+          errors={errors}
+          touched={touched}
+          currentValues={currentValues}
+        />
       </div>
-    </>
-  );
-};
+      {children}
+    </div>
+  </>
+);
 
 const ProfileForm = ({
   submit = () => {},
@@ -68,16 +66,14 @@ const ProfileForm = ({
   address = "",
   gender = "",
   ...props
-}) => {
-  return (
-    <LayoutForm
-      {...props}
-      component={ProfileFormBody}
-      initialValues={{ firstName, lastName, birthDate, email, address, gender }}
-      validationSchema={validationSchema}
-      submit={submit}
-    />
-  );
-};
+}) => (
+  <LayoutForm
+    {...props}
+    component={ProfileFormBody}
+    initialValues={{ firstName, lastName, birthDate, email, address, gender }}
+    validationSchema={validationSchema}
+    submit={submit}
+  />
+);
 
 export default ProfileForm;

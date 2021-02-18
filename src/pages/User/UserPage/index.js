@@ -2,9 +2,10 @@ import React, { useCallback, useEffect } from "react";
 import { useHistory, useParams, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import { getUser, removeUsersError } from "../../../actions/userActions";
+
 import TemplatePage from "../../../components/TemplatePage";
 import UserInformation from "../../../components/UserInformation";
-import { getUser, removeUsersError } from "../../../actions/userActions";
 import Spinner from "../../../components/UI/Spinner";
 
 const UserPage = () => {

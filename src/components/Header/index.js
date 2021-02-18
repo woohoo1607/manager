@@ -4,13 +4,16 @@ import { NavLink, useHistory } from "react-router-dom";
 import { ReactComponent as AddUser } from "../../icons/add-users.svg";
 import { ReactComponent as ListOfUsers } from "../../icons/list-of-users.svg";
 import logo from "./Logo.png";
+
 import "./styles.css";
 
 const Header = () => {
   const {
     location: { pathname },
   } = useHistory();
+
   const isAddUserFlow = pathname.split("/").includes("new");
+
   return (
     <header className="app-header">
       <div className="center">

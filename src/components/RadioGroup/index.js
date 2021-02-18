@@ -1,14 +1,16 @@
 import React from "react";
 
-import "./styles.css";
 import RadioBtn from "../UI/RadioBtn";
 import FormikField from "../FormikField";
 import InputErrorMsg from "../UI/InputErrorMsg";
+
+import "./styles.css";
 
 const RadioGroup = ({ variants, name, errors, touched, currentValues }) => {
   const isError = touched[name] && Boolean(errors[name]);
   const errMsg = errors[name] || "Error";
   const currentValue = currentValues ? currentValues[name] : "";
+
   return (
     <>
       <div

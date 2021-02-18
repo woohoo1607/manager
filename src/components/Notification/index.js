@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import NotificationWindow from "../UI/NotificationWindow";
 import { hideNotification } from "../../actions/notificationActions";
+
+import NotificationWindow from "../UI/NotificationWindow";
 
 const Notification = () => {
   const dispatch = useDispatch();

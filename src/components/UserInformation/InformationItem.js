@@ -1,4 +1,5 @@
 import React from "react";
+
 import ExternalLink from "../UI/ExternalLink";
 
 const InformationItem = ({ title = "", value = "", link = "", children }) => (

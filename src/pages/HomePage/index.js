@@ -2,10 +2,11 @@ import React, { useEffect, useCallback, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import { deleteUser, getUsers } from "../../actions/userActions";
+
 import TemplatePage from "../../components/TemplatePage";
 import UsersTable from "../../components/UsersTable";
 import Button from "../../components/UI/Button";
-import { deleteUser, getUsers } from "../../actions/userActions";
 import Spinner from "../../components/UI/Spinner";
 import Paginator from "../../components/Paginator";
 import UserGenerator from "./UserGenerator";
