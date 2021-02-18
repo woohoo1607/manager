@@ -11,6 +11,7 @@ import {
   generateAvatar,
   generateFakeAccounts,
 } from "../helpers/generateAccount";
+import { CREATE_FIELDS_ERRORS } from "../reducers/userFormReducer";
 
 export const TRIGGER_GET_USERS = "TRIGGER_GET_USERS";
 export const TRIGGER_GET_USER = "TRIGGER_GET_USER";
@@ -79,6 +80,10 @@ export function* updateUserSaga({ user }) {
       showSuccessNotification({ message: "User updated successfully" })
     );
   } catch ({ message }) {
+    yield put({
+      type: CREATE_FIELDS_ERRORS,
+      payload: [{ fieldName: message.split(" ")[0], error: message }],
+    });
     yield put(showErrorNotification({ message }));
   }
   yield put({ type: IS_LOADING, payload: false });

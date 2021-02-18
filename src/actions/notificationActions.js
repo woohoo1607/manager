@@ -10,19 +10,11 @@ export const showNotification = ({ message = "", variant = "primary" }) => {
   };
 };
 
-export const showErrorNotification = ({ message = "" }) => {
-  return {
-    type: SHOW_NOTIFICATION,
-    payload: { message, variant: "error" },
-  };
-};
+export const showErrorNotification = ({ message = "" }) =>
+  showNotification({ message, variant: "error" });
 
-export const showSuccessNotification = ({ message = "" }) => {
-  return {
-    type: SHOW_NOTIFICATION,
-    payload: { message, variant: "success" },
-  };
-};
+export const showSuccessNotification = ({ message = "" }) =>
+  showNotification({ message, variant: "success" });
 
 export const hideNotification = () => {
   return {
