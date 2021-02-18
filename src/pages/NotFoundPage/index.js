@@ -7,7 +7,7 @@ const NotFoundPage = () => (
   <TemplatePage>
     <div className="not-found">
       <h2 className="not-found__title">
-        <span className="not-found__title_big">Error 404:</span> page not found
+        <span className="not-found__title-span">Error 404:</span> page not found
       </h2>
     </div>
   </TemplatePage>

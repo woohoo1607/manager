@@ -52,7 +52,7 @@ export function* getUserSaga({ id }) {
     } else {
       yield put({
         type: CREATE_ERROR,
-        payload: { error: 404, errorMessage: "User not found" },
+        payload: { errorStatusCode: 404, errorMessage: "User not found" },
       });
     }
   } catch ({ message }) {

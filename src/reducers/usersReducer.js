@@ -12,7 +12,7 @@ const initialState = {
   users: [],
   user: {},
   isLoading: false,
-  error: null,
+  errorStatusCode: null,
   messageError: "",
 };
 
@@ -40,14 +40,14 @@ const usersReducer = (state = initialState, { type, payload }) => {
     case CREATE_ERROR: {
       return {
         ...state,
-        error: payload.error,
+        errorStatusCode: payload.errorStatusCode,
         messageError: payload.messageError,
       };
     }
     case REMOVE_ERROR: {
       return {
         ...state,
-        error: null,
+        errorStatusCode: null,
         messageError: "",
       };
     }

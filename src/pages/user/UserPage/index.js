@@ -13,7 +13,7 @@ const UserPage = () => {
 
   const dispatch = useDispatch();
 
-  const { user = {}, isLoading, error } = useSelector(
+  const { user = {}, isLoading, errorStatusCode } = useSelector(
     ({ users }) => users || {}
   );
   const { username = "" } = user;
@@ -30,7 +30,7 @@ const UserPage = () => {
     return () => removeError();
   }, [id, fetchUser, removeError]);
 
-  if (error === 404) {
+  if (errorStatusCode === 404) {
     return <Redirect to="/not-found" />;
   }
 
