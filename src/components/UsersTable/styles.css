@@ -19,10 +19,19 @@
     .username {
         font-size: 7px;
     }
+
+    .selected-row-button {
+        font-size: 11px;
+        min-width: 50px;
+    }
 }
 
 @media screen and (max-width: 580px) {
     .table {
         font-size: 6px;
+    }
+
+    .selected-row-button {
+        font-size: 9px;
     }
 }

@@ -42,7 +42,9 @@ const UsersTable = ({
     <Table ref={tableRef}>
       <TableHead>
         <TableRow>
-          <TableHeadCell style={{ minWidth: "7.2%", maxWidth: "7.2%" }} />
+          <TableHeadCell
+            style={{ minWidth: "7.2%", maxWidth: "7.2%", width: "7.2%" }}
+          />
           <TableHeadCell style={{ minWidth: "23.7%", maxWidth: "23.7%" }}>
             name
           </TableHeadCell>
