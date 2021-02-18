@@ -47,7 +47,7 @@ export function* getUserSaga({ id }) {
     yield put({ type: IS_LOADING, payload: true });
     const res = yield call(usersService.getByID, id);
     if (res) {
-      yield put({ type: GET_USER, payload: res });
+      yield put({ type: UPDATE_USER, payload: res });
     } else {
       yield put({
         type: CREATE_ERROR,

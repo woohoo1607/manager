@@ -22,7 +22,6 @@ const TemplatePage = ({
           {isBack && (
             <InternalLink
               onClick={goBack}
-              pathname="#"
               title={linkTitle}
               className="title-secondary"
               isBack

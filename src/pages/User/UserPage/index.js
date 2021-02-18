@@ -21,7 +21,7 @@ const UserPage = () => {
   const goToEditUser = (tab = "") => () => push(`/users/${id}/edit/${tab}`);
 
   const fetchUser = useCallback((id) => dispatch(getUser(id)), [dispatch]);
-  const removeError = useCallback((id) => dispatch(removeUsersError()), [
+  const removeError = useCallback(() => dispatch(removeUsersError()), [
     dispatch,
   ]);
 
