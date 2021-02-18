@@ -20,7 +20,7 @@ const validationSchema = Yup.object({
     .test("fileFormat", "Unsupported Format", (value) =>
       value ? SUPPORTED_FORMATS.includes(value.type) : true
     ),
-  username: Yup.string().required("user name is required"),
+  username: Yup.string().required("User name is required"),
   password: Yup.string().required("password is required"),
   repeatPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "passwords don't match")
@@ -46,7 +46,13 @@ const AccountFormBody = ({ children, values: { avatar } }) => {
   );
 };
 
-const AccountForm = ({ submit, username, password, avatar, ...props }) => {
+const AccountForm = ({
+  submit = () => {},
+  username = "",
+  password = "",
+  avatar = null,
+  ...props
+}) => {
   return (
     <LayoutForm
       {...props}

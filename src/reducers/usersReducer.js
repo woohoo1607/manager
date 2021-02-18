@@ -1,16 +1,18 @@
 export const IS_LOADING = "IS_LOADING";
 
 export const GET_USERS = "GET_USERS";
-export const GET_USER = "GET_USER";
 
 export const UPDATE_USER = "UPDATE_USER";
+
+export const CREATE_ERROR = "CREATE_ERROR";
+export const REMOVE_ERROR = "REMOVE_ERROR";
 
 const initialState = {
   users: [],
   user: {},
   isLoading: false,
-  error: null,
-  message: "",
+  errorStatusCode: null,
+  messageError: "",
 };
 
 const usersReducer = (state = initialState, { type, payload }) => {
@@ -21,7 +23,6 @@ const usersReducer = (state = initialState, { type, payload }) => {
         users: payload,
       };
     }
-    case GET_USER:
     case UPDATE_USER: {
       return {
         ...state,
@@ -32,6 +33,20 @@ const usersReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoading: payload,
+      };
+    }
+    case CREATE_ERROR: {
+      return {
+        ...state,
+        errorStatusCode: payload.errorStatusCode,
+        messageError: payload.messageError,
+      };
+    }
+    case REMOVE_ERROR: {
+      return {
+        ...state,
+        errorStatusCode: null,
+        messageError: "",
       };
     }
     default:

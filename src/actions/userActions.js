@@ -7,6 +7,7 @@ import {
   TRIGGER_UPDATE_USER,
 } from "../sagas/usersSagas";
 import { removeUnnecessaryUserProperties } from "./actionsHelper";
+import { REMOVE_ERROR } from "../reducers/usersReducer";
 
 export const getUsers = () => ({
   type: TRIGGER_GET_USERS,
@@ -36,4 +37,8 @@ export const getUser = (id) => ({
 export const generateUsers = (count) => ({
   type: TRIGGER_GENERATE_USERS,
   count,
+});
+
+export const removeUsersError = () => ({
+  type: REMOVE_ERROR,
 });

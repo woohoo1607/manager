@@ -7,8 +7,10 @@ import logo from "./Logo.png";
 import "./styles.css";
 
 const Header = () => {
-  const { pathname } = useHistory()?.location;
-  const isAddUserFlow = pathname ? pathname.split("/")[2] === "new" : false;
+  const {
+    location: { pathname },
+  } = useHistory();
+  const isAddUserFlow = pathname.split("/").includes("new");
   return (
     <header className="app-header">
       <div className="center">
@@ -21,17 +23,13 @@ const Header = () => {
               <li className="header-menu-item">
                 <AddUser
                   id="add-user-icon"
-                  className={
-                    !isAddUserFlow
-                      ? "header-icon-active header-icon"
-                      : "header-icon"
-                  }
+                  className={`header-icon ${
+                    !isAddUserFlow ? "header-icon-active" : ""
+                  }`}
                 />
                 <NavLink
                   to={{ pathname: "/users/new" }}
-                  className={
-                    !isAddUserFlow ? "menu-link active-link" : "menu-link"
-                  }
+                  className={`menu-link ${!isAddUserFlow ? "active-link" : ""}`}
                 >
                   Add new user
                 </NavLink>
@@ -39,17 +37,13 @@ const Header = () => {
               <li className="header-menu-item">
                 <ListOfUsers
                   id="list-of-users-icon"
-                  className={
-                    isAddUserFlow
-                      ? "header-icon-active header-icon"
-                      : "header-icon"
-                  }
+                  className={`header-icon ${
+                    isAddUserFlow ? "header-icon-active" : ""
+                  }`}
                 />
                 <NavLink
                   to={{ pathname: "/" }}
-                  className={
-                    isAddUserFlow ? "menu-link active-link" : "menu-link"
-                  }
+                  className={`menu-link ${isAddUserFlow ? "active-link" : ""}`}
                 >
                   List of users
                 </NavLink>

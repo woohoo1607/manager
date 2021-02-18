@@ -10,7 +10,8 @@ const Paginator = ({
   changePage = () => {},
   queryPage = 1,
 }) => {
-  const pages = Math.round(countItems / showCount) || 1;
+  const pages = Math.ceil(countItems / showCount) || 1;
+
   useEffect(() => {
     if (!countItems) return;
     if (queryPage <= 0 || queryPage > pages) {
