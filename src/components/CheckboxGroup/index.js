@@ -5,9 +5,8 @@ import Checkbox from "../UI/Checkbox";
 
 import "./styles.css";
 
-const CheckboxGroup = ({ variants = [], name, currentValues }) => {
-  const activeCheckboxes = currentValues ? currentValues[name] : [];
-
+const CheckboxGroup = ({ variants = [], name = "", currentValues = {} }) => {
+  const activeCheckboxes = currentValues[name] || [];
   return (
     <>
       <div

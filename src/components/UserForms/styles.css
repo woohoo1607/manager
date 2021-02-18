@@ -14,7 +14,7 @@
     justify-content: space-between;
 }
 
-.phones-controls-icon {
+.icon-button.phones-controls-icon {
     position: absolute;
     top: 45%;
     right: -20px;
@@ -27,13 +27,4 @@
     padding: 0;
     cursor: pointer;
     color: #657C9A;
-}
-
-
-.icon-button__icon {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
 }

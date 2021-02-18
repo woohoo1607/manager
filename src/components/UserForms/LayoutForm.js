@@ -1,5 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
+import FormikBody from "./FormikBody";
 
 const LayoutForm = ({
   initialValues,
@@ -9,7 +10,6 @@ const LayoutForm = ({
   styles,
   children,
 }) => {
-  const FormBody = component;
   return (
     <Formik
       initialValues={initialValues}
@@ -17,18 +17,17 @@ const LayoutForm = ({
       onSubmit={(values) => submit(values)}
       validateOnChange={false}
       validateOnBlur={false}
+      enableReinitialize
     >
-      {({ handleSubmit, ...props }) => {
-        return (
-          <form className="form" style={styles} onSubmit={handleSubmit}>
-            <FormBody
-              currentValues={props.values}
-              {...props}
-              children={children}
-            />
-          </form>
-        );
-      }}
+      {({ handleSubmit, ...props }) => (
+        <FormikBody
+          styles={styles}
+          handleSubmit={handleSubmit}
+          component={component}
+          children={children}
+          {...props}
+        />
+      )}
     </Formik>
   );
 };
