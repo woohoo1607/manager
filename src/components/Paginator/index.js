@@ -21,17 +21,21 @@ const Paginator = ({
     }
   }, [changePage, queryPage, pages, countItems, offset]);
   return (
-    <ReactPaginate
-      pageCount={pages}
-      forcePage={offset}
-      containerClassName="pagination"
-      previousLinkClassName="pagination__item pagination__item_link"
-      nextLinkClassName="pagination__item pagination__item_link"
-      disabledClassName="pagination__item pagination__item_link_disabled"
-      activeClassName="pagination__item_active"
-      pageClassName="pagination__item"
-      onPageChange={changePage}
-    />
+    <>
+      {pages > 1 && (
+        <ReactPaginate
+          pageCount={pages}
+          forcePage={offset}
+          containerClassName="pagination"
+          previousLinkClassName="pagination__item pagination__item_link"
+          nextLinkClassName="pagination__item pagination__item_link"
+          disabledClassName="pagination__item pagination__item_link_disabled"
+          activeClassName="pagination__item_active"
+          pageClassName="pagination__item"
+          onPageChange={changePage}
+        />
+      )}
+    </>
   );
 };
 
