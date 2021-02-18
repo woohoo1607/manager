@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import TemplatePage from "../../../components/TemplatePage";
 import UserInformation from "../../../components/UserInformation";
-import { getUser } from "../../../actions/userActions";
+import { getUser, removeUsersError } from "../../../actions/userActions";
+import Spinner from "../../../components/UI/Spinner";
 
 const UserPage = () => {
   const { push } = useHistory();
@@ -12,20 +13,34 @@ const UserPage = () => {
 
   const dispatch = useDispatch();
 
-  const { user = {} } = useSelector(({ users }) => users || {});
+  const { user = {}, isLoading, errorStatusCode } = useSelector(
+    ({ users }) => users || {}
+  );
   const { username = "" } = user;
 
   const goToEditUser = (tab = "") => () => push(`/users/${id}/edit/${tab}`);
 
   const fetchUser = useCallback((id) => dispatch(getUser(id)), [dispatch]);
+  const removeError = useCallback(() => dispatch(removeUsersError()), [
+    dispatch,
+  ]);
 
   useEffect(() => {
     fetchUser(id);
-  }, [id, fetchUser]);
+    return () => removeError();
+  }, [id, fetchUser, removeError]);
+
+  if (errorStatusCode === 404) {
+    return <Redirect to="/not-found" />;
+  }
 
   return (
     <TemplatePage title={username} isBack linkTitle="Users List">
-      <UserInformation user={user} goToEditUser={goToEditUser} />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <UserInformation user={user} goToEditUser={goToEditUser} />
+      )}
     </TemplatePage>
   );
 };

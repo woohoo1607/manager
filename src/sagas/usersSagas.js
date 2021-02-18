@@ -1,6 +1,11 @@
 import { put, call, takeEvery, all } from "redux-saga/effects";
-import { GET_USERS, IS_LOADING, UPDATE_USER } from "../reducers/usersReducer";
-
+import {
+  GET_USERS,
+  IS_LOADING,
+  UPDATE_USER,
+  CREATE_ERROR,
+} from "../reducers/usersReducer";
+import { CREATE_FIELDS_ERRORS } from "../reducers/userFormReducer";
 import { usersService } from "../services/db/UsersService";
 import {
   showErrorNotification,
@@ -11,7 +16,6 @@ import {
   generateAvatar,
   generateFakeAccounts,
 } from "../helpers/generateAccount";
-import { CREATE_FIELDS_ERRORS } from "../reducers/userFormReducer";
 
 export const TRIGGER_GET_USERS = "TRIGGER_GET_USERS";
 export const TRIGGER_GET_USER = "TRIGGER_GET_USER";
@@ -42,7 +46,14 @@ export function* getUserSaga({ id }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
     const res = yield call(usersService.getByID, id);
-    yield put({ type: UPDATE_USER, payload: res });
+    if (res) {
+      yield put({ type: UPDATE_USER, payload: res });
+    } else {
+      yield put({
+        type: CREATE_ERROR,
+        payload: { errorStatusCode: 404, errorMessage: "User not found" },
+      });
+    }
   } catch ({ message }) {
     yield put(showErrorNotification({ message }));
   }
