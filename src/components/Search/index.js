@@ -23,12 +23,7 @@ const Search = ({ handleClick = () => {}, querySearch = "" }) => {
   };
   return (
     <div className="search">
-      <Input
-        onChange={onChange}
-        placeholder="Search..."
-        // defaultValue={defaultValue}
-        value={inputValue}
-      />
+      <Input onChange={onChange} placeholder="Search..." value={inputValue} />
     </div>
   );
 };

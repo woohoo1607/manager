@@ -119,15 +119,13 @@ const HomePage = () => {
             </Button>
           </div>
         )}
-        {usersFound.length ? (
-          <Paginator
-            offset={offset}
-            countItems={usersFound.length}
-            queryPage={queryPage}
-            showCount={NUMBER_OF_USERS_TO_SHOW}
-            changePage={changePage}
-          />
-        ) : null}
+        <Paginator
+          offset={offset}
+          countItems={usersFound.length}
+          queryPage={queryPage}
+          showCount={NUMBER_OF_USERS_TO_SHOW}
+          changePage={changePage}
+        />
         {isLoading ? <Spinner /> : null}
         <UserGenerator isLoading={isLoading} />
       </>
