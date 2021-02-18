@@ -1,5 +1,6 @@
 import { put, call, takeEvery, all } from "redux-saga/effects";
 import {
+  CREATE_ERROR,
   GET_USER,
   GET_USERS,
   IS_LOADING,
@@ -46,7 +47,14 @@ export function* getUserSaga({ id }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
     const res = yield call(usersService.getByID, id);
-    yield put({ type: GET_USER, payload: res });
+    if (res) {
+      yield put({ type: GET_USER, payload: res });
+    } else {
+      yield put({
+        type: CREATE_ERROR,
+        payload: { error: 404, errorMessage: "User not found" },
+      });
+    }
   } catch ({ message }) {
     yield put(sendErrorNotification({ message }));
   }

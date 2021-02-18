@@ -5,6 +5,7 @@ import NewUserPage from "../pages/user/NewUserPage";
 import HomePage from "../pages/HomePage";
 import UserPage from "../pages/user/UserPage";
 import EditUserPage from "../pages/user/EditUserPage";
+import NotFoundPage from "../pages/NotFoundPage";
 
 const Routes = () => {
   return (
@@ -20,6 +21,7 @@ const Routes = () => {
         path="/users/:id/edit"
         render={(props) => <EditUserPage {...props} />}
       />
+      <Route component={NotFoundPage} />
     </Switch>
   );
 };
