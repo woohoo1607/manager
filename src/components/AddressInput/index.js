@@ -7,7 +7,7 @@ import "./styles.css";
 
 const BLOCK_CLASS_NAME = "autocomplete-dropdown-container";
 
-const AddressInput = ({ isError, name, value }) => {
+const AddressInput = ({ isError = false, name = "", value = "" }) => {
   const { setFieldValue } = useFormikContext();
 
   const handleSelect = (address) => {

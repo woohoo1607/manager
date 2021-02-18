@@ -8,7 +8,7 @@ import InputField from "../UI/InputField";
 import SelectField from "../UI/SelectField";
 import PhoneField from "../UI/PhoneField";
 import IconButton from "../UI/IconButton";
-import { LANGUAGES } from "../../mocks";
+import { LANGUAGES } from "../../constants";
 
 import "./styles.css";
 
@@ -93,13 +93,13 @@ const ContactsFormBody = ({ children, currentValues: { phones } }) => {
 };
 
 const ContactsForm = ({
-  submit,
-  company,
-  github,
-  facebook,
-  language,
-  fax,
-  phones,
+  submit = () => {},
+  company = "",
+  github = "",
+  facebook = "",
+  language = "",
+  fax = "",
+  phones = [],
   ...props
 }) => {
   return (

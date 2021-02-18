@@ -1,21 +1,17 @@
 import { put, call, takeEvery, all } from "redux-saga/effects";
-import {
-  GET_USER,
-  GET_USERS,
-  IS_LOADING,
-  UPDATE_USER,
-} from "../reducers/usersReducer";
+import { GET_USERS, IS_LOADING, UPDATE_USER } from "../reducers/usersReducer";
 
 import { usersService } from "../services/db/UsersService";
 import {
-  sendErrorNotification,
-  sendNotification,
+  showErrorNotification,
+  showSuccessNotification,
 } from "../actions/notificationActions";
 import { userFormService } from "../services/db/UserFormService";
 import {
   generateAvatar,
   generateFakeAccounts,
 } from "../helpers/generateAccount";
+import { CREATE_FIELDS_ERRORS } from "../reducers/userFormReducer";
 
 export const TRIGGER_GET_USERS = "TRIGGER_GET_USERS";
 export const TRIGGER_GET_USER = "TRIGGER_GET_USER";
@@ -33,7 +29,7 @@ export function* getUsersSaga() {
       payload: users,
     });
   } catch ({ message }) {
-    yield put(sendErrorNotification({ message }));
+    yield put(showErrorNotification({ message }));
   }
   yield put({ type: IS_LOADING, payload: false });
 }
@@ -46,9 +42,9 @@ export function* getUserSaga({ id }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
     const res = yield call(usersService.getByID, id);
-    yield put({ type: GET_USER, payload: res });
+    yield put({ type: UPDATE_USER, payload: res });
   } catch ({ message }) {
-    yield put(sendErrorNotification({ message }));
+    yield put(showErrorNotification({ message }));
   }
   yield put({ type: IS_LOADING, payload: false });
 }
@@ -63,10 +59,10 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
     yield call(usersService.addUser, user);
     yield call(userFormService.clearAll);
     yield put({ type: TRIGGER_GET_USERS });
-    yield put(sendNotification({ message: "User added successfully" }));
+    yield put(showSuccessNotification({ message: "User added successfully" }));
     yield call(redirect, path);
   } catch ({ message }) {
-    yield put(sendErrorNotification({ message }));
+    yield put(showErrorNotification({ message }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -80,9 +76,15 @@ export function* updateUserSaga({ user }) {
     yield put({ type: IS_LOADING, payload: true });
     const updateUser = yield call(usersService.updateUser, user);
     yield put({ type: UPDATE_USER, payload: updateUser });
-    yield put(sendNotification({ message: "User updated successfully" }));
+    yield put(
+      showSuccessNotification({ message: "User updated successfully" })
+    );
   } catch ({ message }) {
-    yield put(sendErrorNotification({ message }));
+    yield put({
+      type: CREATE_FIELDS_ERRORS,
+      payload: [{ fieldName: message.split(" ")[0], error: message }],
+    });
+    yield put(showErrorNotification({ message }));
   }
   yield put({ type: IS_LOADING, payload: false });
 }
@@ -96,9 +98,11 @@ export function* deleteUserSaga({ id }) {
     yield put({ type: IS_LOADING, payload: true });
     yield call(usersService.delete, id);
     yield put({ type: TRIGGER_GET_USERS });
-    yield put(sendNotification({ message: "User deleted successfully" }));
+    yield put(
+      showSuccessNotification({ message: "User deleted successfully" })
+    );
   } catch ({ message }) {
-    yield put(sendErrorNotification({ message }));
+    yield put(showErrorNotification({ message }));
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -120,7 +124,7 @@ export function* generateUsersSaga({ count }) {
     yield call(usersService.import, fakeAccounts);
     yield put({ type: TRIGGER_GET_USERS });
   } catch ({ message }) {
-    yield put(sendErrorNotification({ message }));
+    yield put(showErrorNotification({ message }));
   }
   yield put({ type: IS_LOADING, payload: false });
 }

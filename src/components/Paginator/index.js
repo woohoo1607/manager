@@ -10,7 +10,7 @@ const Paginator = ({
   changePage = () => {},
   queryPage = 1,
 }) => {
-  const pages = Math.round(countItems / showCount) || 1;
+  const pages = Math.ceil(countItems / showCount) || 1;
 
   useEffect(() => {
     if (!countItems) return;
@@ -19,7 +19,7 @@ const Paginator = ({
     } else if (!Number.isInteger(+queryPage) || (queryPage === 1 && offset)) {
       changePage({ selected: 0 });
     }
-  }, [changePage, queryPage, pages, countItems]);
+  }, [changePage, queryPage, pages, countItems, offset]);
   return (
     <ReactPaginate
       pageCount={pages}

@@ -23,7 +23,7 @@ const IconButton = ({
   };
   return (
     <button className={`icon-button ${className ? className : ""}`} {...props}>
-      <Icon {...iconProps} />
+      <Icon {...iconProps} className="icon-button__icon" />
     </button>
   );
 };

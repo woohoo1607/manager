@@ -5,7 +5,7 @@ import LayoutForm from "./LayoutForm";
 import SelectField from "../UI/SelectField";
 import TextAreaField from "../UI/TextAreaField";
 import CheckboxGroupField from "../UI/CheckboxGroupField";
-import { HOBBIES, SKILLS } from "../../mocks";
+import { HOBBIES, SKILLS } from "../../constants";
 
 import "./styles.css";
 
@@ -48,10 +48,10 @@ const CapabilitiesFormBody = ({ children, currentValues }) => {
 };
 
 const CapabilitiesForm = ({
-  submit,
-  skills,
-  information,
-  hobbies,
+  submit = () => {},
+  skills = [],
+  information = "",
+  hobbies = [],
   ...props
 }) => {
   return (
