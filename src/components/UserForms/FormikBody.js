@@ -11,14 +11,15 @@ const FormikBody = ({
 }) => {
   const FormBody = component;
   const { setFieldError } = useFormikContext();
-  const { fieldName, error } = useSelector(
-    ({ userForm: { fieldError } }) => fieldError
-  );
+  const { fieldsErrors } = useSelector(({ userForm }) => userForm);
+
   useEffect(() => {
-    if (error) {
-      setFieldError(fieldName, error);
+    if (fieldsErrors.length) {
+      fieldsErrors.map(({ fieldName, error }) =>
+        setFieldError(fieldName, error)
+      );
     }
-  }, [error, fieldName, setFieldError]);
+  }, [fieldsErrors, setFieldError]);
   return (
     <form className="form" style={styles} onSubmit={handleSubmit}>
       <FormBody currentValues={props.values} {...props} children={children} />

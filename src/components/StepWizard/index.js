@@ -36,7 +36,7 @@ const StepWizard = ({
   const { slug: urlSlug } = useParams();
   const { push } = useHistory();
   const firstStepSlug = steps[0].slug;
-  const slug = data.slug ? data.slug : firstStepSlug;
+  const slug = data.slug || firstStepSlug;
   const slugIndex = findStepIndex(steps, slug);
   const currentStepIndex = findStepIndex(steps, urlSlug);
 

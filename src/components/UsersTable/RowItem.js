@@ -49,21 +49,11 @@ const RowItem = ({
       <TableCell>{phones[0] || email}</TableCell>
       <TableCell>{`${dayjs(lastUpdate).fromNow(true)} ago`}</TableCell>
       <TableCell>
-        {!isSelected && (
-          <IconButton
-            onClick={goToUserPage(id)}
-            icon="edit"
-            className="table-cell__icon-button"
-          />
-        )}
+        {!isSelected && <IconButton onClick={goToUserPage(id)} icon="edit" />}
       </TableCell>
       <TableCell>
         {!isSelected && (
-          <IconButton
-            onClick={changeActiveRow(index)}
-            icon="close"
-            className="table-cell__icon-button"
-          />
+          <IconButton onClick={changeActiveRow(index)} icon="close" />
         )}
       </TableCell>
       {isSelected && (

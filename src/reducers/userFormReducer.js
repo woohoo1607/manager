@@ -3,7 +3,7 @@ export const REMOVE_USER_FORM = "REMOVE_USER_FORM";
 
 export const UPDATE_AVAILABLE_STATUS = "UPDATE_AVAILABLE_STATUS";
 
-export const CREATE_FIELD_ERROR = "CREATE_FIELD_ERROR";
+export const CREATE_FIELDS_ERRORS = "CREATE_FIELDS_ERRORS";
 
 const initialState = {
   user: {
@@ -29,10 +29,7 @@ const initialState = {
     slug: "",
   },
   isAvailable: false,
-  fieldError: {
-    fieldName: "",
-    error: "",
-  },
+  fieldsErrors: [],
 };
 
 const userFormReducer = (state = initialState, { type, payload }) => {
@@ -41,7 +38,7 @@ const userFormReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user: { ...payload },
-        fieldError: initialState.fieldError,
+        fieldsErrors: initialState.fieldsErrors,
       };
     }
     case UPDATE_AVAILABLE_STATUS: {
@@ -53,10 +50,10 @@ const userFormReducer = (state = initialState, { type, payload }) => {
     case REMOVE_USER_FORM: {
       return initialState;
     }
-    case CREATE_FIELD_ERROR: {
+    case CREATE_FIELDS_ERRORS: {
       return {
         ...state,
-        fieldError: payload,
+        fieldsErrors: [...payload],
       };
     }
     default:

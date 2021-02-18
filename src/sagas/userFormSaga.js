@@ -4,7 +4,7 @@ import { usersService } from "../services/db/UsersService";
 import { showErrorNotification } from "../actions/notificationActions";
 import { userFormService } from "../services/db/UserFormService";
 import {
-  CREATE_FIELD_ERROR,
+  CREATE_FIELDS_ERRORS,
   REMOVE_USER_FORM,
   UPDATE_AVAILABLE_STATUS,
   UPDATE_USER_FORM,
@@ -24,7 +24,7 @@ export function* getUserFormSaga({
       const { slug = "" } = res[0];
       yield put({ type: UPDATE_USER_FORM, payload: res[0] });
       yield put({ type: UPDATE_AVAILABLE_STATUS, payload: false });
-      yield call(redirect, `${path}${slug}`);
+      yield call(redirect, `${path}/${slug}`);
     } else {
       throw new Error("invalid data");
     }
@@ -63,8 +63,10 @@ export function* updateUserFormSaga({
       const res = yield call(usersService.checkUsername, username);
       if (res) {
         yield put({
-          type: CREATE_FIELD_ERROR,
-          payload: { fieldName: "username", error: "username already exists" },
+          type: CREATE_FIELDS_ERRORS,
+          payload: [
+            { fieldName: "username", error: "username already exists" },
+          ],
         });
         throw new Error("username already exists");
       }
@@ -73,8 +75,8 @@ export function* updateUserFormSaga({
       const res = yield call(usersService.checkEmail, email);
       if (res) {
         yield put({
-          type: CREATE_FIELD_ERROR,
-          payload: { fieldName: "email", error: "email already exists" },
+          type: CREATE_FIELDS_ERRORS,
+          payload: [{ fieldName: "email", error: "email already exists" }],
         });
         throw new Error("email already exists");
       }
