@@ -62,3 +62,12 @@
 .modal__button_cancel {
     background-color: var(--disabled-bg-color);
 }
+
+@media screen and (max-width: 767px) {
+    .modal {
+        max-width: 95vw;
+        max-height: 95vh;
+        min-width: auto;
+        min-height: auto;
+    }
+}

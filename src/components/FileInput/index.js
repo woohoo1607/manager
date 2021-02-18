@@ -94,7 +94,7 @@ const FileInput = ({ name = "", title = "add avatar" }) => {
           onClose={closeModal}
         >
           <ReactCrop
-            imageStyle={{ maxHeight: "900px", maxWidth: "900px" }}
+            imageStyle={{ maxHeight: "70vh", maxWidth: "70vw" }}
             onImageLoaded={onImageLoaded}
             onChange={onCropChange}
             ruleOfThirds

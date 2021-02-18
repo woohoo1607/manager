@@ -109,3 +109,9 @@ body {
   overflow: hidden;
   padding-right: 15px;
 }
+
+@media screen and (max-width: 969px) {
+  .center {
+    width: 98%;
+  }
+}

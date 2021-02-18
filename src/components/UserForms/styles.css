@@ -27,3 +27,26 @@
     padding: 0;
     color: var(--secondary-text-color--darked);
 }
+
+@media screen and (max-width: 767px) {
+    .form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form > div {
+        min-height: auto;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .form {
+        width: 100%
+    }
+
+    .form > div, .with-controls {
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+}

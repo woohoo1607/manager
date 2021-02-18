@@ -1,6 +1,4 @@
 .selected-row-button {
-    position: absolute;
-    top: 40%;
     color: var(--error-color--lighter);
     padding: 0;
     min-width: 70px;
@@ -11,4 +9,20 @@
 
 .selected-row-button:hover {
     color: var(--error-color);
+}
+
+.username {
+    font-size: 9px;
+}
+
+@media screen and (max-width: 767px) {
+    .username {
+        font-size: 7px;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .table {
+        font-size: 6px;
+    }
 }

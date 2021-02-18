@@ -43,3 +43,9 @@
 .header-icon-active path {
     fill: #C1CFE0;
 }
+
+@media screen and (max-width: 479px) {
+    .header-menu-item {
+        margin-left: 10px;
+    }
+}

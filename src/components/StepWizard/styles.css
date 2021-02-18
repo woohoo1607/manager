@@ -1,6 +1,5 @@
 .step-wizard {
-    width: 970px;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .step-wizard-menu-list {
@@ -87,4 +86,40 @@
     font-weight: bold;
     font-size: 14px;
     min-width: 0;
+}
+
+@media screen and (max-width: 969px) {
+    .step-wizard-body {
+        padding: 65px 30px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .step-wizard-menu__button {
+        font-size: 18px;
+    }
+
+    .step-wizard__frame {
+        padding: 13px 2px;
+        font-size: 13px;
+    }
+
+    .step-wizard__frame__button {
+        margin-left: 5px;
+    }
+
+    .step-wizard__controls {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .step-wizard-menu__button {
+        font-size: 14px;
+    }
+
+    .step-wizard__frame__button {
+        margin-left: 0;
+    }
+
 }

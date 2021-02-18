@@ -17,7 +17,7 @@ const TemplatePage = ({
   return (
     <>
       <Header />
-      <div className="title-container">
+      <div className="center title-container">
         <div>
           {isBack && (
             <InternalLink
@@ -31,7 +31,7 @@ const TemplatePage = ({
         <h2 className="title">{title}</h2>
         <div></div>
       </div>
-      <div className="content">{children}</div>
+      <div className="center content">{children}</div>
     </>
   );
 };

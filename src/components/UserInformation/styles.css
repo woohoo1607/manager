@@ -60,3 +60,43 @@
 .user-information-block > .user-information-title:hover .user-information-icon path {
     fill: #4E86E4;
 }
+
+@media screen and (max-width: 969px) {
+    .user-information-container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .user-information {
+        margin-left: 10px;
+    }
+
+    .user-information-data, .user-information-list {
+        margin-left: 20px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .user-information-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .user-information {
+        width: 99%;
+    }
+
+    .user-information-block {
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .user-information-block {
+        flex-direction: column;
+    }
+
+    .user-information-list {
+        margin-top: 20px;
+    }
+}
