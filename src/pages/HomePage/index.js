@@ -102,6 +102,10 @@ const HomePage = () => {
     );
   }, [usersFound, setSelectedUsers, offset]);
 
+  useEffect(() => {
+    setOffset(queryPage - 1);
+  }, [queryPage]);
+
   return (
     <TemplatePage title="List of users">
       <>

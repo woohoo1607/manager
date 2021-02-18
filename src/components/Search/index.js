@@ -9,6 +9,8 @@ const Search = ({ handleClick = () => {}, querySearch = "" }) => {
   useEffect(() => {
     if (!querySearch && inputValue) {
       setInputValue("");
+    } else if (querySearch && !inputValue) {
+      setInputValue(querySearch);
     }
     // eslint-disable-next-line
   }, [querySearch]);
