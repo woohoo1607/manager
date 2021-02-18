@@ -17,5 +17,5 @@
 }
 
 .text-area.error {
-    border: 1px solid #EB5757;
+    border: 1px solid var(--error-color);
 }

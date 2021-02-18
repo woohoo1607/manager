@@ -73,18 +73,34 @@ body {
 /*-------------------------------------     fonts*/
 
 :root {
+  --primary-bg-color--lighter: #4E86E4;
   --primary-bg-color: #5E97F3;
-  --error-bg-color: #EB5757;
-  --success-bg-color: #4EE4A5;
+  --secondary-bg-color: #E7F0FF;
+  --secondary-bg-color--lighter: #FAFCFF;
+  --disabled-bg-color: #C1CFE0;
+
+  --main-text-color: #475666;
+  --main-text-color--dark: #000000;
+  --secondary-text-color: #9BB0CB;
+  --secondary-text-color--darked: #657C9A;
+  --disabled-text-color: #C1CFE0;
+
+  --error-color: #EB5757;
+  --error-color--lighter: #FF8989;
+  --success-color: #4EE4A5;
+
+  --main-gradient: radial-gradient(50% 28800% at 50% 68.33%, #4E86E4 0%, #2F68C8 100%);
+
 }
 
 .App {
   font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: 500;
+  color: var(--main-text-color);
 }
 
 .center {
   margin: 0 auto;
-  width: 1440px;
+  width: 970px;
 }

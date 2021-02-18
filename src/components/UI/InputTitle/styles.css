@@ -6,11 +6,11 @@
 }
 
 .is-required {
-    color: #9BB0CB;
+    color: var(--secondary-text-color);
 }
 
 .input-title {
-    color: #657C9A;
+    color: var(--secondary-text-color--darked);
     font-weight: normal;
     width: 100%;
     display: flex;

@@ -5,7 +5,7 @@
     cursor: pointer;
     font-size: 14px;
     margin-right: 40px;
-    color: #657C9A;
+    color: var(--secondary-text-color--darked);
     font-family: 'Roboto', sans-serif;
     margin-top: 8px;
 }
@@ -33,7 +33,7 @@
 }
 
 .checkbox-container:hover .checkmark-box.checked, .checkmark-box.checked {
-    background-color: #4E86E4;
+    background-color: var(--primary-bg-color--lighter);
     border: 3px solid #C1CFE0;
 }
 

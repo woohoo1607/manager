@@ -7,7 +7,7 @@
     position: absolute;
     width: 100%;
     z-index: 1;
-    color: #657C9A;
+    color: var(--secondary-text-color--darked);
 }
 
 .autocomplete-dropdown-container__item {
@@ -16,6 +16,6 @@
 }
 
 .autocomplete-dropdown-container__item-active {
-    background-color: #E7F0FF;
+    background-color: var(--secondary-bg-color);
     cursor: pointer;
 }

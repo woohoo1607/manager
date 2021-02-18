@@ -1,15 +1,14 @@
 .selected-row-button {
     position: absolute;
     top: 40%;
-    color: #FF8989;
+    color: var(--error-color--lighter);
     padding: 0;
     min-width: 70px;
     text-align: right;
-    background-color: #FFFFFF;
-    cursor: pointer;
+    background: none;
     font-weight: bold;
 }
 
 .selected-row-button:hover {
-    color: #EB5757;
+    color: var(--error-color);
 }

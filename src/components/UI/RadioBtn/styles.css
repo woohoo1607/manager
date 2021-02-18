@@ -5,12 +5,12 @@
     cursor: pointer;
     font-size: 14px;
     margin-right: 40px;
-    color: #657C9A;
+    color: var(--secondary-text-color--darked);
     font-family: 'Roboto', sans-serif;
 }
 
 .radio-container.checked {
-    color: #000000;
+    color: var(--main-text-color--dark);
 }
 
 .radio-container input {
@@ -37,7 +37,7 @@
 }
 
 .radio-container:hover .checkmark.checked, .checkmark.checked {
-    background-color: #4E86E4;
+    background-color: var(--primary-bg-color--lighter);
     border: 3px solid #C1CFE0;
 }
 

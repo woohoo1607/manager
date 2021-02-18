@@ -1,5 +1,5 @@
 .input-error {
-    color: #EB5757;
+    color: var(--error-color);
     font-size: 9px;
     font-weight: normal;
     padding-left: 10px;
