@@ -11,7 +11,6 @@ const Paginator = ({
   queryPage = 1,
 }) => {
   const pages = Math.round(countItems / showCount) || 1;
-
   useEffect(() => {
     if (!countItems) return;
     if (queryPage <= 0 || queryPage > pages) {
@@ -19,19 +18,23 @@ const Paginator = ({
     } else if (!Number.isInteger(+queryPage) || (queryPage === 1 && offset)) {
       changePage({ selected: 0 });
     }
-  }, [changePage, queryPage, pages, countItems]);
+  }, [changePage, queryPage, pages, countItems, offset]);
   return (
-    <ReactPaginate
-      pageCount={pages}
-      forcePage={offset}
-      containerClassName="pagination"
-      previousLinkClassName="pagination__item pagination__item_link"
-      nextLinkClassName="pagination__item pagination__item_link"
-      disabledClassName="pagination__item pagination__item_link_disabled"
-      activeClassName="pagination__item_active"
-      pageClassName="pagination__item"
-      onPageChange={changePage}
-    />
+    <>
+      {pages > 1 && (
+        <ReactPaginate
+          pageCount={pages}
+          forcePage={offset}
+          containerClassName="pagination"
+          previousLinkClassName="pagination__item pagination__item_link"
+          nextLinkClassName="pagination__item pagination__item_link"
+          disabledClassName="pagination__item pagination__item_link_disabled"
+          activeClassName="pagination__item_active"
+          pageClassName="pagination__item"
+          onPageChange={changePage}
+        />
+      )}
+    </>
   );
 };
 

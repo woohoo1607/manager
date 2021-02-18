@@ -9,9 +9,9 @@ import { deleteUser, getUsers } from "../../actions/userActions";
 import Spinner from "../../components/UI/Spinner";
 import Paginator from "../../components/Paginator";
 import UserGenerator from "./UserGenerator";
+import Search from "../../components/Search";
 
 import "./styles.css";
-import Search from "../../components/Search";
 
 const NUMBER_OF_USERS_TO_SHOW = 10;
 
@@ -36,6 +36,7 @@ const HomePage = () => {
 
   const [selectedUsers, setSelectedUsers] = useState(users);
   const [usersFound, setUsersFound] = useState(users);
+  const [searchValue, setSearchValue] = useState("");
 
   const dispatch = useDispatch();
 
@@ -54,6 +55,7 @@ const HomePage = () => {
       querySearch ? `search=${querySearch}` : null,
     ];
     push(buildUrl(parameters));
+    window.scrollTo(0, 0);
   };
 
   const handleClickSearch = (value) => {
@@ -70,21 +72,26 @@ const HomePage = () => {
   }, [fetchUsers]);
 
   useEffect(() => {
-    setUsersFound(users);
-  }, [users]);
-
-  useEffect(() => {
-    if (querySearch) {
-      const result = users.filter(
-        ({ firstName = "", lastName = "" }) =>
-          firstName.toLowerCase().includes(querySearch) ||
-          lastName.toLowerCase().includes(querySearch)
-      );
-      setUsersFound(result);
-    } else if (usersFound.length !== users.length) {
+    if (!querySearch && usersFound.length !== users.length) {
       setUsersFound(users);
     }
   }, [querySearch, usersFound, users]);
+
+  useEffect(() => {
+    if (users.length) {
+      if (querySearch && querySearch !== searchValue) {
+        const result = users.filter(
+          ({ firstName = "", lastName = "" }) =>
+            firstName.toLowerCase().includes(querySearch) ||
+            lastName.toLowerCase().includes(querySearch)
+        );
+        setSearchValue(querySearch);
+        setUsersFound(result);
+      } else if (!querySearch && searchValue) {
+        setSearchValue("");
+      }
+    }
+  }, [querySearch, usersFound, users, searchValue]);
 
   useEffect(() => {
     setSelectedUsers(
@@ -98,7 +105,7 @@ const HomePage = () => {
   return (
     <TemplatePage title="List of users">
       <>
-        <Search handleClick={handleClickSearch} defaultValue={querySearch} />
+        <Search handleClick={handleClickSearch} querySearch={querySearch} />
         <UsersTable
           users={selectedUsers}
           deleteUser={deleteUsr}
@@ -112,7 +119,7 @@ const HomePage = () => {
             </Button>
           </div>
         )}
-        {usersFound.length > NUMBER_OF_USERS_TO_SHOW && (
+        {usersFound.length ? (
           <Paginator
             offset={offset}
             countItems={usersFound.length}
@@ -120,7 +127,7 @@ const HomePage = () => {
             showCount={NUMBER_OF_USERS_TO_SHOW}
             changePage={changePage}
           />
-        )}
+        ) : null}
         {isLoading ? <Spinner /> : null}
         <UserGenerator isLoading={isLoading} />
       </>
