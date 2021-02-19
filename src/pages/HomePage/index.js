@@ -95,10 +95,6 @@ const HomePage = () => {
   }, [querySearch, usersFound, users, searchValue]);
 
   useEffect(() => {
-    setUsersFound(users);
-  }, [users]);
-
-  useEffect(() => {
     setSelectedUsers(
       usersFound.slice(
         offset * NUMBER_OF_USERS_TO_SHOW,
