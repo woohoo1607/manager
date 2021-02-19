@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
 
 import Header from "../Header";
 import InternalLink from "../UI/InternalLink";
@@ -11,16 +10,9 @@ const TemplatePage = ({
   title = "",
   isBack = false,
   linkTitle = "",
-  backLink = "",
+  pathname = "",
   children,
 }) => {
-  const { goBack } = useHistory();
-  const back = (e) => {
-    if (!backLink) {
-      e.preventDefault();
-      goBack();
-    }
-  };
   return (
     <>
       <Header />
@@ -28,10 +20,9 @@ const TemplatePage = ({
         <div>
           {isBack && (
             <InternalLink
-              onClick={(e) => back(e)}
               title={linkTitle}
               className="title-secondary"
-              pathname={backLink}
+              pathname={pathname}
               isBack
             />
           )}

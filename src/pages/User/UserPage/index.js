@@ -36,7 +36,7 @@ const UserPage = () => {
   }
 
   return (
-    <TemplatePage title={username} isBack linkTitle="Users List">
+    <TemplatePage title={username} isBack linkTitle="Users List" pathname="/">
       {isLoading ? (
         <Spinner />
       ) : (
