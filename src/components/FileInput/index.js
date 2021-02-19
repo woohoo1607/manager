@@ -38,25 +38,29 @@ const FileInput = ({ name = "", title = "add avatar" }) => {
 
   const loadFile = (event) => {
     const file = event.currentTarget.files[0];
-    openModal();
-    setFileName(file.name);
-    setFieldValue(name, file);
-    setSrc(URL.createObjectURL(file));
+    if (file instanceof Blob) {
+      openModal();
+      setFileName(file.name);
+      setSrc(URL.createObjectURL(file));
+    }
   };
 
   const makeClientCrop = async (crop) => {
     if (imageRef && crop.width && crop.height) {
       const croppedImage = await getCroppedImg(imageRef, crop);
-      setFieldValue(name, croppedImage);
+      if (croppedImage instanceof Blob) {
+        setFieldValue(name, croppedImage);
+      }
       setSrc(null);
       closeModal();
     }
   };
 
   const getCroppedImg = (image, crop) => {
+    const { naturalWidth, naturalHeight, width, height } = image;
     const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
+    const scaleX = naturalWidth / width;
+    const scaleY = naturalHeight / height;
     canvas.width = crop.width;
     canvas.height = crop.height;
     const ctx = canvas.getContext("2d");

@@ -9,6 +9,18 @@
     cursor: pointer;
 }
 
+.button:hover, .button:focus {
+    opacity: 0.8;
+}
+
+.button-cancel {
+    background-color: #C1CFE0;
+}
+
+.button-success {
+    background-color: var(--success-color);
+}
+
 .button:active {
     transform: scale(0.99);
 }

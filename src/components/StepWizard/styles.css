@@ -55,18 +55,6 @@
     flex-flow: row-reverse;
 }
 
-.step-wizard__button:hover {
-    opacity: 0.8;
-}
-
-.step-wizard__button-back {
-    background-color: #C1CFE0;
-}
-
-.step-wizard__button-success {
-    background-color: var(--success-color);
-}
-
 .step-wizard__frame {
     position: absolute;
     top: 0;
@@ -106,6 +94,10 @@
 
     .step-wizard__frame__button {
         margin-left: 5px;
+    }
+
+    .step-wizard-menu__button {
+        padding: 8px 0;
     }
 
     .step-wizard__controls {

@@ -28,6 +28,10 @@
         font-size: 24px;
     }
 
+    .title-container {
+        padding: 20px 0;
+    }
+
     .title-secondary {
         font-size: 18px;
     }
