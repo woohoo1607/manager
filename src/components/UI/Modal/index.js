@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 
-import ModalHeader from "./ModalHeader";
-import ModalFooter from "./ModalFooter";
-import ModalBody from "./ModalBody";
+import IconButton from "../IconButton";
+import Button from "../Button";
 
 import "./styles.css";
 
@@ -19,9 +18,30 @@ const Modal = ({
   return (
     <div className="modal-wrapper">
       <div className="modal">
-        <ModalHeader title={title} onClose={onClose} />
-        <ModalBody>{children}</ModalBody>
-        <ModalFooter onClose={onClose} handleSubmit={handleSubmit} />
+        <div className="modal__header">
+          <div></div>
+          <h2 className="modal__title">{title}</h2>
+          <IconButton icon="close" onClick={onClose} />
+        </div>
+        <div className="modal__body">{children}</div>
+        <div className="modal__footer">
+          <Button
+            className="modal__button"
+            variant="cancel"
+            type="button"
+            onClick={onClose}
+          >
+            Cancel
+          </Button>
+          <Button
+            className="modal__button"
+            variant="success"
+            type="button"
+            onClick={handleSubmit}
+          >
+            Save
+          </Button>
+        </div>
       </div>
     </div>
   );

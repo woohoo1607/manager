@@ -50,15 +50,3 @@
 .modal__button {
     margin-left: 20px;
 }
-
-.modal__button:hover {
-    opacity: 0.8;
-}
-
-.modal__button_success {
-    background-color: var(--success-color);
-}
-
-.modal__button_cancel {
-    background-color: var(--disabled-bg-color);
-}
