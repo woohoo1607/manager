@@ -16,7 +16,7 @@
     }
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 479px) {
     .table {
         font-size: 7.5px;
     }
