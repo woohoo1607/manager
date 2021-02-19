@@ -14,6 +14,10 @@ const TemplatePage = ({
   children,
 }) => {
   const { goBack } = useHistory();
+  const back = (e) => {
+    e.preventDefault();
+    goBack();
+  };
   return (
     <>
       <Header />
@@ -21,7 +25,7 @@ const TemplatePage = ({
         <div>
           {isBack && (
             <InternalLink
-              onClick={goBack}
+              onClick={(e) => back(e)}
               title={linkTitle}
               className="title-secondary"
               isBack
