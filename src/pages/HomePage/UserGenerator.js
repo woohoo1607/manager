@@ -6,8 +6,6 @@ import { useHistory } from "react-router-dom";
 
 import Button from "../../components/UI/Button";
 
-import Button from "../../components/UI/Button";
-
 const UserGenerator = ({ isLoading = false }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
