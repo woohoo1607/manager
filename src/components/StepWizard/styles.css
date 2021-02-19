@@ -96,6 +96,10 @@
         margin-left: 5px;
     }
 
+    .step-wizard-menu__button {
+        padding: 8px 0;
+    }
+
     .step-wizard__controls {
         margin-top: 20px;
     }

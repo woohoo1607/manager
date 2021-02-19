@@ -82,10 +82,6 @@
         align-items: center;
     }
 
-    .user-information {
-        width: 99%;
-    }
-
     .user-information-block {
         justify-content: space-between;
     }
