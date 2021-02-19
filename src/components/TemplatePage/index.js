@@ -11,12 +11,15 @@ const TemplatePage = ({
   title = "",
   isBack = false,
   linkTitle = "",
+  backLink = "",
   children,
 }) => {
   const { goBack } = useHistory();
   const back = (e) => {
-    e.preventDefault();
-    goBack();
+    if (!backLink) {
+      e.preventDefault();
+      goBack();
+    }
   };
   return (
     <>
@@ -28,6 +31,7 @@ const TemplatePage = ({
               onClick={(e) => back(e)}
               title={linkTitle}
               className="title-secondary"
+              pathname={backLink}
               isBack
             />
           )}
