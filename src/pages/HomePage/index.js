@@ -116,9 +116,13 @@ const HomePage = () => {
           deleteUser={deleteUsr}
           goToUserPage={goToUserPage}
         />
-        {!users.length && !isLoading && (
+        {(!users.length || !usersFound.length) && !isLoading && (
           <div className="no-data">
-            <h2 className="title">No users here :(</h2>
+            <h2 className="title">
+              {!usersFound.length
+                ? "No results were found for your search"
+                : "No users here :("}
+            </h2>
             <Button type="button" onClick={createNewUser}>
               Create new user
             </Button>
