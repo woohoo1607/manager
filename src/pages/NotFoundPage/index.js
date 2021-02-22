@@ -1,4 +1,5 @@
 import React from "react";
+
 import TemplatePage from "../../components/TemplatePage";
 
 import "./styles.css";

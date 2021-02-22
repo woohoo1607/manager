@@ -8,6 +8,7 @@ import InputField from "../UI/InputField";
 import SelectField from "../UI/SelectField";
 import PhoneField from "../UI/PhoneField";
 import IconButton from "../UI/IconButton";
+
 import { LANGUAGES } from "../../constants";
 
 import "./styles.css";
@@ -101,23 +102,21 @@ const ContactsForm = ({
   fax = "",
   phones = [],
   ...props
-}) => {
-  return (
-    <LayoutForm
-      {...props}
-      component={ContactsFormBody}
-      initialValues={{
-        company,
-        github,
-        facebook,
-        language,
-        fax,
-        phones: phones.length ? phones : [""],
-      }}
-      validationSchema={validationSchema}
-      submit={submit}
-    />
-  );
-};
+}) => (
+  <LayoutForm
+    {...props}
+    component={ContactsFormBody}
+    initialValues={{
+      company,
+      github,
+      facebook,
+      language,
+      fax,
+      phones: phones.length ? phones : [""],
+    }}
+    validationSchema={validationSchema}
+    submit={submit}
+  />
+);
 
 export default ContactsForm;

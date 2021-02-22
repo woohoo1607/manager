@@ -1,10 +1,12 @@
 import React from "react";
+
 import UserIcon from "../../../icons/list-of-users.svg";
 
 import "./styles.css";
 
 const Avatar = ({ avatar, style = {} }) => {
   const src = avatar instanceof Blob ? URL.createObjectURL(avatar) : UserIcon;
+
   return (
     <div className="avatar-container" style={style}>
       <img

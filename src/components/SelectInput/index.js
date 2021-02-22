@@ -20,6 +20,7 @@ const SelectInput = ({
   ...props
 }) => {
   const { setFieldValue } = useFormikContext();
+
   const customStyles = {
     control: (provided, state) => {
       let borderColor =

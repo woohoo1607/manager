@@ -6,8 +6,8 @@ import {
   TRIGGER_REMOVE_USER,
   TRIGGER_UPDATE_USER,
 } from "../sagas/usersSagas";
-import { removeUnnecessaryUserProperties } from "./actionsHelper";
 import { REMOVE_ERROR } from "../reducers/usersReducer";
+import { removeUnnecessaryUserProperties } from "./actionsHelper";
 
 export const getUsers = () => ({
   type: TRIGGER_GET_USERS,

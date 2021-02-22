@@ -27,7 +27,9 @@ const RowItem = ({
   goToUserPage = () => {},
 }) => {
   dayjs.extend(relativeTime);
+
   const isSelected = index === selectedRow;
+
   return (
     <TableRow className={isSelected ? "selected" : ""}>
       <TableCell>

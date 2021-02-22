@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+
 import { generateUsers } from "../../actions/userActions";
 
 import Button from "../../components/UI/Button";

@@ -27,24 +27,22 @@ const validationSchema = Yup.object({
     .required("passwords don't match"),
 });
 
-const AccountFormBody = ({ children, values: { avatar } }) => {
-  return (
-    <>
-      <div style={{ textAlign: "center", width: "200px" }}>
-        <Avatar avatar={avatar} style={{ width: "171px", height: "171px" }} />
-        <FileInputField name="avatar" avatar={avatar} />
+const AccountFormBody = ({ children, values: { avatar } }) => (
+  <>
+    <div style={{ textAlign: "center", width: "200px" }}>
+      <Avatar avatar={avatar} style={{ width: "171px", height: "171px" }} />
+      <FileInputField name="avatar" avatar={avatar} />
+    </div>
+    <div className="with-controls" style={{ width: "400px" }}>
+      <div>
+        <InputField name="username" title="User name" isRequired />
+        <PasswordField title="Password" name="password" />
+        <PasswordField title="Repeat Password" name="repeatPassword" />
       </div>
-      <div className="with-controls" style={{ width: "400px" }}>
-        <div>
-          <InputField name="username" title="User name" isRequired />
-          <PasswordField title="Password" name="password" />
-          <PasswordField title="Repeat Password" name="repeatPassword" />
-        </div>
-        {children}
-      </div>
-    </>
-  );
-};
+      {children}
+    </div>
+  </>
+);
 
 const AccountForm = ({
   submit = () => {},
@@ -52,16 +50,14 @@ const AccountForm = ({
   password = "",
   avatar = null,
   ...props
-}) => {
-  return (
-    <LayoutForm
-      {...props}
-      component={AccountFormBody}
-      initialValues={{ username, password, repeatPassword: password, avatar }}
-      validationSchema={validationSchema}
-      submit={submit}
-    />
-  );
-};
+}) => (
+  <LayoutForm
+    {...props}
+    component={AccountFormBody}
+    initialValues={{ username, password, repeatPassword: password, avatar }}
+    validationSchema={validationSchema}
+    submit={submit}
+  />
+);
 
 export default AccountForm;

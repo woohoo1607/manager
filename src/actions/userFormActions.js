@@ -6,18 +6,14 @@ import {
 } from "../sagas/userFormSaga";
 import { REMOVE_USER_FORM } from "../reducers/userFormReducer";
 
-export const getUserForm = ({ meta }) => {
-  return {
-    type: TRIGGER_GET_USER_FORM,
-    meta,
-  };
-};
+export const getUserForm = ({ meta }) => ({
+  type: TRIGGER_GET_USER_FORM,
+  meta,
+});
 
-export const checkUserForm = () => {
-  return {
-    type: TRIGGER_CHECK_USER_FORM,
-  };
-};
+export const checkUserForm = () => ({
+  type: TRIGGER_CHECK_USER_FORM,
+});
 
 export const updateUserForm = ({ meta, ...userData }) => {
   const { phones } = userData;

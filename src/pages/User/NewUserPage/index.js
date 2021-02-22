@@ -2,8 +2,6 @@ import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import TemplatePage from "../../../components/TemplatePage";
-import UserStepWizard from "../../../components/UserStepWizard";
 import { addUser } from "../../../actions/userActions";
 import {
   checkUserForm,
@@ -12,6 +10,9 @@ import {
   removeUserForm,
   updateUserForm,
 } from "../../../actions/userFormActions";
+
+import TemplatePage from "../../../components/TemplatePage";
+import UserStepWizard from "../../../components/UserStepWizard";
 
 const NewUserPage = () => {
   const dispatch = useDispatch();

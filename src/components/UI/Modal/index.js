@@ -15,6 +15,7 @@ const Modal = ({
     document.body.classList.add("no-scroll");
     return () => document.body.classList.remove("no-scroll");
   }, []);
+
   return (
     <div className="modal-wrapper">
       <div className="modal">

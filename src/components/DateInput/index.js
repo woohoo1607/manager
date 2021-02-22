@@ -4,7 +4,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import CalendarIcon from "../../icons/calendar.svg";
+
 import Button from "../UI/Button";
+
 import "./styles.css";
 
 const DateInput = ({ name, value, onBlur, isError }) => {

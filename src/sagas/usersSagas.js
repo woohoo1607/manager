@@ -1,4 +1,5 @@
 import { put, call, takeEvery, all } from "redux-saga/effects";
+
 import {
   GET_USERS,
   IS_LOADING,
@@ -7,11 +8,12 @@ import {
 } from "../reducers/usersReducer";
 import { CREATE_FIELDS_ERRORS } from "../reducers/userFormReducer";
 import { usersService } from "../services/db/UsersService";
+import { userFormService } from "../services/db/UserFormService";
+
 import {
   showErrorNotification,
   showSuccessNotification,
 } from "../actions/notificationActions";
-import { userFormService } from "../services/db/UserFormService";
 import {
   generateAvatar,
   generateFakeAccounts,

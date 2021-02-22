@@ -16,8 +16,6 @@ export const showErrorNotification = ({ message = "" }) =>
 export const showSuccessNotification = ({ message = "" }) =>
   showNotification({ message, variant: "success" });
 
-export const hideNotification = () => {
-  return {
-    type: HIDE_NOTIFICATION,
-  };
-};
+export const hideNotification = () => ({
+  type: HIDE_NOTIFICATION,
+});

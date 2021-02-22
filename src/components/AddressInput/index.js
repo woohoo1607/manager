@@ -1,6 +1,7 @@
 import React from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { useFormikContext } from "formik";
+
 import Input from "../UI/Input";
 
 import "./styles.css";

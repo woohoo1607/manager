@@ -20,6 +20,7 @@ const FormikBody = ({
       );
     }
   }, [fieldsErrors, setFieldError]);
+
   return (
     <form className="form" style={styles} onSubmit={handleSubmit}>
       <FormBody currentValues={props.values} {...props} children={children} />
