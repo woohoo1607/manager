@@ -133,6 +133,10 @@ export function* generateUsersSaga({ count }) {
     });
     yield call(usersService.clearAll);
     yield call(usersService.import, fakeAccounts);
+    yield put({
+      type: GET_USERS,
+      payload: [],
+    });
     yield put({ type: TRIGGER_GET_USERS });
   } catch ({ message }) {
     yield put(showErrorNotification({ message }));

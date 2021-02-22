@@ -1,6 +1,7 @@
 import React from "react";
 
 import Button from "../UI/Button";
+
 import "./styles.css";
 
 const ControlButton = ({
@@ -9,12 +10,7 @@ const ControlButton = ({
   children,
   ...props
 }) => (
-  <Button
-    className={`step-wizard__button 
-    ${variant === "success" ? "step-wizard__button-success" : ""} 
-    ${variant === "light" ? "step-wizard__button-back" : ""}`}
-    {...props}
-  >
+  <Button className="step-wizard__button" {...props} variant={variant}>
     {children || title}
   </Button>
 );
@@ -46,7 +42,7 @@ const StepWizardControls = ({
         {!isFirstStep && (
           <ControlButton
             type="button"
-            variant="light"
+            variant="cancel"
             onClick={previousStep}
             title="Back"
           />

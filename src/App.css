@@ -104,3 +104,8 @@ body {
   margin: 0 auto;
   width: 970px;
 }
+
+.no-scroll {
+  overflow: hidden;
+  padding-right: 15px;
+}
