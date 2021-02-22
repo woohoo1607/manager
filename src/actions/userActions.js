@@ -34,10 +34,9 @@ export const getUser = (id) => ({
   id,
 });
 
-export const generateUsers = ({ count, meta }) => ({
+export const generateUsers = (count = 50) => ({
   type: TRIGGER_GENERATE_USERS,
   count,
-  meta,
 });
 
 export const removeUsersError = () => ({

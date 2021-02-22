@@ -122,10 +122,7 @@ export function* watchDeleteUserSaga() {
   yield takeEvery(TRIGGER_REMOVE_USER, deleteUserSaga);
 }
 
-export function* generateUsersSaga({
-  count,
-  meta: { redirect = () => {}, path = "" },
-}) {
+export function* generateUsersSaga({ count }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
     const accounts = yield call(generateFakeAccounts, count);
@@ -136,7 +133,11 @@ export function* generateUsersSaga({
     });
     yield call(usersService.clearAll);
     yield call(usersService.import, fakeAccounts);
-    yield call(redirect, path);
+    yield put({
+      type: GET_USERS,
+      payload: [],
+    });
+    yield put({ type: TRIGGER_GET_USERS });
   } catch ({ message }) {
     yield put(showErrorNotification({ message }));
   }

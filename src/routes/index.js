@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import NewUserPage from "../pages/User/NewUserPage";
 import HomePage from "../pages/HomePage";
@@ -14,11 +14,6 @@ const Routes = () => {
       <Route path="/users/new" component={NewUserPage} />
       <Route exact path="/users/:id" component={UserPage} />
       <Route path="/users/:id/edit" component={EditUserPage} />
-      <Route
-        exact
-        path="/generate-success"
-        render={() => <Redirect to="/" />}
-      />
       <Route component={NotFoundPage} />
     </Switch>
   );
