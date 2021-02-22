@@ -4,6 +4,8 @@ import Input from "../UI/Input";
 
 import "./styles.css";
 
+let searchDelay;
+
 const Search = ({ handleClick = () => {}, querySearch = "" }) => {
   const [inputValue, setInputValue] = useState(querySearch);
 
@@ -15,8 +17,6 @@ const Search = ({ handleClick = () => {}, querySearch = "" }) => {
     }
     // eslint-disable-next-line
   }, [querySearch]);
-
-  let searchDelay;
 
   const onChange = ({ target: { value = "" } }) => {
     setInputValue(value);
