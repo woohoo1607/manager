@@ -5,7 +5,7 @@ import { generateUsers } from "../../actions/userActions";
 
 import Button from "../../components/UI/Button";
 
-const UserGenerator = ({ isLoading = false }) => {
+const UserGenerator = ({ disabled = false }) => {
   const dispatch = useDispatch();
 
   const handleClickGenerateUsers = () => dispatch(generateUsers(50));
@@ -14,7 +14,7 @@ const UserGenerator = ({ isLoading = false }) => {
     <Button
       className="generate-button"
       onClick={handleClickGenerateUsers}
-      disabled={isLoading}
+      disabled={disabled}
     >
       Generate accounts
     </Button>

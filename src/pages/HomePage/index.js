@@ -32,6 +32,7 @@ const HomePage = () => {
   const querySearch = query.get("search") || "";
 
   const { users = [], isLoading = false } = useSelector(({ users }) => users);
+  const { isOnline } = useSelector(({ networkStatus }) => networkStatus);
 
   const [offset, setOffset] = useState(queryPage - 1);
 
@@ -136,7 +137,7 @@ const HomePage = () => {
           changePage={changePage}
         />
         {isLoading ? <Spinner /> : null}
-        <UserGenerator isLoading={isLoading} />
+        <UserGenerator disabled={isLoading || !isOnline} />
       </>
     </TemplatePage>
   );
