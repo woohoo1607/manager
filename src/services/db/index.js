@@ -2,7 +2,7 @@ import { openDB } from "idb";
 import { v4 as uuidv4 } from "uuid";
 
 const DATABASE_NAME = "manager";
-const DATABASE_VERSION = 2;
+const DATABASE_VERSION = 3;
 
 const dbPromise = async () =>
   await openDB(DATABASE_NAME, DATABASE_VERSION, {
@@ -22,6 +22,14 @@ const dbPromise = async () =>
             keyPath: "id",
             autoIncrement: true,
           });
+        }
+        // eslint-disable-next-line no-fallthrough
+        case 2: {
+          const store = db.createObjectStore("logger", {
+            keyPath: "id",
+            autoIncrement: true,
+          });
+          store.createIndex("isSuccess", "isSuccess");
         }
         // eslint-disable-next-line no-fallthrough
         default:

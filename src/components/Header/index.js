@@ -53,7 +53,7 @@ const Header = () => {
                 </NavLink>
               </li>
               <li className="header-menu-item">
-                <NavLink to={{ pathname: "/" }} className={`menu-link`}>
+                <NavLink to={{ pathname: "/logger" }} className={`menu-link`}>
                   <NetworkStatus />
                 </NavLink>
               </li>

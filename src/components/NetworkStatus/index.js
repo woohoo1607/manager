@@ -1,8 +1,9 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import NetworkCircle from "../UI/NetworkCircle";
 import { checkNetwork } from "../../actions/networkStatusActions";
+
+import NetworkCircle from "../UI/NetworkCircle";
 
 const NetworkStatus = () => {
   const dispatch = useDispatch();
