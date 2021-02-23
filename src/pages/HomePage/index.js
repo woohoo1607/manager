@@ -119,7 +119,7 @@ const HomePage = () => {
         {(!users.length || !usersFound.length) && !isLoading && (
           <div className="no-data">
             <h2 className="title">
-              {!usersFound.length
+              {users.length
                 ? "No results were found for your search"
                 : "No users here :("}
             </h2>

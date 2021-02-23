@@ -42,3 +42,9 @@
     min-width: 0;
     cursor: pointer;
 }
+
+@media screen and (max-width: 479px) {
+    .button {
+        min-width: auto;
+    }
+}

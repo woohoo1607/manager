@@ -19,7 +19,27 @@
 }
 
 .content {
-    width: 970px;
-    margin: 0 auto 100px auto;
+    margin-bottom: 100px;
     background: var(--secondary-bg-color--lighter);
+}
+
+@media screen and (max-width: 767px) {
+    .title {
+        font-size: 24px;
+    }
+
+    .title-container {
+        padding: 20px 0;
+    }
+
+    .title-secondary {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .title-container {
+        flex-direction: column;
+        align-items: inherit;
+    }
 }

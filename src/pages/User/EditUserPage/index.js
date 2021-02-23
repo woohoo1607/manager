@@ -30,7 +30,12 @@ const EditUserPage = () => {
   );
 
   return (
-    <TemplatePage title={`Editing ${username}`} isBack linkTitle="User Profile">
+    <TemplatePage
+      title={`Editing ${username}`}
+      isBack
+      linkTitle="User Profile"
+      pathname={`/users/${id}`}
+    >
       <UserStepWizard user={user} isEditMode submit={saveData} />
     </TemplatePage>
   );

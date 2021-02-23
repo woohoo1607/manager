@@ -45,7 +45,7 @@ const RowItem = ({
       </TableCell>
       <TableCell>
         {`${firstName} ${lastName}`}
-        <p style={{ fontSize: "9px" }}>{username}</p>
+        <p className="username">{username}</p>
       </TableCell>
       <TableCell>{company}</TableCell>
       <TableCell>{phones[0] || email}</TableCell>
@@ -59,7 +59,7 @@ const RowItem = ({
         )}
       </TableCell>
       {isSelected && (
-        <TableCell>
+        <TableCell style={{ maxWidth: 0, padding: 0 }}>
           <Button
             type="button"
             className="selected-row-button"

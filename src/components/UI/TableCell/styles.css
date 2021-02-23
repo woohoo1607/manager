@@ -2,3 +2,15 @@
     padding: 27px 2px;
     vertical-align: middle;
 }
+
+@media screen and (max-width: 767px) {
+    .table-cell {
+        padding: 10px 2px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .table-cell {
+        padding: 5px 2px;
+    }
+}

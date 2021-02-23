@@ -13,3 +13,20 @@
     font-size: 80px;
     padding: 0 60px 0 135px;
 }
+
+@media screen and (max-width: 767px) {
+    .not-found {
+        padding-left: 130px;
+    }
+
+    .not-found__title span {
+        padding: 0;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .not-found {
+        padding-left: 20px;
+    }
+}

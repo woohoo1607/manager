@@ -1,0 +1,23 @@
+@media screen and (max-width: 767px) {
+    .table {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 635px) {
+    .table {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .table {
+        font-size: 9px;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .table {
+        font-size: 7.5px;
+    }
+}
