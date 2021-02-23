@@ -11,15 +11,8 @@ const NetworkStatus = () => {
     dispatch,
   ]);
 
-  const { isOnline, isUnsynchronizedData, isSynchronization } = useSelector(
-    ({ networkStatus }) => networkStatus
-  );
+  const { isOnline } = useSelector(({ networkStatus }) => networkStatus);
   let status = isOnline ? "online" : "offline";
-  if (isUnsynchronizedData) {
-    status = "not-synchronized";
-  } else if (isSynchronization) {
-    status = "synchronization";
-  }
 
   useEffect(() => {
     checkNetworkStatus();
