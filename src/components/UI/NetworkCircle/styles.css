@@ -1,0 +1,18 @@
+.network-circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #FAFA32;
+}
+
+.network-circle_online {
+    background-color: #00D420;
+}
+
+.network-circle_not-synchronized {
+    background-color: #FCBA03;
+}
+
+.network-circle_synchronization {
+    background-color: #0377FC;
+}
