@@ -20,6 +20,11 @@ import {
   generateFakeAccounts,
 } from "../helpers/generateAccount";
 import { addLoggerEvent } from "../actions/loggerActions";
+import {
+  LOGGER_ADD_USER,
+  LOGGER_DELETE_USER,
+  LOGGER_UPDATE_USER,
+} from "./loggerSaga";
 
 export const TRIGGER_GET_USERS = "TRIGGER_GET_USERS";
 export const TRIGGER_GET_USER = "TRIGGER_GET_USER";
@@ -102,18 +107,17 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
     yield put(showSuccessNotification({ message: "User added successfully" }));
     yield put(
       addLoggerEvent({
-        eventType: "add user",
+        eventType: LOGGER_ADD_USER,
         data: user,
         date: new Date(),
       })
     );
-    yield call(redirect, path);
     offlineUsersService.add(res);
   } catch ({ message }) {
     const isOfflineError = message === FETCH_ERROR;
     yield put(
       addLoggerEvent({
-        eventType: "add user",
+        eventType: LOGGER_ADD_USER,
         data: user,
         date: new Date(),
         isAwaitingDispatch: isOfflineError,
@@ -131,6 +135,7 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
     } else {
       yield put(showErrorNotification({ message }));
     }
+    yield call(redirect, path);
     yield put({ type: IS_LOADING, payload: false });
   }
 }
@@ -149,7 +154,7 @@ export function* updateUserSaga({ user }) {
     );
     yield put(
       addLoggerEvent({
-        eventType: "update user",
+        eventType: LOGGER_UPDATE_USER,
         data: user,
         date: new Date(),
       })
@@ -159,7 +164,7 @@ export function* updateUserSaga({ user }) {
     const isOfflineError = message === FETCH_ERROR;
     yield put(
       addLoggerEvent({
-        eventType: "update user",
+        eventType: LOGGER_UPDATE_USER,
         data: user,
         date: new Date(),
         isAwaitingDispatch: isOfflineError,
@@ -198,7 +203,7 @@ export function* deleteUserSaga({ id }) {
     );
     yield put(
       addLoggerEvent({
-        eventType: "delete user",
+        eventType: LOGGER_DELETE_USER,
         data: id,
         date: new Date(),
       })
@@ -208,7 +213,7 @@ export function* deleteUserSaga({ id }) {
     const isOfflineError = message === FETCH_ERROR;
     yield put(
       addLoggerEvent({
-        eventType: "delete user",
+        eventType: LOGGER_DELETE_USER,
         data: id,
         date: new Date(),
         isAwaitingDispatch: isOfflineError,
