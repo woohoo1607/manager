@@ -1,6 +1,6 @@
-import DBService from "./index";
+import OfflineDBService from "./index";
 
-class UserFormService extends DBService {
+class UserFormService extends OfflineDBService {
   constructor() {
     super("temp");
   }

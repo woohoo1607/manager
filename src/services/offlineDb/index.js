@@ -1,32 +1,29 @@
 import { openDB } from "idb";
 import { v4 as uuidv4 } from "uuid";
-import { checkConnection } from "../../api";
 
-const DATABASE_NAME = "manager";
-const DATABASE_VERSION = 3;
+const DATABASE_NAME = "offlineManager";
+const DATABASE_VERSION = 1;
 
 const dbPromise = async () =>
   await openDB(DATABASE_NAME, DATABASE_VERSION, {
     async upgrade(db, oldVersion, newVersion, transaction) {
       switch (oldVersion) {
         case 0: {
-          const store = db.createObjectStore("users", {
+          const usersStore = db.createObjectStore("users", {
             keyPath: "id",
             autoIncrement: true,
           });
-          store.createIndex("username", "username");
-        }
-        // eslint-disable-next-line no-fallthrough
-        case 1: {
-          transaction.objectStore("users").createIndex("email", "email");
-          await db.createObjectStore("temp", {
+          usersStore.createIndex("username", "username");
+          usersStore.createIndex("email", "email");
+          db.createObjectStore("logger", {
             keyPath: "id",
             autoIncrement: true,
           });
-        }
-        // eslint-disable-next-line no-fallthrough
-        case 2: {
-          db.deleteObjectStore("temp");
+
+          db.createObjectStore("temp", {
+            keyPath: "id",
+            autoIncrement: true,
+          });
         }
         // eslint-disable-next-line no-fallthrough
         default:
@@ -35,47 +32,41 @@ const dbPromise = async () =>
     },
   });
 
-class DBService {
+class OfflineDBService {
   constructor(tablespace) {
     this.tablespace = tablespace;
   }
 
-  serverRequestSimulator = async (method, parameters) => {
-    try {
-      await checkConnection();
-      const db = await dbPromise(this.tablespace);
-      return await db
-        .transaction(this.tablespace, "readwrite")
-        .store[method](parameters);
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  };
-
   getByID = async (id) => {
-    return await this.serverRequestSimulator("get", id);
+    const db = await dbPromise(this.tablespace);
+    return await db.transaction(this.tablespace, "readwrite").store.get(id);
   };
 
   getAll = async () => {
-    return await this.serverRequestSimulator("getAll");
+    const db = await dbPromise(this.tablespace);
+    return await db.transaction(this.tablespace, "readwrite").store.getAll();
   };
 
   add = async (data) => {
     const { id: requestId } = data;
-    const id = await this.serverRequestSimulator("add", {
-      ...data,
-      id: requestId || uuidv4(),
-    });
+    const db = await dbPromise(this.tablespace);
+    const id = await db
+      .transaction(this.tablespace, "readwrite")
+      .store.add({ ...data, id: requestId || uuidv4() });
     return await this.getByID(id);
   };
 
   put = async ({ id, ...data }) => {
-    await this.serverRequestSimulator("put", { ...data, id });
+    const db = await dbPromise(this.tablespace);
+    await db
+      .transaction(this.tablespace, "readwrite")
+      .store.put({ ...data, id });
     return await this.getByID(id);
   };
 
   delete = async (id) => {
-    return await this.serverRequestSimulator("delete", id);
+    const db = await dbPromise(this.tablespace);
+    return await db.transaction(this.tablespace, "readwrite").store.delete(id);
   };
 
   clearAll = async () => {
@@ -93,13 +84,13 @@ class DBService {
     const tx = db.transaction(this.tablespace, "readwrite");
     return await Promise.all(
       data.map(
-        (item) =>
+        ({ id, ...item }) =>
           new Promise((resolve) => {
-            resolve(tx.store.add({ ...item, id: uuidv4() }));
+            resolve(tx.store.add({ ...item, id: id || uuidv4() }));
           })
       )
     );
   };
 }
 
-export default DBService;
+export default OfflineDBService;

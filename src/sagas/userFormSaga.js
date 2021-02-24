@@ -2,7 +2,7 @@ import { put, call, takeEvery, all } from "redux-saga/effects";
 import { usersService } from "../services/db/UsersService";
 
 import { showErrorNotification } from "../actions/notificationActions";
-import { userFormService } from "../services/db/UserFormService";
+import { userFormService } from "../services/offlineDb/UserFormService";
 import {
   CREATE_FIELDS_ERRORS,
   REMOVE_USER_FORM,

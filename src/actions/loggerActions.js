@@ -7,7 +7,21 @@ export const getLoggerEvents = () => ({
   type: TRIGGER_GET_LOGGER_EVENTS,
 });
 
-export const addLoggerEvent = (payload) => ({
+export const addLoggerEvent = ({
+  eventType = "",
+  data,
+  isSuccess = true,
+  date,
+  lastTry = new Date(),
+  isAwaitingDispatch = false,
+  error = "",
+}) => ({
   type: TRIGGER_ADD_LOGGER_EVENT,
-  payload,
+  eventType,
+  data,
+  isSuccess,
+  date,
+  lastTry,
+  isAwaitingDispatch,
+  error,
 });

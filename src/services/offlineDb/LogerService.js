@@ -1,6 +1,6 @@
-import DBService from "./index";
+import OfflineDBService from "./index";
 
-class LoggerService extends DBService {
+class LoggerService extends OfflineDBService {
   constructor() {
     super("logger");
   }

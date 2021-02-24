@@ -2,7 +2,7 @@ export const UPDATE_LOGGER_EVENTS = "UPDATE_LOGGER_EVENTS";
 
 const initialState = {
   events: [],
-  unsuccessfulEvents: [],
+  awaitingDispatch: [],
 };
 
 const loggerReducer = (state = initialState, { type, payload }) => {
