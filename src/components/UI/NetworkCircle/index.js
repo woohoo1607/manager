@@ -2,7 +2,7 @@ import React from "react";
 
 import "./styles.css";
 
-const statuses = ["online", "synchronization", "not-synchronized"];
+const statuses = ["online", "offline", "synchronization", "not-synchronized"];
 
 const NetworkCircle = ({ status = "offline" }) => {
   const currentStatus = statuses.includes(status) ? status : "offline";

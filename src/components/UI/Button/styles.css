@@ -27,6 +27,7 @@
 
 .button:disabled {
     background-color: var(--disabled-bg-color);
+    cursor: default;
 }
 
 .input-img {

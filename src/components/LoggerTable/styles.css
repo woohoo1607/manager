@@ -1,0 +1,9 @@
+.logger-table th, .logger-table td {
+    text-align: center;
+}
+
+.logger-table__button {
+    min-width: 0;
+    font-size: inherit;
+    padding: 0.5em 1em;
+}
