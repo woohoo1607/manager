@@ -58,8 +58,8 @@ const RowItem = ({
           <IconButton onClick={changeActiveRow(index)} icon="close" />
         )}
       </TableCell>
-      {isSelected && (
-        <TableCell style={{ maxWidth: 0, padding: 0 }}>
+      <TableCell style={{ maxWidth: 0, padding: 0 }}>
+        {isSelected && (
           <Button
             type="button"
             className="selected-row-button"
@@ -67,8 +67,8 @@ const RowItem = ({
           >
             x delete
           </Button>
-        </TableCell>
-      )}
+        )}
+      </TableCell>
     </TableRow>
   );
 };

@@ -42,23 +42,14 @@ const UsersTable = ({
     <Table ref={tableRef}>
       <TableHead>
         <TableRow>
-          <TableHeadCell
-            style={{ minWidth: "7.2%", maxWidth: "7.2%", width: "7.2%" }}
-          />
-          <TableHeadCell style={{ minWidth: "23.7%", maxWidth: "23.7%" }}>
-            name
-          </TableHeadCell>
-          <TableHeadCell style={{ minWidth: "20.6%", maxWidth: "20.6%" }}>
-            company
-          </TableHeadCell>
-          <TableHeadCell style={{ minWidth: "27.8%", maxWidth: "27.8%" }}>
-            contacts
-          </TableHeadCell>
-          <TableHeadCell style={{ minWidth: "13.2%", maxWidth: "13.2%" }}>
-            last update
-          </TableHeadCell>
-          <TableHeadCell style={{ minWidth: "3.75%", maxWidth: "3.75%" }} />
-          <TableHeadCell style={{ minWidth: "3.75%", maxWidth: "3.75%" }} />
+          <TableHeadCell style={{ width: "7.2%" }} />
+          <TableHeadCell style={{ width: "23.7%" }}>name</TableHeadCell>
+          <TableHeadCell style={{ width: "20.6%" }}>company</TableHeadCell>
+          <TableHeadCell style={{ width: "27.8%" }}>contacts</TableHeadCell>
+          <TableHeadCell style={{ width: "13.2%" }}>last update</TableHeadCell>
+          <TableHeadCell style={{ width: "3.75%" }} />
+          <TableHeadCell style={{ width: "3.75%" }} />
+          <TableHeadCell style={{ width: "0" }} />
         </TableRow>
       </TableHead>
       <TableBody>
