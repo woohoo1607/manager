@@ -1,21 +1,27 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { syncEvent } from "../../actions/loggerActions";
 
 import TableHead from "../UI/TableHead";
 import TableRow from "../UI/TableRow";
 import TableHeadCell from "../UI/TableHeadCell";
 import TableBody from "../UI/TableBody";
 import Table from "../UI/Table";
-import RowItem from "./RowItem";
 
+import RowItem from "./RowItem";
 import "./styles.css";
 
 const LoggerTable = () => {
+  const dispatch = useDispatch();
+
   const tableRef = useRef(null);
 
   const { events = [] } = useSelector(({ logger }) => logger);
 
   const [selectedEvents, setSelectedEvents] = useState(events);
+
+  const dispatchEvent = (event) => () => dispatch(syncEvent(event));
 
   useEffect(() => {
     setSelectedEvents(events.sort((a, b) => b.date - a.date));
@@ -36,7 +42,11 @@ const LoggerTable = () => {
       </TableHead>
       <TableBody>
         {selectedEvents.map(({ id, ...event }) => (
-          <RowItem key={id} {...event} />
+          <RowItem
+            key={id}
+            {...event}
+            handleClick={dispatchEvent({ ...event, id })}
+          />
         ))}
       </TableBody>
     </Table>

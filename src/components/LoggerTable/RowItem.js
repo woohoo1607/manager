@@ -23,6 +23,7 @@ const RowItem = ({
   date = "",
   lastTry = "",
   isAwaitingDispatch = false,
+  handleClick = () => {},
 }) => (
   <TableRow>
     <TableCell>{eventType}</TableCell>
@@ -36,7 +37,11 @@ const RowItem = ({
     <TableCell>{parseDate(lastTry)}</TableCell>
     <TableCell>{isAwaitingDispatch ? "true" : "false"}</TableCell>
     <TableCell>
-      <Button className="logger-table__button" disabled={!isAwaitingDispatch}>
+      <Button
+        className="logger-table__button"
+        disabled={!isAwaitingDispatch}
+        onClick={handleClick}
+      >
         retry
       </Button>
     </TableCell>

@@ -10,10 +10,27 @@ import { usersService } from "../services/db/UsersService";
 export const TRIGGER_GET_LOGGER_EVENTS = "TRIGGER_GET_LOGGER_EVENTS";
 export const TRIGGER_ADD_LOGGER_EVENT = "TRIGGER_ADD_LOGGER_EVENT";
 export const TRIGGER_SYNCHRONIZE_EVENTS = "TRIGGER_SYNCHRONIZE_EVENTS";
+export const TRIGGER_SYNCHRONIZE_EVENT = "TRIGGER_SYNCHRONIZE_EVENT";
 
 export const LOGGER_ADD_USER = "add user";
 export const LOGGER_UPDATE_USER = "update user";
 export const LOGGER_DELETE_USER = "delete user";
+
+const selectAction = ({ eventType = "", data = {} }) => {
+  switch (eventType) {
+    case LOGGER_ADD_USER: {
+      return { action: usersService.addUser, params: data };
+    }
+    case LOGGER_UPDATE_USER: {
+      return { action: usersService.updateUser, params: data };
+    }
+    case LOGGER_DELETE_USER: {
+      return { action: usersService.delete, params: data.id };
+    }
+    default:
+      throw new Error("unknown type");
+  }
+};
 
 export function* getLoggerEventsSaga() {
   try {
@@ -51,22 +68,8 @@ export function* synchronizeEventsSaga({ events = [] }) {
   try {
     for (let i = 0; i < events.length; i++) {
       try {
-        switch (events[i].eventType) {
-          case LOGGER_ADD_USER: {
-            yield call(usersService.addUser, events[i].data);
-            break;
-          }
-          case LOGGER_UPDATE_USER: {
-            yield call(usersService.updateUser, events[i].data);
-            break;
-          }
-          case LOGGER_DELETE_USER: {
-            yield call(usersService.delete, events[i].data.id);
-            break;
-          }
-          default:
-            throw new Error("unknown type");
-        }
+        const { action, params } = selectAction(events[i]);
+        yield call(action, params);
         const payload = {
           ...events[i],
           isSuccess: true,
@@ -95,10 +98,42 @@ export function* watchSynchronizeEventsSaga() {
   yield takeEvery(TRIGGER_SYNCHRONIZE_EVENTS, synchronizeEventsSaga);
 }
 
+export function* synchronizeEventSaga({ event = {} }) {
+  try {
+    yield put({ type: UPDATE_SYNCHRONIZATION_STATUS, payload: true });
+    const { action, params } = selectAction(event);
+    yield call(action, params);
+    const payload = {
+      ...event,
+      isSuccess: true,
+      isAwaitingDispatch: false,
+      lastTry: new Date(),
+      error: "",
+    };
+    yield call(loggerService.put, payload);
+
+    yield put({ type: TRIGGER_GET_LOGGER_EVENTS });
+  } catch ({ message }) {
+    const payload = {
+      ...event,
+      lastTry: new Date(),
+      error: message,
+    };
+    yield call(loggerService.put, payload);
+    yield put(showErrorNotification({ message }));
+  }
+  yield put({ type: UPDATE_SYNCHRONIZATION_STATUS, payload: false });
+}
+
+export function* watchSynchronizeEventSaga() {
+  yield takeEvery(TRIGGER_SYNCHRONIZE_EVENT, synchronizeEventSaga);
+}
+
 export default function* loggerEventsSaga() {
   yield all([
     watchGetLoggerEventsSaga(),
     watchAddLoggerEventSaga(),
     watchSynchronizeEventsSaga(),
+    watchSynchronizeEventSaga(),
   ]);
 }

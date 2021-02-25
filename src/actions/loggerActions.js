@@ -1,6 +1,7 @@
 import {
   TRIGGER_ADD_LOGGER_EVENT,
   TRIGGER_GET_LOGGER_EVENTS,
+  TRIGGER_SYNCHRONIZE_EVENT,
 } from "../sagas/loggerSaga";
 
 export const getLoggerEvents = () => ({
@@ -24,4 +25,9 @@ export const addLoggerEvent = ({
   lastTry,
   isAwaitingDispatch,
   error,
+});
+
+export const syncEvent = (event) => ({
+  type: TRIGGER_SYNCHRONIZE_EVENT,
+  event,
 });
