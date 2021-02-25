@@ -20,8 +20,6 @@ const getNetworkStatus = ({
   networkStatus: { isOnline } = { isOnline: false },
 }) => isOnline;
 
-const getUsers = ({ users: { users } = { users: [] } }) => users;
-
 export function* getUserFormSaga({
   meta: { redirect, path } = { redirect: () => {}, path: "" },
 }) {
