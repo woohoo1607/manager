@@ -101,7 +101,7 @@ export function* watchGetUserSaga() {
 export function* addUserSaga({ meta: { redirect, path }, user }) {
   try {
     yield put({ type: IS_LOADING, payload: true });
-    const res = yield call(usersService.addUser, user);
+    yield call(usersService.addUser, user);
     yield call(userFormService.clearAll);
     yield put({ type: TRIGGER_GET_USERS });
     yield put(showSuccessNotification({ message: "User added successfully" }));
@@ -112,7 +112,6 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
         date: new Date(),
       })
     );
-    offlineUsersService.add(res);
   } catch ({ message }) {
     const isOfflineError = message === FETCH_ERROR;
     yield put(
@@ -126,7 +125,7 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
       })
     );
     if (isOfflineError) {
-      yield call(offlineUsersService.addUser, user);
+      yield call(offlineUsersService.add, user);
       yield call(userFormService.clearAll);
       yield put({ type: TRIGGER_GET_USERS });
       yield put(
@@ -135,9 +134,9 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
     } else {
       yield put(showErrorNotification({ message }));
     }
-    yield call(redirect, path);
-    yield put({ type: IS_LOADING, payload: false });
   }
+  yield call(redirect, path);
+  yield put({ type: IS_LOADING, payload: false });
 }
 
 export function* watchAddUserSaga() {
@@ -204,7 +203,7 @@ export function* deleteUserSaga({ id }) {
     yield put(
       addLoggerEvent({
         eventType: LOGGER_DELETE_USER,
-        data: id,
+        data: { id },
         date: new Date(),
       })
     );
@@ -214,7 +213,7 @@ export function* deleteUserSaga({ id }) {
     yield put(
       addLoggerEvent({
         eventType: LOGGER_DELETE_USER,
-        data: id,
+        data: { id },
         date: new Date(),
         isAwaitingDispatch: isOfflineError,
         error: message,

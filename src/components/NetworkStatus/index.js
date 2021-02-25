@@ -16,11 +16,15 @@ const NetworkStatus = () => {
     dispatch,
   ]);
 
-  const { isOnline } = useSelector(({ networkStatus }) => networkStatus);
+  const { isOnline, isSynchronization } = useSelector(
+    ({ networkStatus }) => networkStatus
+  );
   const { awaitingDispatch } = useSelector(({ logger }) => logger);
 
   let status = isOnline ? "online" : "offline";
-  if (awaitingDispatch.length) {
+  if (isSynchronization) {
+    status = "synchronization";
+  } else if (awaitingDispatch.length) {
     status = "not-synchronized";
   }
 
