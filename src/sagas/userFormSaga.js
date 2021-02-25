@@ -1,4 +1,4 @@
-import { put, call, takeEvery, all } from "redux-saga/effects";
+import { put, call, takeEvery, all, select } from "redux-saga/effects";
 import { usersService } from "../services/db/UsersService";
 
 import { showErrorNotification } from "../actions/notificationActions";
@@ -9,11 +9,18 @@ import {
   UPDATE_AVAILABLE_STATUS,
   UPDATE_USER_FORM,
 } from "../reducers/userFormReducer";
+import { offlineUsersService } from "../services/offlineDb/OfflineUsersService";
 
 export const TRIGGER_GET_USER_FORM = "TRIGGER_GET_USER_FORM";
 export const TRIGGER_CHECK_USER_FORM = "TRIGGER_CHECK_USER_FORM";
 export const TRIGGER_UPDATE_USER_FORM = "TRIGGER_UPDATE_USER_FORM";
 export const TRIGGER_REMOVE_USER_FORM = "TRIGGER_REMOVE_USER_FORM";
+
+const getNetworkStatus = ({
+  networkStatus: { isOnline } = { isOnline: false },
+}) => isOnline;
+
+const getUsers = ({ users: { users } = { users: [] } }) => users;
 
 export function* getUserFormSaga({
   meta: { redirect, path } = { redirect: () => {}, path: "" },
@@ -57,28 +64,42 @@ export function* updateUserFormSaga({
   meta: { redirect, path } = { redirect: () => {}, path: "" },
 }) {
   try {
-    const { username, email } = userData;
-
-    if (username) {
-      const res = yield call(usersService.checkUsername, username);
-      if (res) {
+    const { username = "", email = "" } = userData;
+    const isOnline = yield select(getNetworkStatus);
+    if (!isOnline) {
+      const users = yield call(offlineUsersService.getAll);
+      const foundUser = users.find(
+        ({ username: foundedUsername, email: foundedEmail }) =>
+          foundedUsername === username || email === foundedEmail
+      );
+      if (foundUser) {
+        const fieldError =
+          foundUser.username === username ? "username" : "email";
         yield put({
           type: CREATE_FIELDS_ERRORS,
           payload: [
-            { fieldName: "username", error: "username already exists" },
+            { fieldName: fieldError, error: `${fieldError} already exists` },
           ],
         });
-        throw new Error("username already exists");
+        throw new Error(`${fieldError} already exists`);
       }
-    }
-    if (email) {
-      const res = yield call(usersService.checkEmail, email);
-      if (res) {
+    } else {
+      const errorFields = [];
+      const isExistUsername = Boolean(
+        yield call(usersService.checkUsername, username)
+      );
+      const isExistEmail = yield call(usersService.checkEmail, email);
+      isExistUsername ? errorFields.push("username") : errorFields.push();
+      isExistEmail ? errorFields.push("email") : errorFields.push();
+      if (errorFields.length) {
         yield put({
           type: CREATE_FIELDS_ERRORS,
-          payload: [{ fieldName: "email", error: "email already exists" }],
+          payload: errorFields.map((name) => ({
+            fieldName: name,
+            error: `${name} already exists`,
+          })),
         });
-        throw new Error("email already exists");
+        throw new Error(`${errorFields.join(", ")} already exists`);
       }
     }
     const res = yield call(userFormService.addData, userData);
