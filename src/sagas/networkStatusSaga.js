@@ -25,7 +25,10 @@ export function* checkNetworkSaga() {
     const isSynchronization = yield select(getSynchronizationStatus);
     if (awaitingDispatch.length && !isSynchronization) {
       yield put({ type: UPDATE_SYNCHRONIZATION_STATUS, payload: true });
-      yield put({ type: TRIGGER_SYNCHRONIZE_EVENTS, events: awaitingDispatch });
+      yield put({
+        type: TRIGGER_SYNCHRONIZE_EVENTS,
+        events: awaitingDispatch.sort((a, b) => b.date - a.date),
+      });
     }
     yield put({ type: UPDATE_NETWORK_STATUS, payload: true });
   } catch (err) {
