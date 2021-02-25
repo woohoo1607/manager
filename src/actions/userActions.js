@@ -6,7 +6,7 @@ import {
   TRIGGER_REMOVE_USER,
   TRIGGER_UPDATE_USER,
 } from "../sagas/usersSagas";
-import { REMOVE_ERROR } from "../reducers/usersReducer";
+import { GET_USERS, REMOVE_ERROR } from "../reducers/usersReducer";
 import { removeUnnecessaryUserProperties } from "./actionsHelper";
 
 export const getUsers = () => ({
@@ -41,4 +41,9 @@ export const generateUsers = (count = 50) => ({
 
 export const removeUsersError = () => ({
   type: REMOVE_ERROR,
+});
+
+export const clearUsersState = () => ({
+  type: GET_USERS,
+  payload: [],
 });

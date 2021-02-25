@@ -1,6 +1,9 @@
 import { put, call, takeEvery, all } from "redux-saga/effects";
 
-import { showErrorNotification } from "../actions/notificationActions";
+import {
+  showErrorNotification,
+  showSuccessNotification,
+} from "../actions/notificationActions";
 import { loggerService } from "../services/offlineDb/LogerService";
 
 import { UPDATE_LOGGER_EVENTS } from "../reducers/loggerReducer";
@@ -11,6 +14,7 @@ export const TRIGGER_GET_LOGGER_EVENTS = "TRIGGER_GET_LOGGER_EVENTS";
 export const TRIGGER_ADD_LOGGER_EVENT = "TRIGGER_ADD_LOGGER_EVENT";
 export const TRIGGER_SYNCHRONIZE_EVENTS = "TRIGGER_SYNCHRONIZE_EVENTS";
 export const TRIGGER_SYNCHRONIZE_EVENT = "TRIGGER_SYNCHRONIZE_EVENT";
+export const TRIGGER_REMOVE_LOGGER_EVENTS = "TRIGGER_REMOVE_LOGGER_EVENTS";
 
 export const LOGGER_ADD_USER = "add user";
 export const LOGGER_UPDATE_USER = "update user";
@@ -111,8 +115,8 @@ export function* synchronizeEventSaga({ event = {} }) {
       error: "",
     };
     yield call(loggerService.put, payload);
-
     yield put({ type: TRIGGER_GET_LOGGER_EVENTS });
+    yield put(showSuccessNotification({ message: "sync success" }));
   } catch ({ message }) {
     const payload = {
       ...event,
@@ -129,11 +133,28 @@ export function* watchSynchronizeEventSaga() {
   yield takeEvery(TRIGGER_SYNCHRONIZE_EVENT, synchronizeEventSaga);
 }
 
+export function* removeLoggerEventsSaga() {
+  try {
+    yield call(loggerService.clearAll);
+    yield put({ type: TRIGGER_GET_LOGGER_EVENTS });
+    yield put(
+      showSuccessNotification({ message: "Logs removed successfully" })
+    );
+  } catch ({ message }) {
+    yield put(showErrorNotification({ message }));
+  }
+}
+
+export function* watchRemoveLoggerEventsSaga() {
+  yield takeEvery(TRIGGER_REMOVE_LOGGER_EVENTS, removeLoggerEventsSaga);
+}
+
 export default function* loggerEventsSaga() {
   yield all([
     watchGetLoggerEventsSaga(),
     watchAddLoggerEventSaga(),
     watchSynchronizeEventsSaga(),
     watchSynchronizeEventSaga(),
+    watchRemoveLoggerEventsSaga(),
   ]);
 }

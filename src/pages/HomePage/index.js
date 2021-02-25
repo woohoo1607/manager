@@ -2,7 +2,11 @@ import React, { useEffect, useCallback, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { deleteUser, getUsers } from "../../actions/userActions";
+import {
+  clearUsersState,
+  deleteUser,
+  getUsers,
+} from "../../actions/userActions";
 
 import TemplatePage from "../../components/TemplatePage";
 import UsersTable from "../../components/UsersTable";
@@ -43,6 +47,7 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   const fetchUsers = useCallback(() => dispatch(getUsers()), [dispatch]);
+  const clearUsers = useCallback(() => dispatch(clearUsersState()), [dispatch]);
 
   const createNewUser = () => push(`/users/new`);
 
@@ -71,7 +76,10 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, [fetchUsers]);
+    return () => {
+      clearUsers();
+    };
+  }, [fetchUsers, clearUsers]);
 
   useEffect(() => {
     if (!querySearch && usersFound.length !== users.length) {

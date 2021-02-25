@@ -1,6 +1,7 @@
 import {
   TRIGGER_ADD_LOGGER_EVENT,
   TRIGGER_GET_LOGGER_EVENTS,
+  TRIGGER_REMOVE_LOGGER_EVENTS,
   TRIGGER_SYNCHRONIZE_EVENT,
 } from "../sagas/loggerSaga";
 
@@ -30,4 +31,8 @@ export const addLoggerEvent = ({
 export const syncEvent = (event) => ({
   type: TRIGGER_SYNCHRONIZE_EVENT,
   event,
+});
+
+export const removeLogs = () => ({
+  type: TRIGGER_REMOVE_LOGGER_EVENTS,
 });

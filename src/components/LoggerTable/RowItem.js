@@ -13,7 +13,7 @@ const DataItem = ({ title = "", value }) => (
 );
 
 const parseDate = (date) =>
-  dayjs(date).isValid() ? dayjs(date).format("DD.MM.YYYY hh:mm:ss") : "";
+  dayjs(date).isValid() ? dayjs(date).format("DD.MM.YYYY HH:mm:ss") : "";
 
 const RowItem = ({
   eventType = "",
