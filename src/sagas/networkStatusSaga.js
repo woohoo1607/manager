@@ -27,7 +27,7 @@ export function* checkNetworkSaga() {
       yield put({ type: UPDATE_SYNCHRONIZATION_STATUS, payload: true });
       yield put({
         type: TRIGGER_SYNCHRONIZE_EVENTS,
-        events: awaitingDispatch.sort((a, b) => b.date - a.date),
+        events: awaitingDispatch.sort((a, b) => a.date - b.date),
       });
     }
     yield put({ type: UPDATE_NETWORK_STATUS, payload: true });
