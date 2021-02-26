@@ -161,23 +161,51 @@ export function* updateUserSaga({ user }) {
     offlineUsersService.put(user);
   } catch ({ message }) {
     const isOfflineError = message === FETCH_ERROR;
-    yield put(
-      addLoggerEvent({
-        eventType: LOGGER_UPDATE_USER,
-        data: user,
-        date: new Date(),
-        isAwaitingDispatch: isOfflineError,
-        error: message,
-        isSuccess: false,
-      })
-    );
+
     if (isOfflineError) {
-      yield call(offlineUsersService.put, user);
-      yield put({ type: UPDATE_USER, payload: user });
+      const errorFields = yield call(offlineUsersService.validate, user) || [];
+      if (errorFields.length) {
+        yield put({
+          type: CREATE_FIELDS_ERRORS,
+          payload: errorFields.map((name) => ({
+            fieldName: name,
+            error: `${name} already exists`,
+          })),
+        });
+        yield put(
+          showErrorNotification({
+            message: `${errorFields.join(", ")} already exists`,
+          })
+        );
+      } else {
+        yield call(offlineUsersService.put, user);
+        yield put({ type: UPDATE_USER, payload: user });
+        yield put(
+          showSuccessNotification({ message: "User updated successfully" })
+        );
+      }
       yield put(
-        showSuccessNotification({ message: "User updated successfully" })
+        addLoggerEvent({
+          eventType: LOGGER_UPDATE_USER,
+          data: user,
+          date: new Date(),
+          isAwaitingDispatch: !Boolean(errorFields.length),
+          error: errorFields.length
+            ? `${errorFields.join(", ")} already exists`
+            : message,
+          isSuccess: false,
+        })
       );
     } else {
+      yield put(
+        addLoggerEvent({
+          eventType: LOGGER_UPDATE_USER,
+          data: user,
+          date: new Date(),
+          error: message,
+          isSuccess: false,
+        })
+      );
       yield put({
         type: CREATE_FIELDS_ERRORS,
         payload: [{ fieldName: message.split(" ")[0], error: message }],

@@ -44,9 +44,14 @@ class DBService {
     try {
       await checkConnection();
       const db = await dbPromise(this.tablespace);
-      return await db
-        .transaction(this.tablespace, "readwrite")
-        .store[method](parameters);
+      if (method === "getFromIndex") {
+        const { index, query } = parameters;
+        return await db.getFromIndex(this.tablespace, index, query);
+      } else {
+        return await db
+          .transaction(this.tablespace, "readwrite")
+          .store[method](parameters);
+      }
     } catch (error) {
       throw new Error(error.message);
     }
@@ -84,8 +89,7 @@ class DBService {
   };
 
   getFromIndex = async ({ index, query }) => {
-    const db = await dbPromise(this.tablespace);
-    return await db.getFromIndex(this.tablespace, index, query);
+    return await this.serverRequestSimulator("getFromIndex", { index, query });
   };
 
   import = async (data) => {
