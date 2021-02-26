@@ -6,10 +6,10 @@ import Button from "../UI/Button";
 import TableRow from "../UI/TableRow";
 
 const DataItem = ({ title = "", value }) => (
-  <p>
+  <>
     <span style={{ fontWeight: "bold" }}>{title}:</span> {JSON.stringify(value)}
     <br />
-  </p>
+  </>
 );
 
 const parseDate = (date) =>
@@ -28,9 +28,11 @@ const RowItem = ({
   <TableRow>
     <TableCell>{eventType}</TableCell>
     <TableCell style={{ textAlign: "start" }}>
-      {Object.entries(data).map(([title, value]) => (
-        <DataItem key={title} title={title} value={value} />
-      ))}
+      <p className="high-cell">
+        {Object.entries(data).map(([title, value]) => (
+          <DataItem key={title} title={title} value={value} />
+        ))}
+      </p>
     </TableCell>
     <TableCell>{isSuccess ? "success" : `fail / ${error}`}</TableCell>
     <TableCell>{parseDate(date)}</TableCell>
