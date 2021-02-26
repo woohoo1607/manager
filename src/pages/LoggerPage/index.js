@@ -12,9 +12,9 @@ import TemplatePage from "../../components/TemplatePage";
 import LoggerTable from "../../components/LoggerTable";
 import NetworkStatusesList from "../../components/UI/NetworkStatusesList";
 import Paginator from "../../components/Paginator";
+import Button from "../../components/UI/Button";
 
 import "./styles.css";
-import Button from "../../components/UI/Button";
 
 const NUMBER_OF_EVENTS_TO_SHOW = 10;
 
@@ -26,8 +26,7 @@ const LoggerPage = () => {
 
   const dispatch = useDispatch();
 
-  const query = useMemo(() => new URLSearchParams(search), [search]);
-  const queryPage = query.get("page") || 1;
+  const queryPage = new URLSearchParams(search).get("page") || 1;
 
   const fetchLoggerEvents = useCallback(() => dispatch(getLoggerEvents()), [
     dispatch,

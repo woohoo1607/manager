@@ -2,9 +2,9 @@ import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { checkNetwork } from "../../actions/networkStatusActions";
+import { getLoggerEvents } from "../../actions/loggerActions";
 
 import NetworkCircle from "../UI/NetworkCircle";
-import { getLoggerEvents } from "../../actions/loggerActions";
 
 const NetworkStatus = () => {
   const dispatch = useDispatch();
