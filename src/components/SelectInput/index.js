@@ -24,18 +24,24 @@ const SelectInput = ({
   const customStyles = {
     control: (provided, state) => {
       let borderColor =
-        (isError && "#EB5757") || (state.isFocused && "#A1C4FF") || "#C1CFE0";
+        (isError && `var(--error-color)`) ||
+        (state.isFocused && "#A1C4FF") ||
+        "#C1CFE0";
       return {
         ...provided,
         border: `1px solid ${borderColor}`,
         borderRadius: 0,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "var(--application-background)",
         minHeight: "40px",
         boxShadow: "none",
         margin: "5px 0 2px 0",
         "&:hover": { border: `1px solid ${borderColor}` },
       };
     },
+    singleValue: (base) => ({
+      ...base,
+      color: "inherit",
+    }),
     valueContainer: (base) => ({
       ...base,
       minHeight: "40px",
@@ -50,6 +56,7 @@ const SelectInput = ({
       ...base,
       fontWeight: "bold",
       margin: 0,
+      color: "inherit",
       "& div": {
         width: isMulti ? "inherit" : "100%",
       },
@@ -59,12 +66,12 @@ const SelectInput = ({
     }),
     multiValue: (base) => ({
       ...base,
-      color: "#9BB0CB",
-      backgroundColor: "#E7F0FF",
+      color: "var(--secondary-text-color)",
+      backgroundColor: "var(--secondary-bg-color)",
     }),
     multiValueLabel: (base) => ({
       ...base,
-      color: "#9BB0CB",
+      color: "var(--secondary-text-color)",
       fontSize: "12px",
       fontFamily: "Roboto",
     }),
@@ -76,9 +83,10 @@ const SelectInput = ({
     menuList: (base) => ({
       ...base,
       height: menuListHeight,
-      color: "#657C9A",
+      color: "var(--secondary-text-color--darked)",
       paddingTop: 0,
       paddingBottom: 0,
+      background: "var(--application-background)",
       "::-webkit-scrollbar": {
         width: "2px",
       },
@@ -86,19 +94,24 @@ const SelectInput = ({
         background: "none",
       },
       "::-webkit-scrollbar-thumb": {
-        background: "#C1CFE0",
+        background: "var(--disabled-bg-color)",
         borderRadius: "29px",
       },
     }),
     option: (provided, { isSelected, isFocused }) => ({
       ...provided,
-      color: "#657C9A",
+      color: "var(--secondary-text-color--darked)",
       fontFamily: "Roboto",
-      backgroundColor: isSelected ? "#E7F0FF" : isFocused ? "#E7F0FF" : null,
+      backgroundColor: isSelected
+        ? "var(--secondary-bg-color)"
+        : isFocused
+        ? "var(--secondary-bg-color)"
+        : null,
     }),
     clearIndicator: (base) => ({
       ...base,
       position: "absolute",
+      cursor: "pointer",
     }),
   };
 

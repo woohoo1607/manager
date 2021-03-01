@@ -5,6 +5,7 @@ import { ReactComponent as AddUser } from "../../icons/add-users.svg";
 import { ReactComponent as ListOfUsers } from "../../icons/list-of-users.svg";
 import logo from "./Logo.png";
 import NetworkStatus from "../NetworkStatus";
+import ThemeSwitcher from "../ThemeSwitcher";
 
 import "./styles.css";
 
@@ -56,6 +57,9 @@ const Header = () => {
                 <NavLink to={{ pathname: "/logger" }} className={`menu-link`}>
                   <NetworkStatus />
                 </NavLink>
+              </li>
+              <li className="header-menu-item">
+                <ThemeSwitcher />
               </li>
             </ul>
           </nav>

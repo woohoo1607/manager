@@ -24,13 +24,13 @@
     border: none;
     font-size: 24px;
     font-weight: bold;
-    background: #EAF1FD;
+    background: var(--secondary-button-bg-color);
     padding: 16px 0;
     color: var(--main-text-color);
 }
 
 .step-wizard-menu__button:hover:enabled {
-    background: #82C1FA;
+    background: var(--main-hover-color);
     color: #FFFFFF;
 }
 

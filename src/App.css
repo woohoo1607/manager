@@ -72,12 +72,13 @@ body {
 
 /*-------------------------------------     fonts*/
 
-:root {
+.light {
   --primary-bg-color--lighter: #4E86E4;
   --primary-bg-color: #5E97F3;
   --secondary-bg-color: #E7F0FF;
   --secondary-bg-color--lighter: #FAFCFF;
   --disabled-bg-color: #C1CFE0;
+  --secondary-button-bg-color: #EAF1FD;
 
   --main-text-color: #475666;
   --main-text-color--dark: #000000;
@@ -89,8 +90,43 @@ body {
   --error-color--lighter: #FF8989;
   --success-color: #4EE4A5;
 
+  --main-hover-color: #82C1FA;
+
   --main-gradient: radial-gradient(50% 28800% at 50% 68.33%, #4E86E4 0%, #2F68C8 100%);
 
+  --application-background: #FFFFFF;
+
+}
+
+.dark {
+  --primary-bg-color--lighter: #333333;
+  --primary-bg-color: #E9A800;
+  --secondary-bg-color: #444444;
+  --secondary-bg-color--lighter: #555555;
+  --disabled-bg-color: rgba(255, 255, 255, 0.12);
+  --secondary-button-bg-color: #FAC94A;
+
+  --main-text-color: #FFFFFF;
+  --main-text-color--dark: #F1C760;
+  --secondary-text-color: #D2C9B2;
+  --secondary-text-color--darked: #E4E4E4;
+  --disabled-text-color: rgba(255, 255, 255, 0.3);
+
+  --error-color: #F48FB1;
+  --error-color--lighter: #FF8989;
+  --success-color: #4CAF50;
+
+  --main-hover-color: #F6BA27;
+
+  --main-gradient: radial-gradient(circle, rgba(22,22,22,1) 0%, rgba(68,68,68,1) 35%, rgba(22,22,22,1) 100%);
+
+  --application-background: #121212;
+  color: #FFFFFF;
+
+}
+
+body {
+  background-color: var(--application-background);
 }
 
 .App {
@@ -98,6 +134,8 @@ body {
   font-style: normal;
   font-weight: 500;
   color: var(--main-text-color);
+  background: var(--application-background);
+  min-height: 100%;
 }
 
 .center {
