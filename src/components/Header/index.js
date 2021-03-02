@@ -26,30 +26,30 @@ const Header = () => {
           <nav className="header-menu">
             <ul className="header-menu-list">
               <li className="header-menu-item">
-                <AddUser
-                  id="add-user-icon"
-                  className={`header-icon ${
-                    !isAddUserFlow ? "header-icon-active" : ""
-                  }`}
-                />
                 <NavLink
                   to={{ pathname: "/users/new" }}
-                  className={`menu-link ${!isAddUserFlow ? "active-link" : ""}`}
+                  className={`menu-link ${isAddUserFlow ? "active-link" : ""}`}
                 >
+                  <AddUser
+                    id="add-user-icon"
+                    className={`header-icon ${
+                      isAddUserFlow ? "header-icon-active" : ""
+                    }`}
+                  />
                   Add new user
                 </NavLink>
               </li>
               <li className="header-menu-item">
-                <ListOfUsers
-                  id="list-of-users-icon"
-                  className={`header-icon ${
-                    isAddUserFlow ? "header-icon-active" : ""
-                  }`}
-                />
                 <NavLink
                   to={{ pathname: "/" }}
-                  className={`menu-link ${isAddUserFlow ? "active-link" : ""}`}
+                  className={`menu-link ${!isAddUserFlow ? "active-link" : ""}`}
                 >
+                  <ListOfUsers
+                    id="list-of-users-icon"
+                    className={`header-icon ${
+                      !isAddUserFlow ? "header-icon-active" : ""
+                    }`}
+                  />
                   List of users
                 </NavLink>
               </li>
