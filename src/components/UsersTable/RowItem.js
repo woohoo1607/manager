@@ -1,6 +1,6 @@
 import React from "react";
-import * as dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+
+import { getRelativeTime } from "../../helpers/dateHelper";
 
 import TableRow from "../UI/TableRow";
 import TableCell from "../UI/TableCell";
@@ -26,8 +26,6 @@ const RowItem = ({
   changeActiveRow = () => {},
   goToUserPage = () => {},
 }) => {
-  dayjs.extend(relativeTime);
-
   const isSelected = index === selectedRow;
 
   return (
@@ -49,7 +47,7 @@ const RowItem = ({
       </TableCell>
       <TableCell>{company}</TableCell>
       <TableCell>{phones[0] || email}</TableCell>
-      <TableCell>{`${dayjs(lastUpdate).fromNow(true)} ago`}</TableCell>
+      <TableCell>{getRelativeTime(lastUpdate)}</TableCell>
       <TableCell>
         {!isSelected && <IconButton onClick={goToUserPage(id)} icon="edit" />}
       </TableCell>

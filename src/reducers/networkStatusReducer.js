@@ -1,9 +1,11 @@
 export const UPDATE_NETWORK_STATUS = "UPDATE_NETWORK_STATUS";
 export const UPDATE_SYNCHRONIZATION_STATUS = "UPDATE_SYNCHRONIZATION_STATUS";
+export const UPDATE_LAST_SUCCESS_CONNECTION = "UPDATE_LAST_SUCCESS_CONNECTION";
 
 const initialState = {
   isOnline: false,
   isSynchronization: false,
+  lastSuccessConnection: null,
 };
 
 const networkStatusReducer = (state = initialState, { type, payload }) => {
@@ -18,6 +20,12 @@ const networkStatusReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isSynchronization: payload,
+      };
+    }
+    case UPDATE_LAST_SUCCESS_CONNECTION: {
+      return {
+        ...state,
+        lastSuccessConnection: payload,
       };
     }
     default:
