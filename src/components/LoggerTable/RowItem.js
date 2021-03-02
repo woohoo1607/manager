@@ -1,5 +1,6 @@
 import React from "react";
-import * as dayjs from "dayjs";
+
+import { parseDate } from "../../helpers/dateHelper";
 
 import TableCell from "../UI/TableCell";
 import Button from "../UI/Button";
@@ -11,9 +12,6 @@ const DataItem = ({ title = "", value }) => (
     <br />
   </>
 );
-
-const parseDate = (date) =>
-  dayjs(date).isValid() ? dayjs(date).format("DD.MM.YYYY HH:mm:ss") : "";
 
 const RowItem = ({
   eventType = "",
@@ -35,8 +33,8 @@ const RowItem = ({
       </p>
     </TableCell>
     <TableCell>{isSuccess ? "success" : `fail / ${error}`}</TableCell>
-    <TableCell>{parseDate(date)}</TableCell>
-    <TableCell>{parseDate(lastTry)}</TableCell>
+    <TableCell>{parseDate({ date })}</TableCell>
+    <TableCell>{parseDate({ date: lastTry })}</TableCell>
     <TableCell>{isAwaitingDispatch ? "true" : "false"}</TableCell>
     <TableCell>
       <Button

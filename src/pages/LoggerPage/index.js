@@ -7,6 +7,7 @@ import {
   removeLogs,
   syncEvent,
 } from "../../actions/loggerActions";
+import { getRelativeTime } from "../../helpers/dateHelper";
 
 import TemplatePage from "../../components/TemplatePage";
 import LoggerTable from "../../components/LoggerTable";
@@ -35,6 +36,9 @@ const LoggerPage = () => {
   const removeLoggerEvents = () => dispatch(removeLogs());
 
   const { events = [] } = useSelector(({ logger }) => logger);
+  const { lastSuccessConnection = null } = useSelector(
+    ({ networkStatus }) => networkStatus
+  );
 
   const [selectedEvents, setSelectedEvents] = useState(events);
   const [offset, setOffset] = useState(queryPage - 1);
@@ -68,6 +72,12 @@ const LoggerPage = () => {
     <TemplatePage title="Logger">
       <div className="logger-page">
         <NetworkStatusesList />
+        <div className="last-connection">
+          <p>
+            <span>Last success connection:</span>{" "}
+            {getRelativeTime(lastSuccessConnection)}
+          </p>
+        </div>
         <LoggerTable events={selectedEvents} dispatchEvent={dispatchEvent} />
         {!events.length && (
           <div className="empty-logger">There are no events here</div>
