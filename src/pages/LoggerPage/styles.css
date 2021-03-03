@@ -1,0 +1,29 @@
+.logger-page {
+    margin-bottom: 50px;
+}
+
+.empty-logger {
+    padding: 200px 0;
+    text-align: center;
+    color: var(--secondary-text-color);
+    font-size: 24px;
+}
+
+.logger-page__button {
+    margin-top: 20px;
+}
+
+.last-connection {
+    margin: 0 0 15px 15px;
+}
+
+.last-connection span {
+    font-weight: bold;
+}
+
+@media screen and (max-width: 767px) {
+    .empty-logger {
+        padding: 100px 0;
+        font-size: 18px;
+    }
+}

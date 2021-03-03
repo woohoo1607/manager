@@ -1,0 +1,13 @@
+.network-statuses {
+    padding: 15px;
+}
+
+.network-status {
+    display: flex;
+    align-items: center;
+}
+
+.network-status__description {
+    margin-left: 0.5em;
+    font-size: 16px;
+}

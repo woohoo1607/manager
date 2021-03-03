@@ -4,6 +4,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { ReactComponent as AddUser } from "../../icons/add-users.svg";
 import { ReactComponent as ListOfUsers } from "../../icons/list-of-users.svg";
 import logo from "./Logo.png";
+import NetworkStatus from "../NetworkStatus";
 
 import "./styles.css";
 
@@ -49,6 +50,11 @@ const Header = () => {
                   className={`menu-link ${isAddUserFlow ? "active-link" : ""}`}
                 >
                   List of users
+                </NavLink>
+              </li>
+              <li className="header-menu-item">
+                <NavLink to={{ pathname: "/logger" }} className="menu-link">
+                  <NetworkStatus />
                 </NavLink>
               </li>
             </ul>

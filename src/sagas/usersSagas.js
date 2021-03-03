@@ -8,7 +8,8 @@ import {
 } from "../reducers/usersReducer";
 import { CREATE_FIELDS_ERRORS } from "../reducers/userFormReducer";
 import { usersService } from "../services/db/UsersService";
-import { userFormService } from "../services/db/UserFormService";
+import { userFormService } from "../services/offlineDb/UserFormService";
+import { offlineUsersService } from "../services/offlineDb/OfflineUsersService";
 
 import {
   showErrorNotification,
@@ -18,6 +19,12 @@ import {
   generateAvatar,
   generateFakeAccounts,
 } from "../helpers/generateAccount";
+import { addLoggerEvent } from "../actions/loggerActions";
+import {
+  LOGGER_ADD_USER,
+  LOGGER_DELETE_USER,
+  LOGGER_UPDATE_USER,
+} from "./loggerSaga";
 
 export const TRIGGER_GET_USERS = "TRIGGER_GET_USERS";
 export const TRIGGER_GET_USER = "TRIGGER_GET_USER";
@@ -25,6 +32,8 @@ export const TRIGGER_ADD_USER = "TRIGGER_ADD_USER";
 export const TRIGGER_REMOVE_USER = "TRIGGER_REMOVE_USER";
 export const TRIGGER_UPDATE_USER = "TRIGGER_UPDATE_USER";
 export const TRIGGER_GENERATE_USERS = "TRIGGER_GENERATE_USERS";
+
+export const FETCH_ERROR = "Failed to fetch";
 
 export function* getUsersSaga() {
   try {
@@ -34,8 +43,18 @@ export function* getUsersSaga() {
       type: GET_USERS,
       payload: users,
     });
+    offlineUsersService.synchronization(users);
   } catch ({ message }) {
-    yield put(showErrorNotification({ message }));
+    const isOfflineError = message === FETCH_ERROR;
+    if (isOfflineError) {
+      const users = yield call(offlineUsersService.getAll);
+      yield put({
+        type: GET_USERS,
+        payload: users,
+      });
+    } else {
+      yield put(showErrorNotification({ message }));
+    }
   }
   yield put({ type: IS_LOADING, payload: false });
 }
@@ -57,7 +76,20 @@ export function* getUserSaga({ id }) {
       });
     }
   } catch ({ message }) {
-    yield put(showErrorNotification({ message }));
+    const isOfflineError = message === FETCH_ERROR;
+    if (isOfflineError) {
+      const res = yield call(offlineUsersService.getByID, id);
+      if (res) {
+        yield put({ type: UPDATE_USER, payload: res });
+      } else {
+        yield put({
+          type: CREATE_ERROR,
+          payload: { errorStatusCode: 404, errorMessage: "User not found" },
+        });
+      }
+    } else {
+      yield put(showErrorNotification({ message }));
+    }
   }
   yield put({ type: IS_LOADING, payload: false });
 }
@@ -73,11 +105,38 @@ export function* addUserSaga({ meta: { redirect, path }, user }) {
     yield call(userFormService.clearAll);
     yield put({ type: TRIGGER_GET_USERS });
     yield put(showSuccessNotification({ message: "User added successfully" }));
-    yield call(redirect, path);
+    yield put(
+      addLoggerEvent({
+        eventType: LOGGER_ADD_USER,
+        data: user,
+        date: new Date(),
+      })
+    );
   } catch ({ message }) {
-    yield put(showErrorNotification({ message }));
-    yield put({ type: IS_LOADING, payload: false });
+    const isOfflineError = message === FETCH_ERROR;
+    yield put(
+      addLoggerEvent({
+        eventType: LOGGER_ADD_USER,
+        data: user,
+        date: new Date(),
+        isAwaitingDispatch: isOfflineError,
+        error: message,
+        isSuccess: false,
+      })
+    );
+    if (isOfflineError) {
+      yield call(offlineUsersService.add, user);
+      yield call(userFormService.clearAll);
+      yield put({ type: TRIGGER_GET_USERS });
+      yield put(
+        showSuccessNotification({ message: "User added successfully" })
+      );
+    } else {
+      yield put(showErrorNotification({ message }));
+    }
   }
+  yield call(redirect, path);
+  yield put({ type: IS_LOADING, payload: false });
 }
 
 export function* watchAddUserSaga() {
@@ -92,12 +151,67 @@ export function* updateUserSaga({ user }) {
     yield put(
       showSuccessNotification({ message: "User updated successfully" })
     );
+    yield put(
+      addLoggerEvent({
+        eventType: LOGGER_UPDATE_USER,
+        data: user,
+        date: new Date(),
+      })
+    );
+    offlineUsersService.put(user);
   } catch ({ message }) {
-    yield put({
-      type: CREATE_FIELDS_ERRORS,
-      payload: [{ fieldName: message.split(" ")[0], error: message }],
-    });
-    yield put(showErrorNotification({ message }));
+    const isOfflineError = message === FETCH_ERROR;
+
+    if (isOfflineError) {
+      const errorFields = yield call(offlineUsersService.validate, user) || [];
+      if (errorFields.length) {
+        yield put({
+          type: CREATE_FIELDS_ERRORS,
+          payload: errorFields.map((name) => ({
+            fieldName: name,
+            error: `${name} already exists`,
+          })),
+        });
+        yield put(
+          showErrorNotification({
+            message: `${errorFields.join(", ")} already exists`,
+          })
+        );
+      } else {
+        yield call(offlineUsersService.put, user);
+        yield put({ type: UPDATE_USER, payload: user });
+        yield put(
+          showSuccessNotification({ message: "User updated successfully" })
+        );
+      }
+      yield put(
+        addLoggerEvent({
+          eventType: LOGGER_UPDATE_USER,
+          data: user,
+          date: new Date(),
+          isAwaitingDispatch: !Boolean(errorFields.length),
+          error: errorFields.length
+            ? `${errorFields.join(", ")} already exists`
+            : message,
+          isSuccess: false,
+        })
+      );
+    } else {
+      yield put(
+        addLoggerEvent({
+          eventType: LOGGER_UPDATE_USER,
+          data: user,
+          date: new Date(),
+          error: message,
+          isSuccess: false,
+        })
+      );
+      yield put({
+        type: CREATE_FIELDS_ERRORS,
+        payload: [{ fieldName: message.split(" ")[0], error: message }],
+      });
+      yield put(showErrorNotification({ message }));
+    }
   }
   yield put({ type: IS_LOADING, payload: false });
 }
@@ -114,8 +228,35 @@ export function* deleteUserSaga({ id }) {
     yield put(
       showSuccessNotification({ message: "User deleted successfully" })
     );
+    yield put(
+      addLoggerEvent({
+        eventType: LOGGER_DELETE_USER,
+        data: { id },
+        date: new Date(),
+      })
+    );
+    offlineUsersService.delete(id);
   } catch ({ message }) {
-    yield put(showErrorNotification({ message }));
+    const isOfflineError = message === FETCH_ERROR;
+    yield put(
+      addLoggerEvent({
+        eventType: LOGGER_DELETE_USER,
+        data: { id },
+        date: new Date(),
+        isAwaitingDispatch: isOfflineError,
+        error: message,
+        isSuccess: false,
+      })
+    );
+    if (isOfflineError) {
+      yield call(offlineUsersService.delete, id);
+      yield put({ type: TRIGGER_GET_USERS });
+      yield put(
+        showSuccessNotification({ message: "User deleted successfully" })
+      );
+    } else {
+      yield put(showErrorNotification({ message }));
+    }
     yield put({ type: IS_LOADING, payload: false });
   }
 }

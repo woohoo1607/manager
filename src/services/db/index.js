@@ -1,8 +1,9 @@
 import { openDB } from "idb";
 import { v4 as uuidv4 } from "uuid";
+import { checkConnection } from "../../api";
 
 const DATABASE_NAME = "manager";
-const DATABASE_VERSION = 2;
+const DATABASE_VERSION = 3;
 
 const dbPromise = async () =>
   await openDB(DATABASE_NAME, DATABASE_VERSION, {
@@ -18,10 +19,14 @@ const dbPromise = async () =>
         // eslint-disable-next-line no-fallthrough
         case 1: {
           transaction.objectStore("users").createIndex("email", "email");
-          db.createObjectStore("temp", {
+          await db.createObjectStore("temp", {
             keyPath: "id",
             autoIncrement: true,
           });
+        }
+        // eslint-disable-next-line no-fallthrough
+        case 2: {
+          db.deleteObjectStore("temp");
         }
         // eslint-disable-next-line no-fallthrough
         default:
@@ -35,35 +40,47 @@ class DBService {
     this.tablespace = tablespace;
   }
 
+  serverRequestSimulator = async (method, parameters) => {
+    try {
+      await checkConnection();
+      const db = await dbPromise(this.tablespace);
+      if (method === "getFromIndex") {
+        const { index, query } = parameters;
+        return await db.getFromIndex(this.tablespace, index, query);
+      } else {
+        return await db
+          .transaction(this.tablespace, "readwrite")
+          .store[method](parameters);
+      }
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
   getByID = async (id) => {
-    const db = await dbPromise(this.tablespace);
-    return await db.transaction(this.tablespace, "readwrite").store.get(id);
+    return await this.serverRequestSimulator("get", id);
   };
 
   getAll = async () => {
-    const db = await dbPromise(this.tablespace);
-    return await db.transaction(this.tablespace, "readwrite").store.getAll();
+    return await this.serverRequestSimulator("getAll");
   };
 
   add = async (data) => {
-    const db = await dbPromise(this.tablespace);
-    const id = await db
-      .transaction(this.tablespace, "readwrite")
-      .store.add({ ...data, id: uuidv4() });
+    const { id: requestId } = data;
+    const id = await this.serverRequestSimulator("add", {
+      ...data,
+      id: requestId || uuidv4(),
+    });
     return await this.getByID(id);
   };
 
   put = async ({ id, ...data }) => {
-    const db = await dbPromise(this.tablespace);
-    await db
-      .transaction(this.tablespace, "readwrite")
-      .store.put({ ...data, id });
+    await this.serverRequestSimulator("put", { ...data, id });
     return await this.getByID(id);
   };
 
   delete = async (id) => {
-    const db = await dbPromise(this.tablespace);
-    return await db.transaction(this.tablespace, "readwrite").store.delete(id);
+    return await this.serverRequestSimulator("delete", id);
   };
 
   clearAll = async () => {
@@ -72,8 +89,7 @@ class DBService {
   };
 
   getFromIndex = async ({ index, query }) => {
-    const db = await dbPromise(this.tablespace);
-    return await db.getFromIndex(this.tablespace, index, query);
+    return await this.serverRequestSimulator("getFromIndex", { index, query });
   };
 
   import = async (data) => {

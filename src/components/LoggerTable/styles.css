@@ -1,0 +1,21 @@
+.logger-table th, .logger-table td {
+    text-align: center;
+}
+
+.logger-table__button {
+    min-width: 0;
+    font-size: inherit;
+    padding: 0.5em 1em;
+}
+
+.high-cell {
+    word-break: break-word;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+.logger-table tr:hover .high-cell {
+    -webkit-line-clamp: initial;
+}

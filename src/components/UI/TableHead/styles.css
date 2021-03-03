@@ -7,3 +7,9 @@
         font-size: 10px;
     }
 }
+
+@media screen and (max-width: 479px) {
+    .table-head {
+        font-size: 9px;
+    }
+}
