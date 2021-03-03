@@ -8,7 +8,7 @@ import TableRow from "../UI/TableRow";
 
 const DataItem = ({ title = "", value }) => (
   <>
-    <span style={{ fontWeight: "bold" }}>{title}:</span> {JSON.stringify(value)}
+    <span className="bold-text">{title}:</span> {JSON.stringify(value)}
     <br />
   </>
 );
