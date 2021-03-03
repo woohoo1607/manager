@@ -14,7 +14,8 @@ const Header = () => {
     location: { pathname },
   } = useHistory();
 
-  const isAddUserFlow = pathname.split("/").includes("new");
+  const isAddUserFlow = pathname.includes("/users/new/");
+  const isHomePage = pathname === "/";
 
   return (
     <header className="app-header">
@@ -42,12 +43,12 @@ const Header = () => {
               <li className="header-menu-item">
                 <NavLink
                   to={{ pathname: "/" }}
-                  className={`menu-link ${!isAddUserFlow ? "active-link" : ""}`}
+                  className={`menu-link ${isHomePage ? "active-link" : ""}`}
                 >
                   <ListOfUsers
                     id="list-of-users-icon"
                     className={`header-icon ${
-                      !isAddUserFlow ? "header-icon-active" : ""
+                      isHomePage ? "header-icon-active" : ""
                     }`}
                   />
                   List of users
