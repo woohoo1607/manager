@@ -12,7 +12,6 @@ import { usersService } from "../services/db/UsersService";
 
 export const TRIGGER_GET_LOGGER_EVENTS = "TRIGGER_GET_LOGGER_EVENTS";
 export const TRIGGER_ADD_LOGGER_EVENT = "TRIGGER_ADD_LOGGER_EVENT";
-export const TRIGGER_SYNCHRONIZE_EVENTS = "TRIGGER_SYNCHRONIZE_EVENTS";
 export const TRIGGER_SYNCHRONIZE_EVENT = "TRIGGER_SYNCHRONIZE_EVENT";
 export const TRIGGER_REMOVE_LOGGER_EVENTS = "TRIGGER_REMOVE_LOGGER_EVENTS";
 
@@ -68,39 +67,6 @@ export function* watchAddLoggerEventSaga() {
   yield takeEvery(TRIGGER_ADD_LOGGER_EVENT, addLoggerEventSaga);
 }
 
-export function* synchronizeEventsSaga({ events = [] }) {
-  try {
-    for (let i = 0; i < events.length; i++) {
-      try {
-        const { action, params } = selectAction(events[i]);
-        yield call(action, params);
-        const payload = {
-          ...events[i],
-          isSuccess: true,
-          isAwaitingDispatch: false,
-          lastTry: new Date(),
-          error: "",
-        };
-        yield call(loggerService.put, payload);
-      } catch ({ message: messageError }) {
-        const payload = {
-          ...events[i],
-          error: messageError,
-        };
-        yield call(loggerService.put, payload);
-      }
-    }
-    yield put({ type: UPDATE_SYNCHRONIZATION_STATUS, payload: false });
-    yield put({ type: TRIGGER_GET_LOGGER_EVENTS });
-  } catch ({ message }) {
-    yield put(showErrorNotification({ message }));
-  }
-}
-
-export function* watchSynchronizeEventsSaga() {
-  yield takeEvery(TRIGGER_SYNCHRONIZE_EVENTS, synchronizeEventsSaga);
-}
-
 export function* synchronizeEventSaga({ event = {} }) {
   try {
     yield put({ type: UPDATE_SYNCHRONIZATION_STATUS, payload: true });
@@ -151,7 +117,6 @@ export default function* loggerEventsSaga() {
   yield all([
     watchGetLoggerEventsSaga(),
     watchAddLoggerEventSaga(),
-    watchSynchronizeEventsSaga(),
     watchSynchronizeEventSaga(),
     watchRemoveLoggerEventsSaga(),
   ]);
