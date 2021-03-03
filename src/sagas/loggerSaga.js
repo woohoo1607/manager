@@ -85,7 +85,6 @@ export function* synchronizeEventsSaga({ events = [] }) {
       } catch ({ message: messageError }) {
         const payload = {
           ...events[i],
-          lastTry: new Date(),
           error: messageError,
         };
         yield call(loggerService.put, payload);
@@ -120,7 +119,6 @@ export function* synchronizeEventSaga({ event = {} }) {
   } catch ({ message }) {
     const payload = {
       ...event,
-      lastTry: new Date(),
       error: message,
     };
     yield call(loggerService.put, payload);
