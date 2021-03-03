@@ -17,7 +17,7 @@ const Application = () => {
 
   useEffect(() => {
     dispatch(getTheme());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     document.body.classList.add(isDarkMode ? "dark" : "light");
