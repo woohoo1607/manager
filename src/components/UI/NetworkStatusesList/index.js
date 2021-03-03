@@ -1,6 +1,6 @@
 import React from "react";
 
-import NetworkCircle from "../NetworkCircle";
+import NetworkCircle, { statuses } from "../NetworkCircle";
 
 import "./styles.css";
 
@@ -13,16 +13,9 @@ const Item = ({ status = "", description = "" }) => (
 
 const NetworkStatusesList = () => (
   <ul className="network-statuses">
-    <Item status="online" description="the application is online" />
-    <Item status="offline" description="the application is offline" />
-    <Item
-      status="not-synchronized"
-      description="the application is offline and there is unsaved data"
-    />
-    <Item
-      status="synchronization"
-      description="the application is online and it syncs"
-    />
+    {statuses.map(({ title, description }, i) => (
+      <Item status={title} description={description} key={i} />
+    ))}
   </ul>
 );
 

@@ -15,6 +15,7 @@ const UserGenerator = ({ disabled = false }) => {
       className="generate-button"
       onClick={handleClickGenerateUsers}
       disabled={disabled}
+      type="button"
     >
       Generate accounts
     </Button>
