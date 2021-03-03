@@ -11,7 +11,3 @@
     margin-left: 0.5em;
     font-size: 16px;
 }
-
-.network-status__description::before {
-    content: '- ';
-}

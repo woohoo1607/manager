@@ -7,7 +7,7 @@ import "./styles.css";
 const Item = ({ status = "", description = "" }) => (
   <li className="network-status">
     <NetworkCircle status={status} />
-    <p className="network-status__description">{description}</p>
+    <p className="network-status__description">- {description}</p>
   </li>
 );
 

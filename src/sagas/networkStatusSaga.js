@@ -5,9 +5,8 @@ import { checkConnection } from "../api";
 import {
   UPDATE_LAST_SUCCESS_CONNECTION,
   UPDATE_NETWORK_STATUS,
-  UPDATE_SYNCHRONIZATION_STATUS,
 } from "../reducers/networkStatusReducer";
-import { TRIGGER_SYNCHRONIZE_EVENTS } from "./loggerSaga";
+import { synchronizeEventSaga } from "./loggerSaga";
 import { getData, setData } from "../helpers/localStorageHelper";
 
 export const TRIGGER_GET_NETWORK_STATUS = "TRIGGER_GET_NETWORK_STATUS";
@@ -32,11 +31,10 @@ export function* checkNetworkSaga() {
     yield call(setData, "lastSuccessConnection", new Date());
     yield put({ type: UPDATE_LAST_SUCCESS_CONNECTION, payload: new Date() });
     if (awaitingDispatch.length && !isSynchronization) {
-      yield put({ type: UPDATE_SYNCHRONIZATION_STATUS, payload: true });
-      yield put({
-        type: TRIGGER_SYNCHRONIZE_EVENTS,
-        events: awaitingDispatch.sort((a, b) => a.date - b.date),
-      });
+      awaitingDispatch.sort((a, b) => a.date - b.date);
+      for (let i = 0; i < awaitingDispatch.length; i++) {
+        yield call(synchronizeEventSaga, { event: awaitingDispatch[i] });
+      }
     }
     yield put({ type: UPDATE_NETWORK_STATUS, payload: true });
   } catch (err) {
