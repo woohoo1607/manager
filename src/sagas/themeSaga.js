@@ -10,7 +10,8 @@ export const TRIGGER_GET_THEME = "TRIGGER_GET_THEME";
 
 export function* getThemeSaga() {
   try {
-    const isDarkMode = yield call(getData, "isDarkMode");
+    const res = yield call(getData, "isDarkMode");
+    const isDarkMode = JSON.parse(res);
     if (isDarkMode) {
       yield put({ type: UPDATE_THEME, payload: isDarkMode });
     }
