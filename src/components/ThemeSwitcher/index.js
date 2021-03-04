@@ -9,7 +9,7 @@ const ThemeSwitcher = () => {
 
   const isDarkMode = useSelector(({ theme: { isDarkMode } }) => isDarkMode);
 
-  const title = isDarkMode ? "Switch to light theme" : "Switch to dark theme";
+  const title = `Switch to ${isDarkMode ? "light" : "dark"} theme`;
 
   const changeTheme = () => dispatch(switchTheme(!isDarkMode));
 
