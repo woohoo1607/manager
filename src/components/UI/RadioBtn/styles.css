@@ -33,7 +33,13 @@
 }
 
 .radio-container:hover .checkmark {
-    background-color: #ccc;
+    background-color: #CCC;
+}
+
+.radio-container:active .checkmark {
+    width: 15px;
+    height: 15px;
+    margin: 1px 0 0 1px;
 }
 
 .radio-container:hover .checkmark.checked, .checkmark.checked {

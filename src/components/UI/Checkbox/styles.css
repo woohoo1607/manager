@@ -29,7 +29,13 @@
 }
 
 .checkbox-container:hover .checkmark-box {
-    background-color: #ccc;
+    background-color: #CCC;
+}
+
+.checkbox-container:active .checkmark-box {
+    width: 11px;
+    height: 11px;
+    margin: 1px 0 0 1px;
 }
 
 .checkbox-container:hover .checkmark-box.checked, .checkmark-box.checked {

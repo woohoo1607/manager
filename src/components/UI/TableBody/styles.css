@@ -1,8 +1,8 @@
 .table-body {
     width: 100%;
-    background: #FFFFFF;
+    background: var(--application-background);
 }
 
 .table-body tr:nth-child(odd) {
-    background-color: rgba(231, 240, 255, 1);
+    background-color: var(--secondary-bg-color);
 }

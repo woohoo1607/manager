@@ -11,7 +11,7 @@
 }
 
 .pagination__item:hover {
-    color: #82c1fa;
+    color: var(--main-hover-color);
 }
 
 .pagination__item_link_disabled, .pagination__item_link_disabled .pagination__item:hover {

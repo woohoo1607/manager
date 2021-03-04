@@ -10,6 +10,10 @@
     margin-right: 10px;
 }
 
+.internal-link__icon path{
+    stroke: var(--secondary-text-color);
+}
+
 .internal-link:hover .internal-link__icon path{
     stroke: var(--main-text-color);
 }

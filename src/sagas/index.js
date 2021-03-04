@@ -4,6 +4,7 @@ import usersSaga from "./usersSagas";
 import userFormSaga from "./userFormSaga";
 import networkStatusSaga from "./networkStatusSaga";
 import loggerEventsSaga from "./loggerSaga";
+import themeSaga from "./themeSaga";
 
 export function* rootSaga() {
   yield all([
@@ -11,5 +12,6 @@ export function* rootSaga() {
     userFormSaga(),
     networkStatusSaga(),
     loggerEventsSaga(),
+    themeSaga(),
   ]);
 }

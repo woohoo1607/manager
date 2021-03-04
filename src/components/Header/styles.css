@@ -25,12 +25,12 @@
 }
 
 .menu-link {
-    color: #FFFFFF;
+    color: #C1CFE0;
     text-decoration: none;
 }
 
-.menu-link.active-link {
-    color: #C1CFE0;
+.menu-link.active-link, .menu-link:hover {
+    color: #FFFFFF;
 }
 
 .header-icon {
@@ -38,11 +38,11 @@
 }
 
 .header-icon path {
-    fill: #FFFFFF;
+    fill: #C1CFE0;
 }
 
-.header-icon-active path {
-    fill: #C1CFE0;
+.header-icon-active path, .menu-link:hover .header-icon path {
+    fill: #FFFFFF;
 }
 
 @media screen and (max-width: 479px) {

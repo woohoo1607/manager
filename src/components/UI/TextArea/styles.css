@@ -10,6 +10,8 @@
     line-height: 20px;
     font-weight: bold;
     margin: 5px 0 2px 0;
+    color: inherit;
+    background: var(--application-background);
 }
 
 .text-area:focus {
