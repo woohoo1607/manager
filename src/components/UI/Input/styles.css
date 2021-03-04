@@ -6,6 +6,8 @@
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     margin: 5px 0 2px 0;
+    background-color: var(--application-background);
+    color: inherit;
 }
 
 .input::placeholder {

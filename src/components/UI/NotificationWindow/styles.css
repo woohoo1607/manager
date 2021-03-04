@@ -1,6 +1,6 @@
 .popup {
     width: 350px;
-    background-color: #FFF;
+    background-color: var(--application-background);
     position: fixed;
     bottom: 30px;
     right: 30px;

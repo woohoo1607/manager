@@ -46,7 +46,7 @@
 }
 
 .user-information-icon path {
-    fill: #475666;
+    fill: var(--main-text-color);
 }
 
 .user-information-block > .user-information-title {
@@ -54,11 +54,11 @@
 }
 
 .user-information-block > .user-information-title:hover {
-    color: #4E86E4;
+    color: var(--main-hover-color);
 }
 
 .user-information-block > .user-information-title:hover .user-information-icon path {
-    fill: #4E86E4;
+    fill: var(--main-hover-color);
 }
 
 @media screen and (max-width: 969px) {
