@@ -1,6 +1,6 @@
 .autocomplete-dropdown-container {
     top: 100%;
-    background-color: #FFFFFF;
+    background-color: var(--application-background);
     border-radius: 4px;
     box-shadow: none;
     margin-bottom: 8px;
